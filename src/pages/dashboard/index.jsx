@@ -1,4 +1,18 @@
-import { Box, Heading, Image, Text, Button } from '@chakra-ui/react'
+import { 
+    Box,
+    Heading, 
+    Image, 
+    Text, 
+    Button,  
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
+    useDisclosure
+} from '@chakra-ui/react'
 import React, { useState, useEffect } from 'react'
 import UpcomingHolidays from './upcomingholidays'
 import Employee from "../../assets/images/employee.png"
@@ -6,10 +20,11 @@ import invoice from "../../assets/images/invoice.png"
 import Employee2 from "../../assets/images/Employees2.png"
 import Privacy from "../../assets/images/privacy.png"
 import TabGraph from './tabgraph'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import AgeGraph from './agegraph'
 import GradeListGraph from './gradelistgraph'
 import Designationgraph from './designationgraph'
+
 
 
 const Dashboard = () => {
@@ -21,6 +36,7 @@ const Dashboard = () => {
     const [designation, setDesignation] = useState()
     const [age, setAge] = useState([])
     const [grade, setGrade] = useState([])
+
 
     useEffect(() => {
         const upComingHoliday = async () => {
@@ -176,7 +192,7 @@ const Dashboard = () => {
                     <Box >
                         <Heading as='h2' mb='15px'>Privacy Suggestions</Heading>
                         <Text mb='15px'>Take our privacy checkup to choose which settings are right for you.</Text>
-                        <Button colorScheme='blue'>Read More</Button>
+                        <Link to='/privacy'><Button colorScheme='blue'>Read More privacy</Button></Link>
                     </Box>
                     <Image src={Privacy} w='175px' h='175px' alt='Employees' />
                 </Box>
@@ -185,12 +201,11 @@ const Dashboard = () => {
                     <Box >
                         <Heading as='h2' mb='15px'>Privacy Suggestions</Heading>
                         <Text mb='15px'>Take our privacy checkup to choose which settings are right for you.</Text>
-                        <Button colorScheme='blue'>Read More</Button>
+                        <Link to='/code-of-conduct'><Button colorScheme='blue'>Read More Code of Conduct</Button></Link>
                     </Box>
                     <Image src={Privacy} w='175px' h='175px' alt='Employees' />
                 </Box>
             </Box>
-
         </Box>
 
     )

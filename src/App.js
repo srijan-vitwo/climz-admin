@@ -61,7 +61,8 @@ import EmployeeAttendancReportView from "./pages/reports/employeeAttendanc";
 import AllPayrollReportView from "./pages/reports/allPayroll";
 import PayslipList from "./pages/mastersetting/payrolldetails/PayslipList";
 import AssetsAdd from "./pages/mastersetting/assetshandover.jsx/addAssets";
-
+import CodeOfConduct from "./pages/dashboard/template/codeOfConduct";
+import Privacy from "./pages/dashboard/template/privacy";
 
 
 function App() {
@@ -71,6 +72,8 @@ function App() {
       <Routes>
         <Route element={<Privetroute />}>
           <Route path="/" element={< Dashboard />} />
+          <Route path="/privacy" element={<  Privacy/>} />
+          <Route path="/code-of-conduct" element={< CodeOfConduct />} />
           <Route path="/master-setting" element={<MasterSetting />} >
             <Route path="attendance-settings" element={<AttendanceSettings />} >
               <Route path="week-of-variant" element={<WeekofVariant />} />

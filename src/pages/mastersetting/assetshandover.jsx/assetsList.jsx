@@ -76,6 +76,7 @@ const CssWrapper = styled.div`
 const AssetsList = () => {
     const navigate = useNavigate();
     const token = localStorage.getItem("token");
+    const [sucess, setSucess] = useState()
     const [first, setFirst] = useState(0);
     const [rows, setRows] = useState(10);
     const [loader, setLoader] = useState(false)
@@ -131,7 +132,7 @@ const AssetsList = () => {
 
         departmentList()
 
-    }, []);
+    }, [sucess]);
 
     const onGlobalFilterChange = (event) => {
         const value = event.target.value;
@@ -179,11 +180,14 @@ const AssetsList = () => {
     const UpdateTemplate = (rowData) => {
         const { isOpen, onOpen, onClose } = useDisclosure()
         const toast = useToast()
-        const [sucess, setSucess] = useState()
         const [assetName, setAssetName] = useState(rowData?.asset_name)
         const [description, setDescription] = useState(rowData?.group_description)
         const [uomId, setUomId] = useState(rowData?.uom)
-        const [inputList, setInputList] = useState([{ specification: '', specification_details: '' }]);
+        const parsedData = rowData?.specifications?.map(item => ({
+            specification: item.specification,
+            specification_details: item.specification_details
+          }));
+        const [inputList, setInputList] = useState([...parsedData,{ specification: '', specification_details: '' }]);
 
         function toastCall() {
             return (toast({
@@ -201,7 +205,7 @@ const AssetsList = () => {
         };
     
         const handleAddClick = () => {
-            setInputList([...inputList, { field1: '', field2: '' }]);
+            setInputList([...inputList, { specification: '', specification_details: '' }]);
         };
     
         const handleRemoveClick = (index) => {
@@ -213,7 +217,8 @@ const AssetsList = () => {
         const updateAssect= async (e) => {
             e.preventDefault();
             let formData = new FormData();
-            formData.append("group_id", rowData.parent_id)
+            formData.append("id", rowData.asset_id)
+            formData.append("group_id", rowData.asset_group_id)
             formData.append("name", assetName)
             formData.append("description", description)
             formData.append("uom", uomId)
@@ -240,7 +245,6 @@ const AssetsList = () => {
             }
         };
     
-
         return (
             <>
                 <Button onClick={onOpen} bg='none' _hover={{ bg: 'none' }} _active={{ bg: 'none' }}>
@@ -349,6 +353,7 @@ const AssetsList = () => {
         const { isOpen, onOpen, onClose } = useDisclosure()
         const toast = useToast()
         const[empId, setEmpId] = useState()
+        const[takenDate,setTakenDate] = useState()
 
         function toastCall() {
             return (toast({
@@ -362,7 +367,9 @@ const AssetsList = () => {
         const assectAssign = async (e) => {
             e.preventDefault();
             let formData = new FormData();
-            formData.append("emp_id", empId)
+            formData.append("user_id", empId)
+            formData.append("asset_id", rowData.asset_id)
+            formData.append("taken_date", takenDate)
 
             try {
                 setIsLoading(true)
@@ -376,6 +383,7 @@ const AssetsList = () => {
     
                 if (response.ok) {
                     setIsLoading(false)
+                    setSucess(!sucess)
                     toastCall()
                 } else {
                     navigate('/login')
@@ -403,31 +411,55 @@ const AssetsList = () => {
                         <DrawerCloseButton size='lg' />
                         <DrawerHeader pt='28px'>
                             <Box
-                                borderBottom='3px solid var(--chakra-colors-claimzBorderColor)' width='250px' pb='10px' mb='15px'>
+                                borderBottom='3px solid var(--chakra-colors-claimzBorderColor)' width='400px' pb='10px'>
                                 <Text background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
                                     backgroundClip='text'
                                     fontWeight='700'
                                     fontSize='28px'
-                                    lineHeight='36px'>Asset Details</Text>
-                            </Box >
-                            <Box
-                                margin='0 auto'
-                                bgGradient='linear(180deg, #256DAA 0%, #02335C 100%)'
-                                boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-                                color='white'
-                                padding='10px 15px'
-                            >
-                                <Heading>Device Specification</Heading>
+                                    lineHeight='36px'>Asset Assign to Employee</Text>
                             </Box >
                         </DrawerHeader>
                         <DrawerBody>
-                            <Text color='claimzTextBlueColor' fontSize='1.6rem' fontWeight='700' mb='5px'>Assign Assets to Employee :</Text>
+                            {rowData.occupied_status == 1 ? <Box display='flex' justifyContent='space-between'>
+                                <Box>
+                                    <Text fontSize='1.8rem' color='claimzTextBlueColor' fontWeight='700' > Assect Assigned </Text>
+                                    <Text>
+                                        {rowData.user.emp_name}
+                                    </Text>
+                                </Box>
+
+                                <Box>
+                                    <Text fontSize='1.8rem' color='claimzTextBlueColor' fontWeight='700' > Status </Text>
+                                    <Text>
+                                        Wating for approval
+                                    </Text>
+                                </Box>
+                            </Box>: 
+                            rowData.occupied_status == 2 ?<Box>
+                            <Text fontSize='1.8rem' color='claimzTextBlueColor' fontWeight='700'  textAlign='right'> Status </Text>
+                            <Text>
+                                Asset Occupied
+                            </Text>
+                        </Box>:
+                            rowData.occupied_status == 3 ? <Box>
+                                <Text fontSize='1.8rem' color='claimzTextBlueColor' fontWeight='700' textAlign='right'> Status </Text>
+                                <Text>
+                                    Asset Handover
+                                </Text>
+                            </Box>:
                             <Box display='flex' alignItems='center' gap='15px' mb='15px'>
-                                <Select placeholder='Select option' onChange={(e)=> setEmpId(e.target.value)} required>
-                                    {empList.map((data)=>{
-                                        return <option value={data.id} key={data.id}>{data.emp_name}</option>
-                                    })}
-                                </Select>
+                                <FormControl>
+                                    <FormLabel>Assign Assets to Employee</FormLabel>
+                                    <Select placeholder='Select option' onChange={(e)=> setEmpId(e.target.value)} required>
+                                        {empList.map((data)=>{
+                                            return <option value={data.id} key={data.id}>{data.emp_name}</option>
+                                        })}
+                                    </Select>
+                                </FormControl>
+                                <FormControl>
+                                    <FormLabel>Assign Date</FormLabel>
+                                    <Input type='Date' onChange={(e)=>setTakenDate(e.target.value)}/>
+                                </FormControl>
                                 <Button
                                     disabled={isLoading}
                                     isLoading={isLoading}
@@ -435,9 +467,10 @@ const AssetsList = () => {
                                     bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
                                     boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
                                     borderRadius='5px'
-                                    p='18px 20px'
+                                    p='18px 30px'
                                     fontSize='1.6rem'
                                     color='white'
+                                    marginTop= '24px'
                                     _hover={{ bgGradient: 'linear(180deg, #2267A2 0%, #0D4675 100%)' }}
                                     _active={{ bgGradient: 'linear(180deg, #2267A2 0%, #0D4675 100%)' }}
                                     _focus={{ bgGradient: 'linear(180deg, #2267A2 0%, #0D4675 100%)' }}
@@ -445,10 +478,15 @@ const AssetsList = () => {
                                 >
                                     Assign
                                 </Button>
-                            </Box>
+                            </Box>}
 
                             {rowData?.specifications[0]?.specification.length > 0 ? 
-                                <Box>
+                                <Box     
+                                    height= '500px'
+                                    display= 'flex'
+                                    alignItems= 'center'
+                                    justifyContent= 'center'
+                                >
                                     {rowData?.specifications?.map((data, index)=>{                  
                                         return <Box key={index}>
                                             <Text mb='10px' fontSize='1.6rem' fontWeight='600' color='claimzTextBlueColor'>{data.specification} - <Box as="span" color='claimzTextBlackColor'>{data.specification_details}</Box></Text>
