@@ -63,6 +63,7 @@ import PayslipList from "./pages/mastersetting/payrolldetails/PayslipList";
 import AssetsAdd from "./pages/mastersetting/assetshandover.jsx/addAssets";
 import CodeOfConduct from "./pages/dashboard/template/codeOfConduct";
 import Privacy from "./pages/dashboard/template/privacy";
+import ApprovalMechanism from "./pages/mastersetting/approvalmechanism";
 
 
 function App() {
@@ -105,6 +106,7 @@ function App() {
             <Route path="business-location" element={<BusinessLocationDatatable />} />
             <Route path="assets-master" element={<AssetsHandover />} />
             <Route path="assets-add" element={<AssetsAdd />} />
+             <Route path="approval-mechanism" element={<ApprovalMechanism />} />
           </Route>
           <Route path="manage-employee" element={<ManageEmployee />} >
             <Route path="all-employee" element={<EmployeeDataList />} />

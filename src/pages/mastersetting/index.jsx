@@ -71,24 +71,6 @@ const MasterSetting = () => {
                                 <Text fontSize='2.2rem' fontWeight='700' pl='10px'>Attendance Settings</Text>
                             </Box>
                         </Link>
-                        {/* <Link to='manage-employee/all-employee' className='manage_items'>
-                                        <Box display='flex' justifyContent='center' alignItems='center' border='2px solid var(--chakra-colors-claimzBorderColor)' p='20px 15px' borderRadius='15px' mb='15px' color='claimzTextBlueColor' cursor='pointer' transition='0.3s ease all' _hover={{
-                                            bgGradient: 'linear(180deg, #256DAA, #01325B)',
-                                            color: 'white'
-                                        }}>
-                                            <i className="fa-solid fa-users fa-2x"></i>
-                                            <Text fontSize='2.2rem' fontWeight='700' pl='10px'>Manage Employee</Text>
-                                        </Box>
-                                    </Link> */}
-                        {/* <Link to='onboarding-candidate' className='manage_items'>
-                                        <Box display='flex' justifyContent='center' alignItems='center' border='2px solid var(--chakra-colors-claimzBorderColor)' p='20px 15px' borderRadius='15px' mb='15px' color='claimzTextBlueColor' cursor='pointer' transition='0.3s ease all' _hover={{
-                                            bgGradient: 'linear(180deg, #256DAA, #01325B)',
-                                            color: 'white'
-                                        }}>
-                                            <i className="fa-solid fa-user-plus fa-2x"></i>
-                                            <Text fontSize='2.2rem' fontWeight='700' pl='10px'>Onboarding  Candidate</Text>
-                                        </Box>
-                                    </Link> */}
                         <Link to='question-master' className='manage_items'>
                             <Box display='flex' justifyContent='center' alignItems='center' border='2px solid var(--chakra-colors-claimzBorderColor)' p='20px 15px' borderRadius='15px' mb='15px' color='claimzTextBlueColor' cursor='pointer' transition='0.3s ease all' _hover={{
                                 bgGradient: 'linear(180deg, #256DAA, #01325B)',
@@ -114,6 +96,15 @@ const MasterSetting = () => {
                             }}>
                                 <i className="fa-solid fa-laptop-file fa-2x"></i>
                                 <Text fontSize='2.2rem' fontWeight='700' pl='10px'>Assets Master</Text>
+                            </Box>
+                        </Link>
+                        <Link to='approval-mechanism' className='manage_items'>
+                            <Box display='flex' justifyContent='center' alignItems='center' border='2px solid var(--chakra-colors-claimzBorderColor)' p='20px 15px' borderRadius='15px' mb='15px' color='claimzTextBlueColor' cursor='pointer' transition='0.3s ease all' _hover={{
+                                bgGradient: 'linear(180deg, #256DAA, #01325B)',
+                                color: 'white'
+                            }}>
+                                <i className="fa-solid fa-users fa-2x"></i>
+                                <Text fontSize='2.2rem' fontWeight='700' pl='10px'>Approval Mechanism</Text>
                             </Box>
                         </Link>
                     </Box>

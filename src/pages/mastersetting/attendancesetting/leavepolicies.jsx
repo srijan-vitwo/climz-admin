@@ -781,7 +781,7 @@ const LeavePolicies = () => {
                                                     </FormControl>
                                                     <FormControl w='100%'>
                                                         <FormLabel >Increment Balance</FormLabel>
-                                                        <Input type="number" onChange={e => changeIncrementFormData(index, "val", e.target.value)} placeholder="Enter Increment Balance" />
+                                                        <Input type="number" step='any' onChange={e => changeIncrementFormData(index, "val", e.target.value)} placeholder="Enter Increment Balance" />
                                                     </FormControl>
                                                     <FormControl w='100%'>
                                                         <FormLabel >Start Date</FormLabel>
