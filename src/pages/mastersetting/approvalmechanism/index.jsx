@@ -24,7 +24,6 @@ import {
 import StageList from './stageList';
 import { useNavigate } from 'react-router-dom';
 import { BeatLoader } from 'react-spinners';
-import Loader from '../../../assets/images/loader.gif';
 import ApprovalVariant from './approvalVariant';
 
 const ApprovalMechanism = () => {
