@@ -183,38 +183,21 @@ input:focus {
 	border: 2px solid #9251ac;
 }
 .timeline__event--type2:before {
-	background: #87bbfe;
-	border-color: #555ac0;
+	background: #b8b8b8;
+	border-color: #9e9e9e;
 }
 .timeline__event--type2:after {
-	background: #555ac0;
+	background: #9e9e9e;
 }
 .timeline__event--type2 .timeline__event__date {
-	color: #87bbfe;
+	color: #b8b8b8;
 }
 .timeline__event--type2 .timeline__event__icon {
-	background: #555ac0;
-	color: #555ac0;
+	background: #9e9e9e;
+	color: #9e9e9e;
 }
 .timeline__event--type2 .timeline__event__title {
-	color: #555ac0;
-}
-.timeline__event--type3:before {
-	background: #aff1b6;
-	border-color: #24b47e;
-}
-.timeline__event--type3:after {
-	background: #24b47e;
-}
-.timeline__event--type3 .timeline__event__date {
-	color: #aff1b6;
-}
-.timeline__event--type3 .timeline__event__icon {
-	background: #24b47e;
-	color: #24b47e;
-}
-.timeline__event--type3 .timeline__event__title {
-	color: #24b47e;
+	color: #9e9e9e;
 }
 .timeline__event:last-child:after {
 	content: none;

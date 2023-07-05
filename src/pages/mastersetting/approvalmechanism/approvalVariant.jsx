@@ -7,38 +7,16 @@ import {
 	Input,
 	Select,
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 
-const ApprovalVariant = () => {
-	const events = [
-		{
-			status: 'Ordered',
-			date: '15/10/2020 10:30',
-			icon: 'pi pi-shopping-cart',
-			color: '#9C27B0',
-			image: 'game-controller.jpg',
-		},
-		{
-			status: 'Processing',
-			date: '15/10/2020 14:00',
-			icon: 'pi pi-cog',
-			color: '#673AB7',
-		},
-		{
-			status: 'Shipped',
-			date: '15/10/2020 16:15',
-			icon: 'pi pi-shopping-cart',
-			color: '#FF9800',
-		},
-		{
-			status: 'Delivered',
-			date: '16/10/2020 10:00',
-			icon: 'pi pi-check',
-			color: '#607D8B',
-		},
-	];
-
+const ApprovalVariant = ({ products }) => {
+	const token = localStorage.getItem('token');
+	const navigate = useNavigate();
+	const [loader, setLoader] = useState(false);
 	const [selectBoxes, setSelectBoxes] = useState([1]); // Initial select box
+	const [empList, setEmpList] = useState();
+	const [getEmployee, setGetEmployee] = useState();
 
 	const addDynamicSelect = (e) => {
 		e.preventDefault();
@@ -53,10 +31,44 @@ const ApprovalVariant = () => {
 		);
 	};
 
+	useEffect(() => {
+		const empList = async () => {
+			try {
+				setLoader(true);
+				const response1 = await fetch(
+					`${process.env.REACT_APP_API_URL}/emp-list`,
+					{
+						method: 'GET',
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					}
+				);
+
+				if (response1.ok) {
+					const data1 = await response1.json();
+					setEmpList(data1.data);
+					setLoader(false);
+				} else {
+					navigate('/login');
+				}
+			} catch (error) {
+				navigate('/login');
+			}
+		};
+		empList();
+	}, []);
+
 	return (
 		<>
-			<form style={{ width: '100%' }}>
-				<Box>
+			<form
+				style={{
+					width: '100%',
+					display: 'flex',
+					flexDirection: 'column',
+					alignItems: 'flex-end',
+				}}>
+				<Box w='100%'>
 					<Box>
 						<FormControl>
 							<FormLabel>Variant Name</FormLabel>
@@ -76,10 +88,21 @@ const ApprovalVariant = () => {
 									mb='15px'>
 									<FormControl>
 										<FormLabel>Select Approval</FormLabel>
-										<Select width='95%' mr='10px'>
-											<option value=''>
-												Select an option
-											</option>
+										<Select
+											width='95%'
+											mr='10px'
+											onChange={(e) =>
+												setGetEmployee(e.target.value)
+											}>
+											{empList?.map((data) => {
+												return (
+													<option
+														value={data.id}
+														key={data.id}>
+														{data.emp_name}
+													</option>
+												);
+											})}
 										</Select>
 									</FormControl>
 									{index !== 0 && (
@@ -135,82 +158,54 @@ const ApprovalVariant = () => {
 						</Box>
 						<Box width='58%'>
 							<div className='timeline'>
-								<div className='timeline__event  animated fadeInUp delay-3s timeline__event--type1'>
-									<div className='timeline__event__icon '>
-										<Image
-											src='https://bit.ly/dan-abramov'
-											alt='Dan Abramov'
-											h='50px'
-											w='50px'
-										/>
-										<Box className='timeline__event__date'>
-											20-08-2019
-										</Box>
-									</div>
-									<div className='timeline__event__content '>
-										<div className='timeline__event__description'>
-											<p>Joy Kumar Saha</p>
-										</div>
-									</div>
-								</div>
-								<div className='timeline__event animated fadeInUp delay-2s timeline__event--type2'>
-									<div className='timeline__event__icon '>
-										<Image
-											src='https://bit.ly/dan-abramov'
-											alt='Dan Abramov'
-											h='50px'
-											w='50px'
-										/>
-										<Box className='timeline__event__date'>
-											20-08-2019
-										</Box>
-									</div>
-									<div className='timeline__event__content '>
-										<div className='timeline__event__description'>
-											<p>Joy Kumar Saha</p>
-										</div>
-									</div>
-								</div>
-								<div className='timeline__event animated fadeInUp delay-1s timeline__event--type3'>
-									<div className='timeline__event__icon '>
-										<Image
-											src='https://bit.ly/dan-abramov'
-											alt='Dan Abramov'
-											h='50px'
-											w='50px'
-										/>
-										<Box className='timeline__event__date'>
-											20-08-2019
-										</Box>
-									</div>
-									<div className='timeline__event__content '>
-										<div className='timeline__event__description'>
-											<p>Joy Kumar Saha</p>
-										</div>
-									</div>
-								</div>
-								<div className='timeline__event animated fadeInUp timeline__event--type1'>
-									<div className='timeline__event__icon '>
-										<Image
-											src='https://bit.ly/dan-abramov'
-											alt='Dan Abramov'
-											h='50px'
-											w='50px'
-										/>
-										<Box className='timeline__event__date'>
-											20-08-2019
-										</Box>
-									</div>
-									<div className='timeline__event__content '>
-										<div className='timeline__event__description'>
-											<p>Joy Kumar Saha</p>
-										</div>
-									</div>
-								</div>
+								{products?.map((data) => {
+									return (
+										<>
+											<div className='timeline__event animated fadeInUp timeline__event--type2'>
+												<div className='timeline__event__icon '>
+													<Image
+														src='https://bit.ly/dan-abramov'
+														alt='Dan Abramov'
+														h='50px'
+														w='50px'
+													/>
+													<Box className='timeline__event__date'>
+														20-08-2019
+													</Box>
+												</div>
+												<div className='timeline__event__content '>
+													<div className='timeline__event__description'>
+														<p>Joy Kumar Saha</p>
+													</div>
+												</div>
+											</div>
+										</>
+									);
+								})}
 							</div>
 						</Box>
 					</Box>
 				</Box>
+				<Button
+					bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
+					boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
+					borderRadius='10px'
+					p='20px 30px'
+					fontSize='1.6rem'
+					color='white'
+					mt='20px'
+					_hover={{
+						bgGradient: 'linear(180deg, #2267A2 0%, #0D4675 100%)',
+					}}
+					_active={{
+						bgGradient: 'linear(180deg, #2267A2 0%, #0D4675 100%)',
+					}}
+					_focus={{
+						bgGradient: 'linear(180deg, #2267A2 0%, #0D4675 100%)',
+					}}
+					type='submit'>
+					Submit
+				</Button>
 			</form>
 		</>
 	);

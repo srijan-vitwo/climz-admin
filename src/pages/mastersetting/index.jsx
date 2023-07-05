@@ -6,6 +6,7 @@ import {
 	AccordionButton,
 	AccordionPanel,
 	AccordionIcon,
+	Badge,
 } from '@chakra-ui/react';
 import React from 'react';
 import styled from '@emotion/styled';
@@ -15,9 +16,6 @@ const CssWrapper = styled.div`
 		font-weight: 600;
 		width: 100%;
 		margin-bottom: 5px;
-	}
-	p {
-		margin-bottom: 10px;
 	}
 `;
 
@@ -307,9 +305,11 @@ const MasterSetting = () => {
 								background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
 								backgroundClip='text'
 								fontWeight='700'
-								fontSize='28px'
-								lineHeight='36px'>
-								Important Steps
+								fontSize='28px'>
+								Important Steps{' '}
+								<Badge variant='solid' colorScheme='red'>
+									Check It
+								</Badge>
 							</Text>
 						</Box>
 

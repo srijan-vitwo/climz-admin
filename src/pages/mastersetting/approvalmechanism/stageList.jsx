@@ -71,56 +71,15 @@ const CssWrapper = styled.div`
 		align-items: center;
 		justify-content: flex-start;
 	}
+	.p-datatable-wrapper {
+		overflow-y: scroll;
+		height: calc(100vh - 230px);
+		margin-right: 5px;
+		padding-right: 5px;
+	}
 `;
 
 const StageList = ({ products, setProducts, sucess, setSucess }) => {
-	const token = localStorage.getItem('token');
-	const navigate = useNavigate();
-	const toast = useToast();
-	const [typeName, setTypeName] = useState();
-	const [statusId, setStatusId] = useState();
-	const [isLoading, setIsLoading] = useState(false);
-	const { isOpen, onOpen, onClose } = useDisclosure();
-
-	function toastMsg() {
-		return toast({
-			title: 'Type name Updated Sucessfully',
-			status: 'success',
-			duration: 3000,
-			isClosable: true,
-		});
-	}
-
-	const drag = async (e) => {
-		e.preventDefault();
-		let formValues = new FormData();
-		formValues.append('type_name', typeName);
-		formValues.append('id', statusId);
-		try {
-			setIsLoading(true);
-			const response = await fetch(
-				`${process.env.REACT_APP_API_URL}/drag-and-drop`,
-				{
-					method: 'POST',
-					body: formValues,
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-				}
-			);
-
-			if (response.ok) {
-				setSucess(!sucess);
-				setIsLoading(false);
-				toastMsg();
-			} else {
-				navigate('/login');
-			}
-		} catch (error) {
-			navigate('/login');
-		}
-	};
-
 	const ActionTemplate = (rowData) => {
 		const token = localStorage.getItem('token');
 		const navigate = useNavigate();
