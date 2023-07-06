@@ -241,7 +241,7 @@ const ApprovalMechanism = () => {
 						border='1px solid #CECECE'
 						boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
 						borderRadius='0px 0px 6px 6px;'>
-						<ApprovalVariant products={products} />
+						<ApprovalVariant approvalState={products} />
 					</TabPanel>
 				</TabPanels>
 			</Tabs>

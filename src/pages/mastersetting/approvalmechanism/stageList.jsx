@@ -227,12 +227,11 @@ const StageList = ({ products, setProducts, sucess, setSucess }) => {
 		);
 	});
 
-	console.log(products, 'products');
-
 	return (
 		<CssWrapper>
 			<Box className='card'>
 				<DataTable
+					dataKey='a_status_id'
 					value={products}
 					reorderableColumns
 					reorderableRows

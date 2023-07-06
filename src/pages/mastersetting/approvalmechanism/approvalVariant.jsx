@@ -6,17 +6,19 @@ import {
 	Image,
 	Input,
 	Select,
+	Text,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 
-const ApprovalVariant = ({ products }) => {
+const ApprovalVariant = ({ approvalState }) => {
 	const token = localStorage.getItem('token');
 	const navigate = useNavigate();
 	const [loader, setLoader] = useState(false);
 	const [selectBoxes, setSelectBoxes] = useState([1]); // Initial select box
 	const [empList, setEmpList] = useState();
-	const [getEmployee, setGetEmployee] = useState();
+	const [employeeId, setEmployeeId] = useState();
+	const [userData, setUserData] = useState();
 
 	const addDynamicSelect = (e) => {
 		e.preventDefault();
@@ -59,6 +61,36 @@ const ApprovalVariant = ({ products }) => {
 		empList();
 	}, []);
 
+	const handelChange = async (e) => {
+		setEmployeeId(e.target.value);
+	};
+
+	const userDetails = async (e) => {
+		e.preventDefault();
+		try {
+			const response = await fetch(
+				`${process.env.REACT_APP_API_URL}/emp-details/${employeeId}`,
+				{
+					method: 'GET',
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				}
+			);
+
+			if (response.ok) {
+				const data = await response.json();
+				setUserData(data.data);
+			} else {
+				navigate('/login');
+			}
+		} catch (error) {
+			navigate('/login');
+		}
+	};
+
+	console.log(userData, 'userData');
+
 	return (
 		<>
 			<form
@@ -91,14 +123,13 @@ const ApprovalVariant = ({ products }) => {
 										<Select
 											width='95%'
 											mr='10px'
-											onChange={(e) =>
-												setGetEmployee(e.target.value)
-											}>
-											{empList?.map((data) => {
+											placeholder='Select Approval'
+											onChange={handelChange}>
+											{empList?.map((data, index) => {
 												return (
 													<option
 														value={data.id}
-														key={data.id}>
+														key={index}>
 														{data.emp_name}
 													</option>
 												);
@@ -153,31 +184,64 @@ const ApprovalVariant = ({ products }) => {
 										w='10%'>
 										<i className='fa-sharp fa-solid fa-plus'></i>
 									</Button>
+									<Button
+										bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
+										boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
+										color='white'
+										mr='10px'
+										p='17px 20px'
+										_hover={{
+											bgGradient:
+												'linear(180deg, #2267A2 0%, #0D4675 100%)',
+										}}
+										_active={{
+											bgGradient:
+												'linear(180deg, #2267A2 0%, #0D4675 100%)',
+										}}
+										_focus={{
+											bgGradient:
+												'linear(180deg, #2267A2 0%, #0D4675 100%)',
+										}}
+										onClick={userDetails}
+										w='10%'>
+										Apply
+									</Button>
 								</Box>
 							))}
 						</Box>
 						<Box width='58%'>
 							<div className='timeline'>
-								{products?.map((data) => {
+								{approvalState?.map((data, index) => {
 									return (
 										<>
-											<div className='timeline__event animated fadeInUp timeline__event--type2'>
-												<div className='timeline__event__icon '>
+											<div
+												className='timeline__event animated fadeInUp timeline__event--type2'
+												key={index}>
+												<Box className='timeline__event__icon'>
 													<Image
-														src='https://bit.ly/dan-abramov'
-														alt='Dan Abramov'
+														src={
+															userData?.profile_photo
+														}
+														alt={userData?.emp_name}
 														h='50px'
-														w='50px'
+														w='100%'
+														mr='10px'
 													/>
 													<Box className='timeline__event__date'>
 														20-08-2019
 													</Box>
-												</div>
-												<div className='timeline__event__content '>
-													<div className='timeline__event__description'>
-														<p>Joy Kumar Saha</p>
-													</div>
-												</div>
+												</Box>
+												<Box
+													className='timeline__event__content'
+													display='flex'
+													alignItems='center'
+													w='100%'>
+													<Box className='timeline__event__description'>
+														<Text>
+															{userData?.emp_name}
+														</Text>
+													</Box>
+												</Box>
 											</div>
 										</>
 									);
@@ -193,7 +257,6 @@ const ApprovalVariant = ({ products }) => {
 					p='20px 30px'
 					fontSize='1.6rem'
 					color='white'
-					mt='20px'
 					_hover={{
 						bgGradient: 'linear(180deg, #2267A2 0%, #0D4675 100%)',
 					}}
