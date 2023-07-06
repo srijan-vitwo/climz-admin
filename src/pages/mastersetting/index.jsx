@@ -6,11 +6,12 @@ import {
 	AccordionButton,
 	AccordionPanel,
 	AccordionIcon,
-	Badge,
+	Image,
 } from '@chakra-ui/react';
 import React from 'react';
 import styled from '@emotion/styled';
 import { Link, Outlet, useLocation } from 'react-router-dom';
+import BadgeGif from '../../assets/images/new-badge.gif';
 const CssWrapper = styled.div`
 	h2 {
 		font-weight: 600;
@@ -300,17 +301,17 @@ const MasterSetting = () => {
 						<Box
 							borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
 							width='300px'
-							pb='5px'>
+							pb='5px'
+							display='flex'
+							alignItems='center'>
 							<Text
 								background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
 								backgroundClip='text'
 								fontWeight='700'
 								fontSize='28px'>
 								Important Steps{' '}
-								<Badge variant='solid' colorScheme='red'>
-									Check It
-								</Badge>
 							</Text>
+							<Image src={BadgeGif} w='40px' h='40px' />
 						</Box>
 
 						<Box display='flex' mt='15px'>
