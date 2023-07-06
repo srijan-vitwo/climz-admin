@@ -25,6 +25,10 @@ import {
 	ModalCloseButton,
 	Heading,
 	Tooltip,
+	FormControl,
+	FormLabel,
+	Select,
+	Input,
 } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { Link } from 'react-router-dom';
@@ -41,6 +45,8 @@ import styled from '@emotion/styled';
 import EmployeeUpdate from './updateEmploye.jsx';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../../../assets/images/loader.gif';
+import { BeatLoader } from 'react-spinners';
+import { saveAs } from 'file-saver';
 
 const CssWrapper = styled.div`
 	.p-datatable-wrapper::-webkit-scrollbar {
@@ -251,7 +257,107 @@ const EmployeeDataList = () => {
 		setGlobalFilterValue(value);
 	};
 
-	const renderHeader = () => {
+	const RenderHeader = () => {
+		const toast = useToast();
+		const token = localStorage.getItem('token');
+		const [isLoading, setIsLoading] = useState(false);
+		const [uploadedFile, setUploadedFile] = useState(null);
+
+		const data = [
+			{
+				'Employee Code': 'EMP10002',
+				Grade: 'M1',
+				Name: 'Hello World',
+				'Date of Birth': '2023-10-02',
+				'Joining Date': '2023-10-02',
+				Gender: 'Male',
+				"Father's Name": 'Hello',
+				'Permanat Address': '10/88 Bijoygarh',
+				'Present Address': '10/88 Bijoygarh',
+				'PAN Number': '243432424',
+				'Mobile Number': '123456789',
+				'Aadhaar Number': '123456789',
+				Email: 'test@gmail.com',
+				'Emergency Contact Number': 'NULL',
+				'Passport Number': 'NULL',
+				'Visa Number': 'NULL',
+				'Blood Group': 'O+',
+				'Place Of Posting': 'West Bengal',
+				Department: 'HR',
+				'Cost Center': '1007',
+				'Week Off Variant': 'CXO',
+				Designation: 'Manager',
+				'Claim Approval Variant': 'NULL',
+				'Ptax Variant': 'NULL',
+				'Shift Variant': 'Morning Shift',
+				'Bank Account Number': '42343443',
+				'Bank Name': 'State Bank Of India',
+				Branch: 'Regent Estate',
+				'IFSC Code': '234234',
+				'Primary Reporting': 'Soumyajit Das',
+				'Secondary Reporting': 'Soumyajit Das',
+			},
+		];
+		function generateCSVData(data) {
+			const headers = Object.keys(data[0]); // Get the keys from the first object as headers
+			const headerRow = headers.join(',') + '\n'; // CSV header row
+
+			const rows = data
+				.map((item) => {
+					const values = headers.map((header) => item[header]);
+					return values.join(',');
+				})
+				.join('\n');
+
+			return headerRow + rows;
+		}
+
+		const handleDownload = () => {
+			const csvData = generateCSVData(data);
+			const blob = new Blob([csvData], {
+				type: 'text/csv;charset=utf-8',
+			});
+			saveAs(blob, 'data.csv');
+		};
+
+		function toastCall() {
+			return toast({
+				title: 'File Uploaded Sucessfully',
+				status: 'success',
+				duration: 5000,
+				isClosable: true,
+			});
+		}
+
+		const csvUpload = async (e) => {
+			e.preventDefault();
+			let formData = new FormData();
+			formData.append('uploaded_file', uploadedFile);
+
+			try {
+				setIsLoading(true);
+				const response = await fetch(
+					`${process.env.REACT_APP_API_URL}/employee-upload`,
+					{
+						method: 'POST',
+						body: formData,
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					}
+				);
+
+				if (response.ok) {
+					toastCall();
+					setIsLoading(false);
+				} else {
+					navigate('/login');
+				}
+			} catch (error) {
+				navigate('/login');
+			}
+		};
+
 		return (
 			<Box
 				display='flex'
@@ -367,6 +473,7 @@ const EmployeeDataList = () => {
 						borderRadius='15px'
 						height='45px'
 						padding='0px 20px'
+						mr='10px'
 						type='button'
 						icon='pi pi-file-excel'
 						severity='success'
@@ -382,41 +489,177 @@ const EmployeeDataList = () => {
 							<i className='fa-solid fa-file-excel'></i>
 						</Text>
 					</Button>
-					<Button
-						bg='none'
-						_hover={{ bg: 'none' }}
-						_active={{ bg: 'none' }}
-						height='45px'
-						type='button'
-						severity='success'
-						backgroundClip='text'
-						onClick={onOpen}>
-						<Tooltip
-							hasArrow
-							label='! Bulk Upload Information'
-							fontSize='1rem'>
+					<Tooltip
+						hasArrow
+						label='Bulk User Data Upload'
+						fontSize='1rem'>
+						<Button
+							border='2px solid var(--chakra-colors-claimzBorderColor)'
+							borderRadius='15px'
+							height='45px'
+							padding='0px 20px'
+							type='button'
+							icon='pi pi-file-excel'
+							severity='success'
+							background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
+							backgroundClip='text'
+							onClick={onOpen}>
 							<Text
 								background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
 								backgroundClip='text'
 								fontSize='1.6rem'
 								fontWeight='700'>
-								<i class='fa-solid fa-circle-info fa-2x'></i>
+								<i className='fa-solid fa-upload'></i>
 							</Text>
-						</Tooltip>
-					</Button>
+						</Button>
+					</Tooltip>
 					<Modal onClose={onClose} isOpen={isOpen} isCentered>
 						<ModalOverlay />
-						<ModalContent>
-							<ModalHeader>Modal Title</ModalHeader>
-							<ModalCloseButton />
-							<ModalBody>
-								Lorem ipsum dolor, sit amet consectetur
-								adipisicing elit. Eveniet, placeat quasi? Nisi,
-								quis. Odio, id.
+						<ModalContent minW='40%' height='350px'>
+							<ModalCloseButton mt='7px' color='white' />
+							<ModalBody p='0px'>
+								<Box
+									bgGradient='linear(180deg, #256DAA 0%, #02335C 100%)'
+									boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
+									color='white'
+									padding='10px 15px'>
+									<Heading>Employee List Bulk Upload</Heading>
+								</Box>
+								<Box
+									border='1px dashed var(--chakra-colors-claimzTextGrayColor)'
+									m='20px'
+									p='0px 20px 20px'
+									h='260px'>
+									<Button
+										mb='15px'
+										borderRadius='15px'
+										_hover={{ bg: 'none' }}
+										_active={{ bg: 'none' }}
+										height='45px'
+										padding='0px'
+										type='button'
+										icon='pi pi-file-excel'
+										severity='success'
+										background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
+										backgroundClip='text'
+										onClick={handleDownload}>
+										<Text
+											background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
+											backgroundClip='text'
+											fontSize='1.6rem'
+											fontWeight='700'>
+											<Box as='span' mr='10px'>
+												CSV Demo
+											</Box>
+											<i className='fa-solid fa-download'></i>
+										</Text>
+									</Button>
+									<form onSubmit={csvUpload}>
+										<Box
+											w='100%'
+											mb='10px'
+											display='flex'
+											justifyContent='space-between'
+											alignItems='center'>
+											<FormControl
+												w='100%'
+												sx={{
+													'& [type="file"]::-webkit-file-upload-button':
+														{
+															bg: '#F3F6FC',
+															color: 'inputplaceholderColor',
+															border: 'none',
+															borderRight:
+																'1px solid',
+															borderColor:
+																'inputStrokeColor',
+															borderRadius:
+																'2px 0px 0px 2px',
+															fontWeight: '500',
+															fontSize: '1.3rem',
+															height: '35px',
+															lineHeight:
+																'2.2rem',
+															padding: '0px 10px',
+															marginRight: '15px',
+														},
+													'& [type="file"]::-webkit-file-upload-button:hover':
+														{
+															bg: 'dataTableRowBorder',
+														},
+												}}>
+												<FormLabel textTransform='capitalize'>
+													CSV File
+												</FormLabel>
+												<Input
+													type='file'
+													placeholder='Logo'
+													p='0px'
+													onChange={(event) =>
+														setUploadedFile(
+															event.target
+																.files[0]
+														)
+													}
+													sx={{
+														'::file-selector-button':
+															{
+																borderTop:
+																	'none',
+																borderLeft:
+																	'none',
+																borderBottom:
+																	'none',
+																borderRight:
+																	'1px solid',
+																borderRightColor:
+																	'var(--chakra-colors-inputStrokeColor);',
+																outline: 'none',
+																mr: 2,
+																p: '12px 14px',
+																color: 'var(--chakra-colors-inputplaceholderColor)',
+																backgroundColor:
+																	'#f3f3f3',
+															},
+													}}
+												/>
+											</FormControl>
+										</Box>
+
+										<Button
+											disabled={isLoading}
+											isLoading={isLoading}
+											spinner={
+												<BeatLoader
+													size={8}
+													color='white'
+												/>
+											}
+											mt='10px'
+											type='submit'
+											bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
+											boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
+											borderRadius='15px'
+											p='20px'
+											fontSize='1.6rem'
+											color='white'
+											_hover={{
+												bgGradient:
+													'linear(180deg, #2267A2 0%, #0D4675 100%)',
+											}}
+											_active={{
+												bgGradient:
+													'linear(180deg, #2267A2 0%, #0D4675 100%)',
+											}}
+											_focus={{
+												bgGradient:
+													'linear(180deg, #2267A2 0%, #0D4675 100%)',
+											}}>
+											Upload File
+										</Button>
+									</form>
+								</Box>
 							</ModalBody>
-							<ModalFooter>
-								<Button onClick={onClose}>Close</Button>
-							</ModalFooter>
 						</ModalContent>
 					</Modal>
 				</Box>
@@ -797,7 +1040,7 @@ const EmployeeDataList = () => {
 		);
 	};
 
-	const header = renderHeader();
+	const header = RenderHeader();
 
 	return (
 		<CssWrapper>

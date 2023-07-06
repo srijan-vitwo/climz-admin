@@ -18,7 +18,7 @@ const ApprovalVariant = ({ approvalState }) => {
 	const [selectBoxes, setSelectBoxes] = useState([1]); // Initial select box
 	const [empList, setEmpList] = useState();
 	const [employeeId, setEmployeeId] = useState();
-	const [userData, setUserData] = useState();
+	const [userData, setUserData] = useState([]);
 
 	const addDynamicSelect = (e) => {
 		e.preventDefault();
@@ -80,7 +80,9 @@ const ApprovalVariant = ({ approvalState }) => {
 
 			if (response.ok) {
 				const data = await response.json();
-				setUserData(data.data);
+
+				const updatedUserData = [...userData, data.data];
+				setUserData(updatedUserData);
 			} else {
 				navigate('/login');
 			}
@@ -89,7 +91,8 @@ const ApprovalVariant = ({ approvalState }) => {
 		}
 	};
 
-	console.log(userData, 'userData');
+	const newArray = [userData[userData.length - 1]];
+	console.log(newArray, 'newArray');
 
 	return (
 		<>
@@ -211,7 +214,7 @@ const ApprovalVariant = ({ approvalState }) => {
 						</Box>
 						<Box width='58%'>
 							<div className='timeline'>
-								{approvalState?.map((data, index) => {
+								{userData?.map((data, index) => {
 									return (
 										<>
 											<div
@@ -220,16 +223,13 @@ const ApprovalVariant = ({ approvalState }) => {
 												<Box className='timeline__event__icon'>
 													<Image
 														src={
-															userData?.profile_photo
+															data?.profile_photo
 														}
-														alt={userData?.emp_name}
+														alt={data?.emp_name}
 														h='50px'
 														w='100%'
 														mr='10px'
 													/>
-													<Box className='timeline__event__date'>
-														20-08-2019
-													</Box>
 												</Box>
 												<Box
 													className='timeline__event__content'
@@ -237,8 +237,46 @@ const ApprovalVariant = ({ approvalState }) => {
 													alignItems='center'
 													w='100%'>
 													<Box className='timeline__event__description'>
-														<Text>
-															{userData?.emp_name}
+														<Text
+															fontSize='1.4rem'
+															fontWeight='600'
+															color='var(--chakra-colors-claimzTextBlueLightColor)'>
+															{data?.emp_name}
+														</Text>
+													</Box>
+												</Box>
+											</div>
+										</>
+									);
+								})}
+								{newArray?.map((data, index) => {
+									return (
+										<>
+											<div
+												className='timeline__event animated fadeInUp timeline__event--type2'
+												key={index}>
+												<Box className='timeline__event__icon'>
+													<Image
+														src={
+															data?.profile_photo
+														}
+														alt={data?.emp_name}
+														h='50px'
+														w='100%'
+														mr='10px'
+													/>
+												</Box>
+												<Box
+													className='timeline__event__content'
+													display='flex'
+													alignItems='center'
+													w='100%'>
+													<Box className='timeline__event__description'>
+														<Text
+															fontSize='1.4rem'
+															fontWeight='600'
+															color='var(--chakra-colors-claimzTextBlueLightColor)'>
+															{data?.emp_name}
 														</Text>
 													</Box>
 												</Box>

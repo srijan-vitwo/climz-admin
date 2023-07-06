@@ -133,12 +133,7 @@ input:focus {
 .timeline__event__content {
 	padding: 20px;
 }
-.timeline__event__date {
-	color: #f6a4ec;
-	font-size: 1.5rem;
-	font-weight: 600;
-	white-space: nowrap;
-}
+
 .timeline__event__icon {
 	border-radius: 8px 0 0 8px;
 	background: #9251ac;
@@ -188,9 +183,6 @@ input:focus {
 }
 .timeline__event--type2:after {
 	background: #9e9e9e;
-}
-.timeline__event--type2 .timeline__event__date {
-	color: #b8b8b8;
 }
 .timeline__event--type2 .timeline__event__icon {
 	background: #9e9e9e;
