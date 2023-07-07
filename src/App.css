@@ -116,7 +116,6 @@ input:focus {
 	margin-bottom: 20px;
 	position: relative;
 	display: flex;
-	margin: 0px 0 20px;
 	border-radius: 8px;
 	box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25),
 		0 18px 36px -18px rgba(0, 0, 0, 0.3),
