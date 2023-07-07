@@ -308,7 +308,8 @@ const MasterSetting = () => {
 								background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
 								backgroundClip='text'
 								fontWeight='700'
-								fontSize='28px'>
+								fontSize='28px'
+								lineHeight='30px'>
 								Important Steps{' '}
 							</Text>
 							<Image src={BadgeGif} w='40px' h='40px' />

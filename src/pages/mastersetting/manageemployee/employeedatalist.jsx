@@ -262,6 +262,7 @@ const EmployeeDataList = () => {
 		const token = localStorage.getItem('token');
 		const [isLoading, setIsLoading] = useState(false);
 		const [uploadedFile, setUploadedFile] = useState(null);
+		const [errorMsg, setErrorMsg] = useState([]);
 
 		const data = [
 			{
@@ -348,6 +349,8 @@ const EmployeeDataList = () => {
 				);
 
 				if (response.ok) {
+					const errorResponse = await response.json();
+					setErrorMsg(errorResponse);
 					toastCall();
 					setIsLoading(false);
 				} else {

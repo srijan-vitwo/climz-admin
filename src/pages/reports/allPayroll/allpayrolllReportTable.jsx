@@ -68,7 +68,7 @@ const CssWrapper = styled.div`
 	.p-datatable > .p-datatable-wrapper {
 		overflow: auto;
 		height: calc(100vh - 285px);
-		width: calc(100vw - 375px);
+		width: 100%;
 		padding-right: 5px;
 	}
 	.p-datatable-thead > tr > th .p-column-title {
