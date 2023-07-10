@@ -24,7 +24,7 @@ import {
 import StageList from './stageList';
 import { useNavigate } from 'react-router-dom';
 import { BeatLoader } from 'react-spinners';
-import ApprovalVariant from './approvalVariant';
+import ApprovalVariantList from './approvalVariantList';
 
 const ApprovalMechanism = () => {
 	const token = localStorage.getItem('token');
@@ -241,7 +241,7 @@ const ApprovalMechanism = () => {
 						border='1px solid #CECECE'
 						boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
 						borderRadius='0px 0px 6px 6px;'>
-						<ApprovalVariant approvalState={products} />
+						<ApprovalVariantList approvalState={products} />
 					</TabPanel>
 				</TabPanels>
 			</Tabs>
