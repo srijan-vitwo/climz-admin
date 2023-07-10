@@ -5,26 +5,15 @@ import {
 	Input,
 	useToast,
 	useDisclosure,
-	FormControl,
-	FormLabel,
-	Drawer,
-	DrawerBody,
-	DrawerHeader,
-	DrawerOverlay,
-	DrawerContent,
-	DrawerCloseButton,
-	Text,
 	Image,
-	Select,
 } from '@chakra-ui/react';
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
-import DepartmentSettingModal from './departmentSettingModal';
 import Loader from '../../../assets/images/loader.gif';
-import { BeatLoader } from 'react-spinners';
+import Tdsform from './tdsform';
 
 const CssWrapper = styled.div`
 	.p-datatable-wrapper::-webkit-scrollbar {
@@ -69,10 +58,10 @@ const CssWrapper = styled.div`
 		margin-top: 5px;
 		padding-right: 9px;
 		overflow-y: scroll;
-		height: calc(100vh - 447px);
+		height: calc(100vh - 213px);
 	}
 `;
-const DepartmentSettingDataTable = () => {
+const TDSList = () => {
 	const navigate = useNavigate();
 	const token = localStorage.getItem('token');
 	const [loader, setLoader] = useState(false);
@@ -154,7 +143,7 @@ const DepartmentSettingDataTable = () => {
 	};
 
 	const statusBodyTemplate = (rowData) => {
-		return <DepartmentSettingModal rowData={rowData} />;
+		return <h1>O</h1>;
 	};
 
 	const onGlobalFilterChange = (event) => {
@@ -297,132 +286,14 @@ const DepartmentSettingDataTable = () => {
 			}
 		};
 
-		return (
-			<>
-				<Button
-					onClick={departmentListData}
-					bg='none'
-					_hover={{ bg: 'none' }}
-					_active={{ bg: 'none' }}>
-					<i className='fa-solid fa-pen-to-square fa-2x'></i>
-				</Button>
-
-				<Drawer
-					isOpen={isOpen}
-					placement='right'
-					onClose={onClose}
-					size='xl'>
-					<DrawerOverlay />
-					<DrawerContent
-						maxW='50% !important'
-						bgGradient='linear(180deg, #DCF9FF 0%, #FFFFFF 100%)'>
-						<DrawerCloseButton size='lg' />
-						<DrawerHeader pt='28px'>
-							<Box
-								borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-								width='550px'
-								pb='10px'
-								mb='15px'>
-								<Text
-									background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
-									backgroundClip='text'
-									fontWeight='700'
-									fontSize='28px'
-									lineHeight='36px'>
-									Employee Department List Update
-								</Text>
-							</Box>
-						</DrawerHeader>
-
-						<DrawerBody>
-							<form
-								onSubmit={tierUpdate}
-								style={{
-									display: 'flex',
-									flexDirection: 'column',
-									alignItems: 'flex-end',
-								}}>
-								<FormControl w='100%' mb='15px'>
-									<FormLabel>
-										Enter Department Name
-										<Box as='span' color='orange'>
-											*
-										</Box>
-									</FormLabel>
-									<Input
-										type='text'
-										value={departmentName}
-										onChange={(e) =>
-											setDepartmentName(e.target.value)
-										}
-										required
-									/>
-								</FormControl>
-								<FormControl w='100%'>
-									<FormLabel>
-										Enter Hod Name{' '}
-										<Box as='span' color='orange'>
-											*
-										</Box>
-									</FormLabel>
-									{/* <Input type='text' value={hod} onChange={(e) => setHod(e.target.value)} required /> */}
-									<Select
-										placeholder='Select option'
-										value={hod}
-										onChange={(e) => setHod(e.target.value)}
-										required>
-										{departmentList?.map((data, index) => {
-											return (
-												<option
-													value={data.id}
-													key={index}>
-													{data.emp_name}
-												</option>
-											);
-										})}
-									</Select>
-								</FormControl>
-								<Button
-									disabled={isLoading}
-									isLoading={isLoading}
-									spinner={
-										<BeatLoader size={8} color='white' />
-									}
-									mt='20px'
-									bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-									boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-									borderRadius='10px'
-									p='20px'
-									fontSize='1.6rem'
-									color='white'
-									type='submit'
-									_hover={{
-										bgGradient:
-											'linear(180deg, #2267A2 0%, #0D4675 100%)',
-									}}
-									_active={{
-										bgGradient:
-											'linear(180deg, #2267A2 0%, #0D4675 100%)',
-									}}
-									_focus={{
-										bgGradient:
-											'linear(180deg, #2267A2 0%, #0D4675 100%)',
-									}}>
-									Submit
-								</Button>
-							</form>
-						</DrawerBody>
-					</DrawerContent>
-				</Drawer>
-			</>
-		);
+		return <Tdsform />;
 	};
 
 	return (
 		<CssWrapper>
 			{loader ? (
 				<Box
-					height='375px'
+					height='calc(100vh - 137px)'
 					width='100%'
 					display='flex'
 					justifyContent='center'
@@ -442,28 +313,43 @@ const DepartmentSettingDataTable = () => {
 						tableStyle={{ minWidth: '50rem' }}>
 						<Column
 							field='department.department_name'
-							header='Departments '
+							header='Emp ID'
 							editor={(options) => textEditor(options)}
 							sortable
-							bodyStyle={{ textAlign: 'center' }}
-							style={{ width: '25%' }}></Column>
+							headerStyle={{ width: '14%' }}
+							bodyStyle={{ textAlign: 'left' }}></Column>
 						<Column
 							field='hod'
-							header='Head Of Department'
+							header='EMP Name'
 							editor={(options) => textEditor(options)}
 							sortable
-							bodyStyle={{ textAlign: 'center' }}
-							style={{ width: '25%' }}></Column>
+							headerStyle={{ width: '14%' }}
+							bodyStyle={{ textAlign: 'center' }}></Column>
 						<Column
 							field='inventoryStatus'
-							header='Cost Centers'
+							header='CTC'
 							body={statusBodyTemplate}
-							bodyStyle={{ textAlign: 'center' }}
-							style={{ width: '25%' }}></Column>
+							headerStyle={{ width: '14%' }}
+							bodyStyle={{ textAlign: 'center' }}></Column>
 						<Column
-							header='Action'
+							header='Gross'
+							field=''
+							headerStyle={{ width: '14%' }}
+							bodyStyle={{ textAlign: 'center' }}></Column>
+						<Column
+							header='Taxable Amount'
+							field=''
+							headerStyle={{ width: '14%' }}
+							bodyStyle={{ textAlign: 'center' }}></Column>
+						<Column
+							header='TDS'
+							field=''
+							headerStyle={{ width: '14%' }}
+							bodyStyle={{ textAlign: 'center' }}></Column>
+						<Column
+							header='View'
 							body={ActionTemplate}
-							headerStyle={{ width: '25%', minWidth: '8rem' }}
+							headerStyle={{ width: '14%' }}
 							bodyStyle={{ textAlign: 'center' }}></Column>
 					</DataTable>
 				</div>
@@ -472,4 +358,4 @@ const DepartmentSettingDataTable = () => {
 	);
 };
 
-export default DepartmentSettingDataTable;
+export default TDSList;

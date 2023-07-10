@@ -296,6 +296,32 @@ const MasterSetting = () => {
 									</Text>
 								</Box>
 							</Link>
+							<Link to='tds-calculator' className='manage_items'>
+								<Box
+									display='flex'
+									justifyContent='center'
+									alignItems='center'
+									border='2px solid var(--chakra-colors-claimzBorderColor)'
+									p='20px 15px'
+									borderRadius='15px'
+									mb='15px'
+									color='claimzTextBlueColor'
+									cursor='pointer'
+									transition='0.3s ease all'
+									_hover={{
+										bgGradient:
+											'linear(180deg, #256DAA, #01325B)',
+										color: 'white',
+									}}>
+									<i className='fa-solid fa-file fa-2x'></i>
+									<Text
+										fontSize='2.2rem'
+										fontWeight='700'
+										pl='10px'>
+										Tds Calculator
+									</Text>
+								</Box>
+							</Link>
 						</Box>
 
 						<Box

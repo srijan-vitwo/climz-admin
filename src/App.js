@@ -64,6 +64,7 @@ import AssetsAdd from './pages/mastersetting/assetshandover.jsx/addAssets';
 import CodeOfConduct from './pages/dashboard/template/codeOfConduct';
 import Privacy from './pages/dashboard/template/privacy';
 import ApprovalMechanism from './pages/mastersetting/approvalmechanism';
+import TDSCalculator from './pages/mastersetting/tdscalculator';
 
 function App() {
 	return (
@@ -184,6 +185,10 @@ function App() {
 						<Route
 							path='approval-mechanism'
 							element={<ApprovalMechanism />}
+						/>
+						<Route
+							path='tds-calculator'
+							element={<TDSCalculator />}
 						/>
 					</Route>
 					<Route path='manage-employee' element={<ManageEmployee />}>
