@@ -9,8 +9,7 @@ const TDSCalculator = () => {
 			border='1px solid #CECECE'
 			boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
 			borderRadius='6px'
-			padding='0px 10px'
-			mt='20px'>
+			padding='0px 10px'>
 			<TDSList />
 		</Box>
 	);

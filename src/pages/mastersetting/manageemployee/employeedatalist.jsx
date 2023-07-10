@@ -361,6 +361,12 @@ const EmployeeDataList = () => {
 			}
 		};
 
+		const errorList = errorMsg.errors?.map((error, index) => (
+			<Text fontWeight='600' mb='10px' key={index}>
+				{error}
+			</Text>
+		));
+
 		return (
 			<Box
 				display='flex'
@@ -518,7 +524,7 @@ const EmployeeDataList = () => {
 					</Tooltip>
 					<Modal onClose={onClose} isOpen={isOpen} isCentered>
 						<ModalOverlay />
-						<ModalContent minW='40%' height='350px'>
+						<ModalContent minW='40%' height='auto'>
 							<ModalCloseButton mt='7px' color='white' />
 							<ModalBody p='0px'>
 								<Box
@@ -531,8 +537,7 @@ const EmployeeDataList = () => {
 								<Box
 									border='1px dashed var(--chakra-colors-claimzTextGrayColor)'
 									m='20px'
-									p='0px 20px 20px'
-									h='260px'>
+									p='0px 20px 20px'>
 									<Button
 										mb='15px'
 										borderRadius='15px'
@@ -639,6 +644,7 @@ const EmployeeDataList = () => {
 												/>
 											}
 											mt='10px'
+											mb='20px'
 											type='submit'
 											bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
 											boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
@@ -660,6 +666,15 @@ const EmployeeDataList = () => {
 											}}>
 											Upload File
 										</Button>
+										<Box>
+											<Text
+												fontWeight='600'
+												mb='10px'
+												color='red'>
+												{errorMsg.message}
+											</Text>
+											<Box>{errorList}</Box>
+										</Box>
 									</form>
 								</Box>
 							</ModalBody>

@@ -58,7 +58,7 @@ const CssWrapper = styled.div`
 		margin-top: 5px;
 		padding-right: 9px;
 		overflow-y: scroll;
-		height: calc(100vh - 213px);
+		height: calc(100vh - 193px);
 	}
 `;
 const TDSList = () => {
@@ -293,7 +293,7 @@ const TDSList = () => {
 		<CssWrapper>
 			{loader ? (
 				<Box
-					height='calc(100vh - 137px)'
+					height='calc(100vh - 117px)'
 					width='100%'
 					display='flex'
 					justifyContent='center'

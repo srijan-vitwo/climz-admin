@@ -108,7 +108,7 @@ const Tdsform = ({ rowData }) => {
 					<DrawerHeader pt='28px'>
 						<Box
 							borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-							width='550px'
+							width='400px'
 							pb='10px'
 							mb='15px'>
 							<Text
@@ -117,7 +117,7 @@ const Tdsform = ({ rowData }) => {
 								fontWeight='700'
 								fontSize='28px'
 								lineHeight='36px'>
-								Employee Department List Update
+								TDS Value Submit Form
 							</Text>
 						</Box>
 					</DrawerHeader>
