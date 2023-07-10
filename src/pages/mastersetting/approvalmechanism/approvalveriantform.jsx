@@ -26,7 +26,6 @@ const ApprovalVeriantform = ({ approvalState }) => {
 	const navigate = useNavigate();
 	const toast = useToast();
 	let counter = approvalState?.length - 1;
-	const [loader, setLoader] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [selectBoxes, setSelectBoxes] = useState([1]);
 	const [empList, setEmpList] = useState();
@@ -148,17 +147,16 @@ const ApprovalVeriantform = ({ approvalState }) => {
 	};
 
 	const newArray = [variants?.variants[variants?.variants?.length - 1]];
-	// console.log(userData, 'userData');
+
 	console.log(newArray, 'newArray');
-	// console.log(selectBoxes, 'selectBoxes');
-	// console.log(approvalState, 'approvalState');
 	console.log(variants, 'variants');
+	console.log(approvalState, 'approvalState');
+
 	const approvalSubmit = async (e) => {
 		e.preventDefault();
 		let formData = new FormData();
 		formData.append('variant_name', variantName);
 		formData.append('variants', JSON.stringify(variants.variants));
-		// formData.append('cost_center', `["${inputs.join('","')}"]`);
 
 		try {
 			setIsLoading(true);
@@ -307,44 +305,38 @@ const ApprovalVeriantform = ({ approvalState }) => {
 											{Object.entries(
 												variants?.variants
 											)?.map(([key, value]) => (
-												<>
-													<div
-														className='timeline__event animated fadeInUp timeline__event--type2'
-														key={key}>
-														<Box className='timeline__event__icon'>
-															<Image
-																src={
-																	value?.img ==
-																	null
-																		? userLogo
-																		: value?.img
-																}
-																alt={
-																	value?.name
-																}
-																h='50px'
-																w='50'
-																mr='10px'
-															/>
+												<Box
+													className='timeline__event animated fadeInUp timeline__event--type2'
+													key={key}>
+													<Box className='timeline__event__icon'>
+														<Image
+															src={
+																value?.img ==
+																null
+																	? userLogo
+																	: value?.img
+															}
+															alt={value?.name}
+															h='50px'
+															w='50'
+															mr='10px'
+														/>
+													</Box>
+													<Box
+														className='timeline__event__content'
+														display='flex'
+														alignItems='center'
+														w='100%'>
+														<Box className='timeline__event__description'>
+															<Text
+																fontSize='1.4rem'
+																fontWeight='600'
+																color='var(--chakra-colors-claimzTextBlueLightColor)'>
+																{value?.name}
+															</Text>
 														</Box>
-														<Box
-															className='timeline__event__content'
-															display='flex'
-															alignItems='center'
-															w='100%'>
-															<Box className='timeline__event__description'>
-																<Text
-																	fontSize='1.4rem'
-																	fontWeight='600'
-																	color='var(--chakra-colors-claimzTextBlueLightColor)'>
-																	{
-																		value?.name
-																	}
-																</Text>
-															</Box>
-														</Box>
-													</div>
-												</>
+													</Box>
+												</Box>
 											))}
 											{newArray?.map((data, index) => {
 												return (

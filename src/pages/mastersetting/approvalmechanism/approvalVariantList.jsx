@@ -167,7 +167,6 @@ const ApprovalVariantList = () => {
 
 	const ActionTemplate = (rowData) => {
 		const { isOpen, onOpen, onClose } = useDisclosure();
-		console.log(rowData?.approvers, 'rowData');
 		return (
 			<>
 				<Button
