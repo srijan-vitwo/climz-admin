@@ -20,7 +20,7 @@ import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import userLogo from '../../../assets/images/user.png';
 
-const ApprovalVeriantform = ({ approvalState, approval }) => {
+const ApprovalVeriantform = ({ approval }) => {
 	const token = localStorage.getItem('token');
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const navigate = useNavigate();
@@ -122,13 +122,14 @@ const ApprovalVeriantform = ({ approvalState, approval }) => {
 				let tmpGetStatus = approval[index].given_status;
 				let tempStatusMaker =
 					approval[approval.length - 1].given_status;
-
+				let tempTypeName = approval[index].type_name;
 				let prevVariantData = JSON.parse(JSON.stringify(variants));
 
 				if (prevVariantData.variants[index] == undefined) {
 					let tempVariantUser = {
 						vm_id: '',
 						user_id: employeeId,
+						type_name: tempTypeName,
 						get_status: tmpGetStatus,
 						status_maker: tempStatusMaker,
 						name: data.data.emp_name,
@@ -188,6 +189,8 @@ const ApprovalVeriantform = ({ approvalState, approval }) => {
 			navigate('/login');
 		}
 	};
+
+	console.log(variants, 'variants');
 
 	return (
 		<>
@@ -313,8 +316,11 @@ const ApprovalVeriantform = ({ approvalState, approval }) => {
 												variants?.variants
 											)?.map(([key, value]) => (
 												<Box>
-													<Text>
-														{value.approval}
+													<Text
+														fontWeight='600'
+														marginBottom='5px'
+														color='var(--chakra-colors-claimzTextBlueLightColor)'>
+														{value.type_name}
 													</Text>
 													<Box
 														className='timeline__event animated fadeInUp timeline__event--type2'
@@ -358,7 +364,10 @@ const ApprovalVeriantform = ({ approvalState, approval }) => {
 												return (
 													<>
 														{data?.name && (
-															<Text>
+															<Text
+																fontWeight='600'
+																marginBottom='5px'
+																color='var(--chakra-colors-claimzTextBlueLightColor)'>
 																{
 																	lastApproval[0]
 																		?.type_name
