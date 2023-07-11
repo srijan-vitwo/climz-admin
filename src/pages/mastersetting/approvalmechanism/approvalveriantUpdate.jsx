@@ -12,9 +12,21 @@ import userLogo from '../../../assets/images/user.png';
 
 const ApprovalVeriantUpdate = ({ approval, rowData }) => {
 	const [variantName, setVariantName] = useState(rowData?.variant_name);
-	const newArray = [rowData?.approvers[rowData?.approvers?.length - 1]];
-	const lastObject = approval[approval?.length - 1];
-	const lastApproval = [lastObject];
+
+	const matchedData = rowData?.approvers?.map((obj2) => {
+		const matchedObj = approval.find(
+			(obj1) => obj1.given_status === obj2.get_status
+		);
+		return {
+			...obj2,
+			...matchedObj,
+		};
+	});
+
+	const newArray = [matchedData?.[matchedData?.length - 1]];
+
+	console.log(matchedData, 'matchedData');
+	console.log(newArray, 'newArray');
 
 	return (
 		<Box>
@@ -44,7 +56,7 @@ const ApprovalVeriantUpdate = ({ approval, rowData }) => {
 						mt='20px'>
 						<Box width='100%'>
 							<div className='timeline'>
-								{rowData?.approvers?.map((value, index) => (
+								{matchedData?.map((value, index) => (
 									<Box>
 										<Text
 											fontWeight='600'
@@ -85,51 +97,6 @@ const ApprovalVeriantUpdate = ({ approval, rowData }) => {
 										</Box>
 									</Box>
 								))}
-								{newArray?.map((data, index) => {
-									return (
-										<>
-											{data?.name && (
-												<Text
-													fontWeight='600'
-													marginBottom='5px'
-													color='var(--chakra-colors-claimzTextBlueLightColor)'>
-													{lastApproval[0]?.type_name}
-												</Text>
-											)}
-											<div
-												className='timeline__event animated fadeInUp timeline__event--type2'
-												key={index}>
-												<Box className='timeline__event__icon'>
-													<Image
-														src={
-															data?.img == null
-																? userLogo
-																: data?.img
-														}
-														alt={data?.name}
-														h='50px'
-														w='50px'
-														mr='10px'
-													/>
-												</Box>
-												<Box
-													className='timeline__event__content'
-													display='flex'
-													alignItems='center'
-													w='100%'>
-													<Box className='timeline__event__description'>
-														<Text
-															fontSize='1.4rem'
-															fontWeight='600'
-															color='var(--chakra-colors-claimzTextBlueLightColor)'>
-															{data?.emp_name}
-														</Text>
-													</Box>
-												</Box>
-											</div>
-										</>
-									);
-								})}
 							</div>
 						</Box>
 					</Box>
