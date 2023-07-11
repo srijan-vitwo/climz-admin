@@ -20,7 +20,7 @@ import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import userLogo from '../../../assets/images/user.png';
 
-const ApprovalVeriantform = ({ approvalState }) => {
+const ApprovalVeriantform = ({ approvalState, approval }) => {
 	const token = localStorage.getItem('token');
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const navigate = useNavigate();
@@ -112,6 +112,7 @@ const ApprovalVeriantform = ({ approvalState }) => {
 
 				// approvalState;
 				let tmpGetStatus = approvalState[index].given_status;
+				let tmpGetApproval = approval[index].type_name;
 				let tempStatusMaker =
 					approvalState[approvalState.length - 1].given_status;
 
@@ -120,6 +121,7 @@ const ApprovalVeriantform = ({ approvalState }) => {
 				if (prevVariantData.variants[index] == undefined) {
 					let tempVariantUser = {
 						vm_id: '',
+						approval: tmpGetApproval,
 						user_id: employeeId,
 						get_status: tmpGetStatus,
 						status_maker: tempStatusMaker,
@@ -147,10 +149,9 @@ const ApprovalVeriantform = ({ approvalState }) => {
 	};
 
 	const newArray = [variants?.variants[variants?.variants?.length - 1]];
-
-	console.log(newArray, 'newArray');
-	console.log(variants, 'variants');
-	console.log(approvalState, 'approvalState');
+	const lastObject = approval[approval?.length - 1];
+	const lastApproval = [lastObject];
+	// const lastValue =
 
 	const approvalSubmit = async (e) => {
 		e.preventDefault();
@@ -305,35 +306,44 @@ const ApprovalVeriantform = ({ approvalState }) => {
 											{Object.entries(
 												variants?.variants
 											)?.map(([key, value]) => (
-												<Box
-													className='timeline__event animated fadeInUp timeline__event--type2'
-													key={key}>
-													<Box className='timeline__event__icon'>
-														<Image
-															src={
-																value?.img ==
-																null
-																	? userLogo
-																	: value?.img
-															}
-															alt={value?.name}
-															h='50px'
-															w='50'
-															mr='10px'
-														/>
-													</Box>
+												<Box>
+													<Text>
+														{value.approval}
+													</Text>
 													<Box
-														className='timeline__event__content'
-														display='flex'
-														alignItems='center'
-														w='100%'>
-														<Box className='timeline__event__description'>
-															<Text
-																fontSize='1.4rem'
-																fontWeight='600'
-																color='var(--chakra-colors-claimzTextBlueLightColor)'>
-																{value?.name}
-															</Text>
+														className='timeline__event animated fadeInUp timeline__event--type2'
+														key={key}>
+														<Box className='timeline__event__icon'>
+															<Image
+																src={
+																	value?.img ==
+																	null
+																		? userLogo
+																		: value?.img
+																}
+																alt={
+																	value?.name
+																}
+																h='50px'
+																w='50'
+																mr='10px'
+															/>
+														</Box>
+														<Box
+															className='timeline__event__content'
+															display='flex'
+															alignItems='center'
+															w='100%'>
+															<Box className='timeline__event__description'>
+																<Text
+																	fontSize='1.4rem'
+																	fontWeight='600'
+																	color='var(--chakra-colors-claimzTextBlueLightColor)'>
+																	{
+																		value?.name
+																	}
+																</Text>
+															</Box>
 														</Box>
 													</Box>
 												</Box>
@@ -341,6 +351,14 @@ const ApprovalVeriantform = ({ approvalState }) => {
 											{newArray?.map((data, index) => {
 												return (
 													<>
+														{newArray ===
+															undefined && (
+															<Text>
+																{
+																	lastApproval?.type_name
+																}
+															</Text>
+														)}
 														<div
 															className='timeline__event animated fadeInUp timeline__event--type2'
 															key={index}>
