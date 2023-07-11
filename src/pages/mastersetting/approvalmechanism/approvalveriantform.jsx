@@ -20,7 +20,7 @@ import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import userLogo from '../../../assets/images/user.png';
 
-const ApprovalVeriantform = ({ approvalState, approval }) => {
+const ApprovalVeriantform = ({ approval }) => {
 	const token = localStorage.getItem('token');
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const navigate = useNavigate();

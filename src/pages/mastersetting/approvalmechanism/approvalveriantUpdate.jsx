@@ -5,35 +5,16 @@ import {
 	FormLabel,
 	Image,
 	Input,
-	Select,
 	Text,
-	useToast,
-	useDisclosure,
 } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import userLogo from '../../../assets/images/user.png';
 
 const ApprovalVeriantUpdate = ({ approval, rowData }) => {
-	const token = localStorage.getItem('token');
-	const navigate = useNavigate();
-	const toast = useToast();
-	let counter = approval?.length - 1;
-	const [isLoading, setIsLoading] = useState(false);
-	const [selectBoxes, setSelectBoxes] = useState([1]);
-	const [empList, setEmpList] = useState();
-	const [employeeId, setEmployeeId] = useState();
-	const [userData, setUserData] = useState([]);
 	const [variantName, setVariantName] = useState(rowData?.variant_name);
-	const [variants, setVariants] = useState({
-		variants: [],
-	});
-
 	const newArray = [rowData?.approvers[rowData?.approvers?.length - 1]];
 	const lastObject = approval[approval?.length - 1];
 	const lastApproval = [lastObject];
-
-	console.log(rowData, 'rowData');
 
 	return (
 		<Box>
