@@ -188,7 +188,7 @@ const ApprovalVariantList = ({ approval }) => {
 					size='xl'>
 					<DrawerOverlay />
 					<DrawerContent
-						maxW='50% !important'
+						maxW='40% !important'
 						bgGradient='linear(180deg, #DCF9FF 0%, #FFFFFF 100%)'>
 						<DrawerCloseButton size='lg' />
 						<DrawerHeader pt='28px'>
