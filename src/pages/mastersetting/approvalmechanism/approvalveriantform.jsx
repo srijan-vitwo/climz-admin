@@ -208,7 +208,11 @@ const ApprovalVeriantform = ({ approvalState, approval }) => {
 			</Tooltip>
 			<Modal onClose={onClose} isOpen={isOpen} isCentered>
 				<ModalOverlay />
-				<ModalContent minW='60%' height='auto' p='20px'>
+				<ModalContent
+					minW='60%'
+					height='auto'
+					p='20px'
+					overflowY='scroll'>
 					<ModalCloseButton mt='7px' />
 					<ModalBody p='0px'>
 						<form
@@ -351,11 +355,11 @@ const ApprovalVeriantform = ({ approvalState, approval }) => {
 											{newArray?.map((data, index) => {
 												return (
 													<>
-														{newArray ===
-															undefined && (
+														{data?.name && (
 															<Text>
 																{
-																	lastApproval?.type_name
+																	lastApproval[0]
+																		?.type_name
 																}
 															</Text>
 														)}

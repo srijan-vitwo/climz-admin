@@ -153,7 +153,7 @@ const ApprovalVariantList = ({ approvalState }) => {
 						value={value || ''}
 						onChange={(e) => onGlobalFilterChange(e)}
 						placeholder='Global Search'
-						w='450px'
+						w='50%'
 					/>
 				</Box>
 				<Box>
