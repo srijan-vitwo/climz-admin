@@ -190,8 +190,6 @@ const ApprovalVeriantform = ({ approvalState, approval }) => {
 		}
 	};
 
-	console.log(approvalState, 'approvalState');
-
 	return (
 		<>
 			<Tooltip hasArrow label='Add New Approval veriant' fontSize='1rem'>

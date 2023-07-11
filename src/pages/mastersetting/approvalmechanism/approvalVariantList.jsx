@@ -20,6 +20,7 @@ import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../../../assets/images/loader.gif';
 import ApprovalVeriantform from './approvalveriantform';
+import ApprovalVeriantUpdate from './approvalveriantUpdate';
 
 const CssWrapper = styled.div`
 	.p-datatable-wrapper::-webkit-scrollbar {
@@ -207,7 +208,13 @@ const ApprovalVariantList = ({ approval }) => {
 							</Box>
 						</DrawerHeader>
 
-						<DrawerBody></DrawerBody>
+						<DrawerBody>
+							<ApprovalVeriantUpdate
+								approvalState={products}
+								approval={approval}
+								rowData={rowData}
+							/>
+						</DrawerBody>
 					</DrawerContent>
 				</Drawer>
 			</>
