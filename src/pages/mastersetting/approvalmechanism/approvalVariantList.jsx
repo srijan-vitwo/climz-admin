@@ -67,7 +67,7 @@ const CssWrapper = styled.div`
 		height: calc(100vh - 281px);
 	}
 `;
-const ApprovalVariantList = ({ approvalState }) => {
+const ApprovalVariantList = ({ approval }) => {
 	const navigate = useNavigate();
 	const token = localStorage.getItem('token');
 	const [loader, setLoader] = useState(false);
@@ -159,7 +159,7 @@ const ApprovalVariantList = ({ approvalState }) => {
 				<Box>
 					<ApprovalVeriantform
 						approvalState={products}
-						approval={approvalState}
+						approval={approval}
 					/>
 				</Box>
 			</Box>

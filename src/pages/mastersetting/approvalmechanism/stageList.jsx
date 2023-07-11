@@ -227,8 +227,6 @@ const StageList = ({ products, setProducts, sucess, setSucess }) => {
 		);
 	});
 
-	console.log(products, 'StageList');
-
 	return (
 		<CssWrapper>
 			<Box className='card'>

@@ -25,7 +25,7 @@ const ApprovalVeriantform = ({ approvalState, approval }) => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const navigate = useNavigate();
 	const toast = useToast();
-	let counter = approvalState?.length - 1;
+	let counter = approval?.length - 1;
 	const [isLoading, setIsLoading] = useState(false);
 	const [selectBoxes, setSelectBoxes] = useState([1]);
 	const [empList, setEmpList] = useState();
@@ -39,6 +39,14 @@ const ApprovalVeriantform = ({ approvalState, approval }) => {
 	function toastCall() {
 		return toast({
 			title: 'All Approval Stage Added Already',
+			status: 'warning',
+			duration: 3000,
+			isClosable: true,
+		});
+	}
+	function toastCallSucess() {
+		return toast({
+			title: 'All Approval Stage Uploaded Already',
 			status: 'warning',
 			duration: 3000,
 			isClosable: true,
@@ -111,17 +119,15 @@ const ApprovalVeriantform = ({ approvalState, approval }) => {
 				addDynamicSelect(e);
 
 				// approvalState;
-				let tmpGetStatus = approvalState[index].given_status;
-				let tmpGetApproval = approval[index].type_name;
+				let tmpGetStatus = approval[index].given_status;
 				let tempStatusMaker =
-					approvalState[approvalState.length - 1].given_status;
+					approval[approval.length - 1].given_status;
 
 				let prevVariantData = JSON.parse(JSON.stringify(variants));
 
 				if (prevVariantData.variants[index] == undefined) {
 					let tempVariantUser = {
 						vm_id: '',
-						approval: tmpGetApproval,
 						user_id: employeeId,
 						get_status: tmpGetStatus,
 						status_maker: tempStatusMaker,
@@ -173,7 +179,7 @@ const ApprovalVeriantform = ({ approvalState, approval }) => {
 			);
 
 			if (response.ok) {
-				toastCall();
+				toastCallSucess();
 				setIsLoading(false);
 			} else {
 				navigate('/login');
@@ -208,11 +214,7 @@ const ApprovalVeriantform = ({ approvalState, approval }) => {
 			</Tooltip>
 			<Modal onClose={onClose} isOpen={isOpen} isCentered>
 				<ModalOverlay />
-				<ModalContent
-					minW='60%'
-					height='auto'
-					p='20px'
-					overflowY='scroll'>
+				<ModalContent minW='60%' height='auto' p='20px'>
 					<ModalCloseButton mt='7px' />
 					<ModalBody p='0px'>
 						<form
