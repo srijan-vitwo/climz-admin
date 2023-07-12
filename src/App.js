@@ -65,6 +65,7 @@ import CodeOfConduct from './pages/dashboard/template/codeOfConduct';
 import Privacy from './pages/dashboard/template/privacy';
 import ApprovalMechanism from './pages/mastersetting/approvalmechanism';
 import TDSCalculator from './pages/mastersetting/tdscalculator';
+import MyTemplate from './pages/mastersetting/mytemplate';
 
 function App() {
 	return (
@@ -190,6 +191,7 @@ function App() {
 							path='tds-calculator'
 							element={<TDSCalculator />}
 						/>
+						<Route path='my-template' element={<MyTemplate />} />
 					</Route>
 					<Route path='manage-employee' element={<ManageEmployee />}>
 						<Route
