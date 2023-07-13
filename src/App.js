@@ -9,7 +9,7 @@ import Reports from './pages/reports/index';
 import AttendanceSettings from './pages/mastersetting/attendancesetting';
 import ConveyancePolicies from './pages/mastersetting/conveyancepolicies';
 import ManageCompany from './pages/mastersetting/managecompany';
-import ManageEmployee from './pages/mastersetting/manageemployee';
+import ManageEmployee from './pages/allemployees';
 import PayrollDetails from './pages/mastersetting/payrolldetails';
 import TravelPolicies from './pages/mastersetting/travelpolicies';
 import Login from './pages/login/login';
@@ -23,8 +23,8 @@ import Designation from './pages/mastersetting/managecompany/designation';
 import AddDepartment from './pages/mastersetting/managecompany/addDepartment';
 import './App.css';
 import Privetroute from './privetroute';
-import MultiStepForm from './pages/mastersetting/manageemployee/mulistepform';
-import Formsubmited from './pages/mastersetting/manageemployee/mulistepform/formsubmited';
+import MultiStepForm from './pages/allemployees/mulistepform';
+import Formsubmited from './pages/allemployees/mulistepform/formsubmited';
 import AttendanceReportView from './pages/reports/attendanceReport';
 import WeekofVariant from './pages/mastersetting/attendancesetting/weekofvariant';
 import LeavePolicies from './pages/mastersetting/attendancesetting/leavepolicies';
@@ -45,9 +45,9 @@ import EmpJoiningDateWiseDiversityReportView from './pages/reports/employeeJoini
 import SalaryReportView from './pages/reports/salaryReport';
 import DepartmentWiseSalaryReportView from './pages/reports/departmentWiseSalaryReport';
 import OnboardingCandidate from './pages/mastersetting/onboarding';
-import EmployeeDataList from './pages/mastersetting/manageemployee/employeedatalist';
-import ProbationEmployee from './pages/mastersetting/manageemployee/probationemployee';
-import SeparationEmployee from './pages/mastersetting/manageemployee/separationemployee';
+import EmployeeDataList from './pages/allemployees/employeedatalist';
+import ProbationEmployee from './pages/allemployees/probationemployee';
+import SeparationEmployee from './pages/allemployees/separationemployee';
 import ShiftManagement from './pages/shiftmanagement';
 import ShiftAdd from './pages/shiftmanagement/shiftadd';
 import ShiftList from './pages/shiftmanagement/shiftList';
@@ -55,7 +55,7 @@ import QuestionMaster from './pages/mastersetting/questionmaster.jsx/index';
 import SalaryDetails from './pages/mastersetting/payrolldetails/SalaryDetails';
 import BusinessLocationDatatable from './pages/mastersetting/businesslocation/businesslocationDatatable';
 import AssetsHandover from './pages/mastersetting/assetshandover.jsx';
-import NoticePeriodEmployee from './pages/mastersetting/manageemployee/noticeperiodEmployee';
+import NoticePeriodEmployee from './pages/allemployees/noticeperiodEmployee';
 import AllEmployeeAttendanceReportView from './pages/reports/allEmployeeAttendance';
 import EmployeeAttendancReportView from './pages/reports/employeeAttendanc';
 import AllPayrollReportView from './pages/reports/allPayroll';
@@ -149,10 +149,7 @@ function App() {
 							path='add-new-region'
 							element={<AddNewRegion />}
 						/>
-						<Route
-							path='create-new-employee'
-							element={<MultiStepForm />}
-						/>
+
 						<Route path='submited' element={<Formsubmited />} />
 						<Route
 							path='payroll-details'
@@ -194,6 +191,10 @@ function App() {
 						<Route path='my-template' element={<MyTemplate />} />
 					</Route>
 					<Route path='manage-employee' element={<ManageEmployee />}>
+						<Route
+							path='create-new-employee'
+							element={<MultiStepForm />}
+						/>
 						<Route
 							path='all-employee'
 							element={<EmployeeDataList />}

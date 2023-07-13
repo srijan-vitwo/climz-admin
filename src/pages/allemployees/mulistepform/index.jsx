@@ -7,7 +7,7 @@ import KycDetails from './kycdetails';
 import BankDetails from './bankdetails';
 import LastCompany from './lastcompany';
 import { Button, Box, Image, useToast } from '@chakra-ui/react';
-import Loader from '../../../../assets/images/loader.gif';
+import Loader from '../../../assets/images/loader.gif';
 import { BeatLoader } from 'react-spinners';
 
 const MultiStepForm = () => {

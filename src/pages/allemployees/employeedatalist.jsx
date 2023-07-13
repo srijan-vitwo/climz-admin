@@ -44,7 +44,7 @@ import 'primeicons/primeicons.css';
 import styled from '@emotion/styled';
 import EmployeeUpdate from './updateEmploye.jsx';
 import { useNavigate } from 'react-router-dom';
-import Loader from '../../../assets/images/loader.gif';
+import Loader from '../../assets/images/loader.gif';
 import { BeatLoader } from 'react-spinners';
 import { saveAs } from 'file-saver';
 
@@ -446,7 +446,7 @@ const EmployeeDataList = () => {
 						height='45px'
 						padding='0px 20px'
 						mr='10px'>
-						<Link to='/master-setting/create-new-employee'>
+						<Link to='/manage-employee/create-new-employee'>
 							<Text
 								background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
 								backgroundClip='text'
