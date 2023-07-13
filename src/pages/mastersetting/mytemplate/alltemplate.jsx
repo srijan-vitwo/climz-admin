@@ -33,6 +33,7 @@ const Alltemplate = ({ template }) => {
 				{template?.map((data, index) => {
 					return (
 						<Box
+							key={index}
 							width='30%'
 							textAlign='center'
 							borderWidth='1px'
