@@ -34,6 +34,8 @@ const PersonalTemplate = ({ OwnTemplate, sucess, setSucess }) => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [text, setText] = useState('');
 	const [globalTemplateId, setGlobalTemplateId] = useState();
+	const [templateId, setTemplateId] = useState();
+	const [templateName, setTemplateName] = useState();
 	const [loader, setLoader] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -55,7 +57,9 @@ const PersonalTemplate = ({ OwnTemplate, sucess, setSucess }) => {
 
 	const handleModalClick = (modalData) => {
 		onOpen();
-		setText(modalData?.template_html); // Set the data for the modal
+		setText(modalData?.template_html);
+		setTemplateId(modalData?.template_id);
+		setTemplateName(modalData?.template_name); // Set the data for the modal
 	};
 
 	const unpinTemplate = async (e) => {
@@ -86,6 +90,38 @@ const PersonalTemplate = ({ OwnTemplate, sucess, setSucess }) => {
 			navigate('/login');
 		}
 	};
+	const updateTemplate = async (e) => {
+		e.preventDefault();
+		let formData = new FormData();
+		formData.append('template_id', templateId);
+		formData.append('template_name', templateName);
+		formData.append('template_html', text);
+		try {
+			setIsLoading(true);
+			const response = await fetch(
+				`${process.env.REACT_APP_API_URL}/update-template`,
+				{
+					method: 'POST',
+					body: formData,
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				}
+			);
+
+			if (response.ok) {
+				toastCall();
+				setIsLoading(false);
+				setSucess(!sucess);
+			} else {
+				navigate('/login');
+			}
+		} catch (error) {
+			navigate('/login');
+		}
+	};
+
+	console.log(modalData, 'modalData');
 
 	return (
 		<Box height='calc(100vh - 188px)'>
@@ -225,6 +261,7 @@ const PersonalTemplate = ({ OwnTemplate, sucess, setSucess }) => {
 								</ModalBody>
 								<ModalFooter>
 									<Button
+										onClick={updateTemplate}
 										bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
 										boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
 										borderRadius='5px'

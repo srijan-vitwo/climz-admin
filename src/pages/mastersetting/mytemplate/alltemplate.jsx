@@ -72,8 +72,6 @@ const Alltemplate = ({ template, sucess, setSucess }) => {
 		}
 	};
 
-	console.log(globalTemplateId, 'globalTemplateId');
-
 	return (
 		<Box height='calc(100vh - 188px)'>
 			<Box display='flex'>
