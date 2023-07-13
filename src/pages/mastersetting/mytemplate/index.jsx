@@ -20,6 +20,7 @@ const MyTemplate = () => {
 	const token = localStorage.getItem('token');
 	const [template, setTemplate] = useState();
 	const [OwnTemplate, setOwnTemplate] = useState();
+	const [sucess, setSucess] = useState();
 
 	useEffect(() => {
 		const addDepartment = async () => {
@@ -58,7 +59,7 @@ const MyTemplate = () => {
 			}
 		};
 		addDepartment();
-	}, []);
+	}, [sucess]);
 
 	return (
 		<Tabs position='relative' variant='unstyled'>
@@ -105,7 +106,11 @@ const MyTemplate = () => {
 								<Image src={Loader} alt='Loader' />
 							</Box>
 						) : (
-							<PersonalTemplate OwnTemplate={OwnTemplate} />
+							<PersonalTemplate
+								OwnTemplate={OwnTemplate}
+								sucess={sucess}
+								setSucess={setSucess}
+							/>
 						)}
 					</Box>
 				</TabPanel>
@@ -126,7 +131,11 @@ const MyTemplate = () => {
 								<Image src={Loader} alt='Loader' />
 							</Box>
 						) : (
-							<Alltemplate template={template} />
+							<Alltemplate
+								template={template}
+								sucess={sucess}
+								setSucess={setSucess}
+							/>
 						)}
 					</Box>
 				</TabPanel>

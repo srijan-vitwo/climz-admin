@@ -6,26 +6,73 @@ import {
 	DrawerOverlay,
 	DrawerContent,
 	DrawerCloseButton,
-	useDisclosure,
 	Button,
 	Switch,
 	FormControl,
 	FormLabel,
-	Text,
+	useToast,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Template from '../../../assets/images/template.avif';
 
-const Alltemplate = ({ template }) => {
+const Alltemplate = ({ template, sucess, setSucess }) => {
 	const btnRef = React.useRef();
+	const navigate = useNavigate();
+	const toast = useToast();
+	let token = localStorage.getItem('token');
 	const [selectedTextBox, setSelectedTextBox] = useState(null);
 	const [modalData, setModalData] = useState(null);
+	const [globalTemplateId, setGlobalTemplateId] = useState();
+	const [loader, setLoader] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
+
+	function toastCall() {
+		return toast({
+			title: 'Template Added Sucessfully to MY-Template',
+			status: 'success',
+			duration: 3000,
+			isClosable: true,
+		});
+	}
 
 	// Handle click event on text box
 	const handleTextBoxClick = (data) => {
 		setSelectedTextBox(data);
-		setModalData(data); // Set the data for the modal
+		setModalData(data);
+		setGlobalTemplateId(data.global_template_id); // Set the data for the modal
 	};
+
+	const pinTemplate = async (e) => {
+		e.preventDefault();
+		let formData = new FormData();
+		formData.append('global_template_id', globalTemplateId);
+		try {
+			setIsLoading(true);
+			const response = await fetch(
+				`${process.env.REACT_APP_API_URL}/pin-template`,
+				{
+					method: 'POST',
+					body: formData,
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				}
+			);
+
+			if (response.ok) {
+				toastCall();
+				setIsLoading(false);
+				setSucess(!sucess);
+			} else {
+				navigate('/login');
+			}
+		} catch (error) {
+			navigate('/login');
+		}
+	};
+
+	console.log(globalTemplateId, 'globalTemplateId');
 
 	return (
 		<Box height='calc(100vh - 188px)'>
@@ -101,7 +148,11 @@ const Alltemplate = ({ template }) => {
 									fontSize='1.6rem !important'>
 									Make Your Own Template
 								</FormLabel>
-								<Switch id='email-alerts' size='lg' />
+								<Switch
+									id='email-alerts'
+									size='lg'
+									onChange={pinTemplate}
+								/>
 								<DrawerCloseButton
 									mt='-7px'
 									mr='-15px'

@@ -17,29 +17,75 @@ import {
 	ModalBody,
 	ModalCloseButton,
 	useDisclosure,
+	useToast,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { Editor } from 'primereact/editor';
+import { useNavigate } from 'react-router-dom';
 import Template from '../../../assets/images/template.avif';
 
-const PersonalTemplate = ({ OwnTemplate }) => {
+const PersonalTemplate = ({ OwnTemplate, sucess, setSucess }) => {
 	const btnRef = React.useRef();
+	const navigate = useNavigate();
+	const toast = useToast();
+	let token = localStorage.getItem('token');
 	const [selectedTextBox, setSelectedTextBox] = useState(null);
 	const [modalData, setModalData] = useState(null);
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [text, setText] = useState('');
+	const [globalTemplateId, setGlobalTemplateId] = useState();
+	const [loader, setLoader] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
+
+	function toastCall() {
+		return toast({
+			title: 'Template Removed Sucessfully to MY-Template',
+			status: 'success',
+			duration: 3000,
+			isClosable: true,
+		});
+	}
 
 	// Handle click event on text box
 	const handleTextBoxClick = (data) => {
 		setSelectedTextBox(data);
 		setModalData(data); // Set the data for the modal
+		setGlobalTemplateId(data.global_template_id);
 	};
+
 	const handleModalClick = (modalData) => {
 		onOpen();
 		setText(modalData?.template_html); // Set the data for the modal
 	};
 
-	console.log(text, 'text');
+	const unpinTemplate = async (e) => {
+		e.preventDefault();
+		let formData = new FormData();
+		formData.append('global_template_id', globalTemplateId);
+		try {
+			setIsLoading(true);
+			const response = await fetch(
+				`${process.env.REACT_APP_API_URL}/unpin-template`,
+				{
+					method: 'POST',
+					body: formData,
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				}
+			);
+
+			if (response.ok) {
+				toastCall();
+				setIsLoading(false);
+				setSucess(!sucess);
+			} else {
+				navigate('/login');
+			}
+		} catch (error) {
+			navigate('/login');
+		}
+	};
 
 	return (
 		<Box height='calc(100vh - 188px)'>
@@ -118,7 +164,12 @@ const PersonalTemplate = ({ OwnTemplate }) => {
 									fontSize='1.6rem !important'>
 									Make Your Own Template
 								</FormLabel>
-								<Switch id='email-alerts' size='lg' />
+								<Switch
+									id='email-alerts'
+									size='lg'
+									isChecked
+									onChange={unpinTemplate}
+								/>
 							</FormControl>
 							<Button
 								onClick={() => handleModalClick(modalData)}
