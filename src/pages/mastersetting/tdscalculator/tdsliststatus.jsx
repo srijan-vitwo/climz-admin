@@ -14,11 +14,58 @@ import {
 	Th,
 } from '@chakra-ui/react';
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
+import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../../../assets/images/loader.gif';
 import Tdsform from './tdsform';
 
-const TdsList = () => {
+const CssWrapper = styled.div`
+	.p-datatable-wrapper::-webkit-scrollbar {
+		width: 6px;
+	}
+	.p-datatable-wrapper::-webkit-scrollbar-track {
+		box-shadow: inset 0 0 5px grey;
+		border-radius: 10px;
+	}
+	.p-datatable-wrapper::-webkit-scrollbar-thumb {
+		background: var(--chakra-colors-claimzBorderGrayColor);
+		border-radius: 10px;
+	}
+
+	.p-datatable .p-sortable-column .p-column-title {
+		font-size: 1.4rem;
+	}
+	.p-datatable .p-datatable-tbody > tr > td {
+		font-size: 1.4rem;
+	}
+	.p-paginator {
+		padding: 15px 10px;
+	}
+	.p-component {
+		font-size: 1.4rem;
+		padding-bottom: 10px;
+	}
+	.p-dropdown-label {
+		display: flex;
+		align-items: center;
+	}
+	.p-datatable .p-datatable-header {
+		border-top: none;
+		padding-bottom: 10px;
+	}
+	.p-datatable .p-column-header-content {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.p-datatable-wrapper {
+		margin-top: 5px;
+		padding-right: 9px;
+		overflow-y: scroll;
+		height: calc(100vh - 234px);
+	}
+`;
+const TDSListStatus = () => {
 	const navigate = useNavigate();
 	const token = localStorage.getItem('token');
 	const [loader, setLoader] = useState(false);
@@ -200,7 +247,7 @@ const TdsList = () => {
 	console.log(products, 'products');
 
 	return (
-		<>
+		<CssWrapper>
 			{loader ? (
 				<Box
 					height='calc(100vh - 117px)'
@@ -248,8 +295,8 @@ const TdsList = () => {
 					</Tbody>
 				</Table>
 			)}
-		</>
+		</CssWrapper>
 	);
 };
 
-export default TdsList;
+export default TDSListStatus;

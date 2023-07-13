@@ -1,5 +1,5 @@
 import React from 'react';
-import TDSList from './tdslist';
+import TDSList from './tdsliststatus';
 import {
 	Box,
 	Tabs,
@@ -9,6 +9,7 @@ import {
 	TabPanel,
 	TabIndicator,
 } from '@chakra-ui/react';
+import TdsList from './tdslist';
 
 const TDSCalculator = () => {
 	return (
@@ -45,7 +46,7 @@ const TDSCalculator = () => {
 						border='1px solid #CECECE'
 						boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
 						borderRadius='0px 0px 6px 6px'
-						padding='0px 10px'>
+						padding='0px'>
 						<TDSList />
 					</Box>
 				</TabPanel>
@@ -55,8 +56,8 @@ const TDSCalculator = () => {
 						border='1px solid #CECECE'
 						boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
 						borderRadius='0px 0px 6px 6px'
-						padding='0px 10px'>
-						<h1>s</h1>
+						padding='0px'>
+						<TdsList />
 					</Box>
 				</TabPanel>
 			</TabPanels>
