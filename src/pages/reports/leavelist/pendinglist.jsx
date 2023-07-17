@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Image } from '@chakra-ui/react';
+import { Box, Image, Text } from '@chakra-ui/react';
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -177,20 +177,36 @@ const PendingList = () => {
 	};
 	const Header = RenderHeader();
 
-	const newData = [];
-	empList?.data?.map((item) => {
-		const dates = JSON.parse(item.dates); // Parse the dates string into an array
+	// const newData = [];
+	// empList?.data?.map((item) => {
+	// 	const dates = JSON.parse(item.dates); // Parse the dates string into an array
 
-		dates.map((date, index) => {
-			const newItem = {
-				...item,
-				dates: date,
-				id: `pending${index}`, // Replace the dates array with a single date
-			};
+	// 	dates.map((date, index) => {
+	// 		const newItem = {
+	// 			...item,
+	// 			dates: date,
+	// 			id: `pending${index}`, // Replace the dates array with a single date
+	// 		};
 
-			newData.push(newItem);
-		});
-	});
+	// 		newData.push(newItem);
+	// 	});
+	// });
+
+	const dateTemplate = (rowData) => {
+		function formatDate(dateString) {
+			const date = new Date(dateString);
+			const options = { day: '2-digit', month: 'short', year: 'numeric' };
+			return date.toLocaleDateString('en-US', options);
+		}
+		const dateStrings = rowData?.dates;
+		const parsedDates = JSON.parse(dateStrings);
+		const formattedDates = parsedDates.map(formatDate);
+		return (
+			<Box>
+				<Text fontSize='1.4rem'>{formattedDates.join(', ')}</Text>
+			</Box>
+		);
+	};
 
 	return (
 		<CssWrapper
@@ -215,7 +231,7 @@ const PendingList = () => {
 						boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'>
 						<Box className='card'>
 							<DataTable
-								value={newData}
+								value={empList?.data}
 								header={Header}
 								filters={filters}
 								onFilter={(e) => setFilters(e.filters)}
@@ -242,6 +258,7 @@ const PendingList = () => {
 									style={{ width: '12%' }}
 									header='Leave Dates'
 									field='dates'
+									body={dateTemplate}
 									bodyStyle={{ textAlign: 'center' }}
 								/>
 								<Column

@@ -179,22 +179,21 @@ const Decline = () => {
 
 	const Header = RenderHeader();
 
-	const newData = [];
-	empList?.data?.map((item) => {
-		const dates = JSON.parse(item.dates); // Parse the dates string into an array
-
-		dates.map((date, index) => {
-			const newItem = {
-				...item,
-				dates: date,
-				id: `decline${index} `, // Replace the dates array with a single date
-			};
-
-			newData.push(newItem);
-		});
-	});
-
-	console.log(newData, 'newData');
+	const dateTemplate = (rowData) => {
+		function formatDate(dateString) {
+			const date = new Date(dateString);
+			const options = { day: '2-digit', month: 'short', year: 'numeric' };
+			return date.toLocaleDateString('en-US', options);
+		}
+		const dateStrings = rowData?.dates;
+		const parsedDates = JSON.parse(dateStrings);
+		const formattedDates = parsedDates.map(formatDate);
+		return (
+			<Box>
+				<Text fontSize='1.4rem'>{formattedDates.join(', ')}</Text>
+			</Box>
+		);
+	};
 
 	return (
 		<CssWrapper
@@ -221,7 +220,7 @@ const Decline = () => {
 						padding='0px 10px'>
 						<Box className='card'>
 							<DataTable
-								value={newData}
+								value={empList?.data}
 								header={Header}
 								filters={filters}
 								onFilter={(e) => setFilters(e.filters)}
@@ -247,7 +246,7 @@ const Decline = () => {
 								<Column
 									style={{ width: '12%' }}
 									header='Leave Dates'
-									field='dates'
+									body={dateTemplate}
 									bodyStyle={{ textAlign: 'center' }}
 								/>
 								<Column
