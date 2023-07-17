@@ -66,6 +66,9 @@ import Privacy from './pages/dashboard/template/privacy';
 import ApprovalMechanism from './pages/mastersetting/approvalmechanism';
 import TDSCalculator from './pages/mastersetting/tdscalculator';
 import MyTemplate from './pages/mastersetting/mytemplate';
+import Compofflist from './pages/reports/compofflist';
+import RegularizatonList from './pages/reports/regularizatonlist';
+import LeaveList from './pages/reports/leavelist';
 
 function App() {
 	return (
@@ -274,6 +277,12 @@ function App() {
 							path='month-wise-attrition-report'
 							element={<MonthWiseAttritionReportView />}
 						/>
+						<Route path='compoff-list' element={<Compofflist />} />
+						<Route
+							path='regularizaton-list'
+							element={<RegularizatonList />}
+						/>
+						<Route path='leave-list' element={<LeaveList />} />
 					</Route>
 					<Route path='/profile' element={<Profile />} />
 					<Route

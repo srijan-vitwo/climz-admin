@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import {
 	Box,
 	Text,
@@ -8,7 +8,6 @@ import {
 	MenuItem,
 	Drawer,
 	DrawerBody,
-	DrawerFooter,
 	DrawerHeader,
 	DrawerOverlay,
 	DrawerContent,
@@ -22,7 +21,6 @@ import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
-import { Paginator } from 'primereact/paginator';
 import 'primereact/resources/themes/lara-light-indigo/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
@@ -60,9 +58,6 @@ const CssWrapper = styled.div`
 	}
 `;
 const SalaryReportTable = ({ dataList }) => {
-	console.log(dataList, 'sss');
-	const [rows, setRows] = useState(5);
-	const dt = useRef(null);
 	const cols = [
 		{ field: 'emp_id', header: 'Emp Code' },
 		{ field: 'emp_name', header: 'Emp Name' },

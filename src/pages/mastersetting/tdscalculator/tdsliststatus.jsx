@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
 	Box,
-	Button,
-	Input,
-	useToast,
-	useDisclosure,
 	Image,
 	Table,
 	Thead,
@@ -12,59 +8,20 @@ import {
 	Tr,
 	Td,
 	Th,
+	Button,
+	Text,
+	Drawer,
+	DrawerBody,
+	DrawerHeader,
+	DrawerOverlay,
+	DrawerContent,
+	DrawerCloseButton,
+	useDisclosure,
+	useToast,
 } from '@chakra-ui/react';
-import { FilterMatchMode, FilterOperator } from 'primereact/api';
-import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../../../assets/images/loader.gif';
-import Tdsform from './tdsform';
 
-const CssWrapper = styled.div`
-	.p-datatable-wrapper::-webkit-scrollbar {
-		width: 6px;
-	}
-	.p-datatable-wrapper::-webkit-scrollbar-track {
-		box-shadow: inset 0 0 5px grey;
-		border-radius: 10px;
-	}
-	.p-datatable-wrapper::-webkit-scrollbar-thumb {
-		background: var(--chakra-colors-claimzBorderGrayColor);
-		border-radius: 10px;
-	}
-
-	.p-datatable .p-sortable-column .p-column-title {
-		font-size: 1.4rem;
-	}
-	.p-datatable .p-datatable-tbody > tr > td {
-		font-size: 1.4rem;
-	}
-	.p-paginator {
-		padding: 15px 10px;
-	}
-	.p-component {
-		font-size: 1.4rem;
-		padding-bottom: 10px;
-	}
-	.p-dropdown-label {
-		display: flex;
-		align-items: center;
-	}
-	.p-datatable .p-datatable-header {
-		border-top: none;
-		padding-bottom: 10px;
-	}
-	.p-datatable .p-column-header-content {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-	.p-datatable-wrapper {
-		margin-top: 5px;
-		padding-right: 9px;
-		overflow-y: scroll;
-		height: calc(100vh - 234px);
-	}
-`;
 const TDSListStatus = () => {
 	const navigate = useNavigate();
 	const token = localStorage.getItem('token');
@@ -72,26 +29,6 @@ const TDSListStatus = () => {
 	const [sucess, setsucess] = useState();
 	const [products, setProducts] = useState();
 	const [isLoading, setIsLoading] = useState(false);
-	const [filters, setFilters] = useState({
-		global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-		name: {
-			operator: FilterOperator.AND,
-			constraints: [
-				{ value: null, matchMode: FilterMatchMode.STARTS_WITH },
-			],
-		},
-		'country.name': {
-			operator: FilterOperator.AND,
-			constraints: [
-				{ value: null, matchMode: FilterMatchMode.STARTS_WITH },
-			],
-		},
-		representative: { value: null, matchMode: FilterMatchMode.IN },
-		status: {
-			operator: FilterOperator.OR,
-			constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }],
-		},
-	});
 
 	useEffect(() => {
 		const departmentList = async () => {
@@ -124,130 +61,113 @@ const TDSListStatus = () => {
 		departmentList();
 	}, [sucess]);
 
-	const statusBodyTemplate = (rowData) => {
-		return <h1>O</h1>;
-	};
+	const ActionTemplate = (rowData) => {
+		const { isOpen, onOpen, onClose } = useDisclosure();
+		// const toast = useToast();
+		// const [departmentName, setDepartmentName] = useState(
+		// 	rowData.department.department_name
+		// );
+		// const [hod, setHod] = useState(rowData.department.hod);
+		// const [id, setId] = useState(rowData.department.id);
+		// const { isOpen, onOpen, onClose } = useDisclosure();
 
-	const onGlobalFilterChange = (event) => {
-		const value = event.target.value;
-		let _filters = { ...filters };
+		// function toastCall() {
+		// 	return toast({
+		// 		title: 'Employee Department Updated Sucessfully',
+		// 		status: 'success',
+		// 		duration: 3000,
+		// 		isClosable: true,
+		// 	});
+		// }
 
-		_filters['global'].value = value;
+		// const tierUpdate = async (e) => {
+		// 	e.preventDefault();
+		// 	let formData = new FormData();
+		// 	formData.append('department_name', departmentName);
+		// 	formData.append('hod', hod);
+		// 	formData.append('id', id);
 
-		setFilters(_filters);
-	};
+		// 	try {
+		// 		setIsLoading(true);
+		// 		const response2 = await fetch(
+		// 			`${process.env.REACT_APP_API_URL}/department-update`,
+		// 			{
+		// 				method: 'POST',
+		// 				body: formData,
+		// 				headers: {
+		// 					Authorization: `Bearer ${token}`,
+		// 				},
+		// 			}
+		// 		);
 
-	const renderHeader = () => {
-		const value = filters['global'] ? filters['global'].value : '';
+		// 		if (response2.ok) {
+		// 			toastCall();
+		// 			setsucess(!sucess);
+		// 		} else {
+		// 			navigate('/login');
+		// 		}
+		// 	} catch (error) {
+		// 		navigate('/login');
+		// 	}
+		// };
+		console.log(rowData, 'rowData');
 
 		return (
-			<Box
-				display='flex'
-				justifyContent='space-between'
-				alignItems='center'>
-				<Box
-					as='span'
-					className='p-input-icon-left'
-					display='flex'
-					alignItems='center'>
-					<i style={{ lineHeight: 1.5 }} className='pi pi-search' />
-					<Input
-						pl='24px'
-						type='search'
-						value={value || ''}
-						onChange={(e) => onGlobalFilterChange(e)}
-						placeholder='Global Search'
-						w='450px'
-					/>
-				</Box>
-				<Box>
-					<Button
-						bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-						boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-						borderRadius='10px'
-						p='20px'
-						fontSize='1.6rem'
-						color='white'
-						_hover={{
-							bgGradient:
-								'linear(180deg, #2267A2 0%, #0D4675 100%)',
-						}}
-						_active={{
-							bgGradient:
-								'linear(180deg, #2267A2 0%, #0D4675 100%)',
-						}}
-						_focus={{
-							bgGradient:
-								'linear(180deg, #2267A2 0%, #0D4675 100%)',
-						}}
-						onClick={() =>
-							navigate('/master-setting/add-department')
-						}>
-						Add Department
-					</Button>
-				</Box>
-			</Box>
+			<>
+				<Button
+					onClick={onOpen}
+					bg='none'
+					_hover={{ bg: 'none' }}
+					_active={{ bg: 'none' }}>
+					<i className='fa-solid fa-eye fa-2x'></i>
+				</Button>
+				<Drawer
+					isOpen={isOpen}
+					placement='right'
+					onClose={onClose}
+					size='xl'>
+					<DrawerOverlay />
+					<DrawerContent
+						maxW='50% !important'
+						bgGradient='linear(180deg, #DCF9FF 0%, #FFFFFF 100%)'>
+						<DrawerCloseButton size='lg' />
+						<DrawerHeader pt='28px'>
+							<Box
+								borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
+								width='400px'
+								pb='10px'
+								mb='15px'>
+								<Text
+									background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
+									backgroundClip='text'
+									fontWeight='700'
+									fontSize='28px'
+									lineHeight='36px'>
+									TDS Value Declaration
+								</Text>
+							</Box>
+						</DrawerHeader>
+
+						<DrawerBody>
+							<Box
+								background='#F6F9F8'
+								border='1px solid #CECECE'
+								boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
+								borderRadius='6px'
+								padding='0px 10px'
+								display='flex'>
+								<Text>Particulars</Text>
+								<Text>Value</Text>
+							</Box>
+						</DrawerBody>
+					</DrawerContent>
+				</Drawer>
+			</>
 		);
 	};
-
-	const header = renderHeader();
-
-	const ActionTemplate = (rowData) => {
-		const toast = useToast();
-		const [departmentName, setDepartmentName] = useState(
-			rowData.department.department_name
-		);
-		const [hod, setHod] = useState(rowData.department.hod);
-		const [id, setId] = useState(rowData.department.id);
-		const { isOpen, onOpen, onClose } = useDisclosure();
-
-		function toastCall() {
-			return toast({
-				title: 'Employee Department Updated Sucessfully',
-				status: 'success',
-				duration: 3000,
-				isClosable: true,
-			});
-		}
-
-		const tierUpdate = async (e) => {
-			e.preventDefault();
-			let formData = new FormData();
-			formData.append('department_name', departmentName);
-			formData.append('hod', hod);
-			formData.append('id', id);
-
-			try {
-				setIsLoading(true);
-				const response2 = await fetch(
-					`${process.env.REACT_APP_API_URL}/department-update`,
-					{
-						method: 'POST',
-						body: formData,
-						headers: {
-							Authorization: `Bearer ${token}`,
-						},
-					}
-				);
-
-				if (response2.ok) {
-					toastCall();
-					setsucess(!sucess);
-				} else {
-					navigate('/login');
-				}
-			} catch (error) {
-				navigate('/login');
-			}
-		};
-
-		return <Tdsform />;
-	};
-
-	console.log(products, 'products');
 
 	return (
-		<CssWrapper>
+		<>
 			{loader ? (
 				<Box
 					height='calc(100vh - 117px)'
@@ -270,14 +190,31 @@ const TDSListStatus = () => {
 								fontSize='1.5rem'
 								fontWeight='600'
 								color='white'>
-								emp_id
+								EMP ID
 							</Th>
 							<Th
 								p='15px'
 								fontSize='1.5rem'
 								fontWeight='600'
-								color='white'>
-								emp_code
+								color='white'
+								textAlign='center'>
+								EMP CODE
+							</Th>
+							<Th
+								p='15px'
+								fontSize='1.5rem'
+								fontWeight='600'
+								color='white'
+								textAlign='center'>
+								CTC
+							</Th>
+							<Th
+								p='15px'
+								fontSize='1.5rem'
+								fontWeight='600'
+								color='white'
+								textAlign='center'>
+								Declaration
 							</Th>
 						</Tr>
 					</Thead>
@@ -285,9 +222,17 @@ const TDSListStatus = () => {
 						{products?.map((section, index) => (
 							<React.Fragment key={index}>
 								<Tr key={section?.list[0].id}>
-									<Td p='15px'>{section?.list[0].id}</Td>
 									<Td p='15px'>
 										{section?.list[0].emp_code}
+									</Td>
+									<Td p='15px' textAlign='center'>
+										{section?.list[0].emp_name}
+									</Td>
+									<Td p='15px' textAlign='center'>
+										{section?.ctc}
+									</Td>
+									<Td p='15px' textAlign='center'>
+										<ActionTemplate rowData={section} />
 									</Td>
 								</Tr>
 							</React.Fragment>
@@ -295,7 +240,7 @@ const TDSListStatus = () => {
 					</Tbody>
 				</Table>
 			)}
-		</CssWrapper>
+		</>
 	);
 };
 
