@@ -41,11 +41,7 @@ const LeaveList = () => {
 				bg='white'
 				borderRadius='1px'
 			/>
-			<TabPanels
-				borderWidth='1px'
-				borderRadius='0px 0px 5px 5px'
-				shadow='1px 1px 3px rgba(0,0,0,0.3)'
-				bg='white'>
+			<TabPanels>
 				<TabPanel p='0'>
 					<PendingList />
 				</TabPanel>

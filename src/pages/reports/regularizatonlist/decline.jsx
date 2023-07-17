@@ -66,7 +66,7 @@ const CssWrapper = styled.div`
 	}
 	.p-datatable > .p-datatable-wrapper {
 		overflow: auto;
-		height: calc(100vh - 240px);
+		height: calc(100vh - 280px);
 		padding-right: 5px;
 		margin-right: 5px;
 	}
@@ -82,7 +82,7 @@ const Decline = () => {
 
 	const cols = [
 		{ field: 'emp_name', header: 'Employee' },
-		{ field: 'emp_id', header: 'User ID' },
+		{ field: 'emp_code', header: 'User ID' },
 		{ field: 'attendance_date', header: 'Attendance Date' },
 		{ field: 'reason', header: 'Reason' },
 		{ field: 'description', header: 'Description' },

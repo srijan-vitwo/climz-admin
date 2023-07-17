@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Image, Text } from '@chakra-ui/react';
+import { Box, Image } from '@chakra-ui/react';
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -66,7 +66,7 @@ const CssWrapper = styled.div`
 	}
 	.p-datatable > .p-datatable-wrapper {
 		overflow: auto;
-		height: calc(100vh - 240px);
+		height: calc(100vh - 280px);
 		padding-right: 5px;
 		margin-right: 5px;
 	}
@@ -175,11 +175,22 @@ const PendingList = () => {
 			</Box>
 		);
 	};
-
 	const Header = RenderHeader();
-	const DocStatus = (rowData) => {
-		return <Text>{rowData.leave_type === 1 ? 'Approve' : ''}</Text>;
-	};
+
+	const newData = [];
+	empList?.data?.map((item) => {
+		const dates = JSON.parse(item.dates); // Parse the dates string into an array
+
+		dates.map((date, index) => {
+			const newItem = {
+				...item,
+				dates: date,
+				id: `pending${index}`, // Replace the dates array with a single date
+			};
+
+			newData.push(newItem);
+		});
+	});
 
 	return (
 		<CssWrapper
@@ -201,12 +212,10 @@ const PendingList = () => {
 					<Box
 						background='#F6F9F8'
 						border='1px solid #CECECE'
-						boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
-						borderRadius='6px'
-						padding='0px 10px'>
+						boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'>
 						<Box className='card'>
 							<DataTable
-								value={empList?.data}
+								value={newData}
 								header={Header}
 								filters={filters}
 								onFilter={(e) => setFilters(e.filters)}
@@ -220,7 +229,7 @@ const PendingList = () => {
 								<Column
 									style={{ width: '12%' }}
 									header='User ID'
-									field='emp_id'
+									field='emp_code'
 									bodyStyle={{ textAlign: 'center' }}
 								/>
 								<Column
@@ -232,7 +241,7 @@ const PendingList = () => {
 								<Column
 									style={{ width: '12%' }}
 									header='Leave Dates'
-									field='leave_dates'
+									field='dates'
 									bodyStyle={{ textAlign: 'center' }}
 								/>
 								<Column

@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Box, Input, useToast, Image } from '@chakra-ui/react';
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import styled from '@emotion/styled';
-import { useNavigate } from 'react-router-dom';
 import Loader from '../../../assets/images/loader.gif';
 
 const CssWrapper = styled.div`
@@ -54,15 +53,8 @@ const CssWrapper = styled.div`
 	}
 `;
 
-const CompopHistory = ({ rowData }) => {
-	const toast = useToast();
-	const navigate = useNavigate();
-	let token = localStorage.getItem('token');
+const CompopHistory = ({ compopDetails }) => {
 	const [isLoading, setIsLoading] = useState(false);
-	const [sucess, setsucess] = useState();
-	const [compopDetails, setCompopDetails] = useState(rowData.component_name);
-	const [updateType, setUpdateType] = useState(rowData.type);
-	const [id, setId] = useState(rowData.conveyance_mode_id);
 
 	const [filters, setFilters] = useState({
 		global: { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -84,35 +76,6 @@ const CompopHistory = ({ rowData }) => {
 			constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }],
 		},
 	});
-
-	useEffect(() => {
-		const departmentList = async () => {
-			try {
-				setIsLoading(true);
-				const response1 = await fetch(
-					`${process.env.REACT_APP_API_URL}/compoff-list`,
-					{
-						method: 'GET',
-						headers: {
-							Authorization: `Bearer ${token}`,
-						},
-					}
-				);
-
-				if (response1.ok) {
-					const data1 = await response1.json();
-					setCompopDetails(data1.data);
-					setIsLoading(false);
-				} else {
-					navigate('/login');
-				}
-			} catch (error) {
-				navigate('/login');
-			}
-		};
-
-		departmentList();
-	}, [sucess]);
 
 	const onGlobalFilterChange = (event) => {
 		const value = event.target.value;
@@ -151,6 +114,25 @@ const CompopHistory = ({ rowData }) => {
 		);
 	};
 	const header = RenderHeader();
+
+	const statusTemplate = (rowData) => {
+		return (
+			<Box>
+				{rowData?.status === 0
+					? 'Pending for approval of working day'
+					: rowData?.status === 1
+					? 'Approved for approval of working day'
+					: rowData?.status === 2
+					? 'Pending for approval of Leave day'
+					: rowData?.status === 3
+					? 'Approved for approval of Leave day'
+					: rowData?.status === 4
+					? 'Rejected'
+					: ''}
+			</Box>
+		);
+	};
+
 	return (
 		<CssWrapper>
 			{isLoading ? (
@@ -189,8 +171,8 @@ const CompopHistory = ({ rowData }) => {
 									width: '16.66%',
 								}}></Column>
 							<Column
-								field='emp_code'
-								header='Comp-Off Date'
+								field='compoff_date'
+								header='Working Date'
 								sortable
 								bodyStyle={{
 									textAlign: 'center',
@@ -199,7 +181,7 @@ const CompopHistory = ({ rowData }) => {
 									width: '16.66%',
 								}}></Column>
 							<Column
-								field='balance'
+								field='from_time'
 								header='From Time'
 								sortable
 								bodyStyle={{
@@ -209,7 +191,7 @@ const CompopHistory = ({ rowData }) => {
 									width: '16.66%',
 								}}></Column>
 							<Column
-								field='balance'
+								field='to_time'
 								header='To Time'
 								sortable
 								bodyStyle={{
@@ -219,7 +201,7 @@ const CompopHistory = ({ rowData }) => {
 									width: '16.66%',
 								}}></Column>
 							<Column
-								field='balance'
+								field='apply_date'
 								header='Leave Apply Date'
 								sortable
 								bodyStyle={{
@@ -229,7 +211,7 @@ const CompopHistory = ({ rowData }) => {
 									width: '16.66%',
 								}}></Column>
 							<Column
-								field='balance'
+								body={statusTemplate}
 								header='Status'
 								sortable
 								bodyStyle={{

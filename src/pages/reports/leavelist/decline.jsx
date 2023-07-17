@@ -66,11 +66,12 @@ const CssWrapper = styled.div`
 	}
 	.p-datatable > .p-datatable-wrapper {
 		overflow: auto;
-		height: calc(100vh - 240px);
+		height: calc(100vh - 280px);
 		padding-right: 5px;
 		margin-right: 5px;
 	}
 `;
+
 const Decline = () => {
 	const navigate = useNavigate();
 	let token = localStorage.getItem('token');
@@ -177,9 +178,23 @@ const Decline = () => {
 	};
 
 	const Header = RenderHeader();
-	const DocStatus = (rowData) => {
-		return <Text>{rowData.leave_type === 1 ? 'Approve' : ''}</Text>;
-	};
+
+	const newData = [];
+	empList?.data?.map((item) => {
+		const dates = JSON.parse(item.dates); // Parse the dates string into an array
+
+		dates.map((date, index) => {
+			const newItem = {
+				...item,
+				dates: date,
+				id: `decline${index} `, // Replace the dates array with a single date
+			};
+
+			newData.push(newItem);
+		});
+	});
+
+	console.log(newData, 'newData');
 
 	return (
 		<CssWrapper
@@ -206,7 +221,7 @@ const Decline = () => {
 						padding='0px 10px'>
 						<Box className='card'>
 							<DataTable
-								value={empList?.data}
+								value={newData}
 								header={Header}
 								filters={filters}
 								onFilter={(e) => setFilters(e.filters)}
@@ -220,7 +235,7 @@ const Decline = () => {
 								<Column
 									style={{ width: '12%' }}
 									header='User ID'
-									field='emp_id'
+									field='emp_code'
 									bodyStyle={{ textAlign: 'center' }}
 								/>
 								<Column
@@ -232,19 +247,13 @@ const Decline = () => {
 								<Column
 									style={{ width: '12%' }}
 									header='Leave Dates'
-									field='leave_dates'
+									field='dates'
 									bodyStyle={{ textAlign: 'center' }}
 								/>
 								<Column
 									style={{ width: '12%' }}
 									header='Description'
 									field='description'
-									bodyStyle={{ textAlign: 'center' }}
-								/>
-								<Column
-									style={{ width: '12%' }}
-									header='Status'
-									field=''
 									bodyStyle={{ textAlign: 'center' }}
 								/>
 							</DataTable>

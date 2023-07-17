@@ -12,6 +12,9 @@ import MonthlySalaryIcon from '../../assets/images/mothly-salary.png';
 import EmployeeAttendance from '../../assets/images/Employee_Attendance.png';
 import AllEmployeeAttendance from '../../assets/images/AllEmployee_Attendance.png';
 import AllEmployeePayroll from '../../assets/images/AllEmployee_Payroll.png';
+import LeaveIcon from '../../assets/images/leave-icon.png';
+import ScheduleIcon from '../../assets/images/schedule-icon.png';
+import ChecklistIcon from '../../assets/images/checklist-icon.png';
 
 const ReportList = () => {
 	return (
@@ -55,7 +58,7 @@ const ReportList = () => {
 				<GridItem>
 					<Link to='compoff-list'>
 						<ReportListItem
-							icon={MonthlyAttendanceIcon}
+							icon={LeaveIcon}
 							title={'Compoff List'}
 						/>
 					</Link>
@@ -63,7 +66,7 @@ const ReportList = () => {
 				<GridItem>
 					<Link to='regularizaton-list'>
 						<ReportListItem
-							icon={EmployeeAttendance}
+							icon={ScheduleIcon}
 							title={'regularizaton-list'}
 						/>
 					</Link>
@@ -71,7 +74,7 @@ const ReportList = () => {
 				<GridItem>
 					<Link to='leave-list'>
 						<ReportListItem
-							icon={AllEmployeeAttendance}
+							icon={ChecklistIcon}
 							title={'Leave List'}
 						/>
 					</Link>

@@ -4,8 +4,6 @@ import {
 	Button,
 	Input,
 	useDisclosure,
-	FormControl,
-	FormLabel,
 	useToast,
 	Drawer,
 	DrawerBody,
@@ -22,7 +20,6 @@ import { Column } from 'primereact/column';
 import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../../../assets/images/loader.gif';
-import { BeatLoader } from 'react-spinners';
 import CompopHistory from './compophistory';
 
 const CssWrapper = styled.div`
@@ -77,8 +74,6 @@ const Compofflist = () => {
 	let token = localStorage.getItem('token');
 	const [loader, setLoader] = useState(false);
 	const [products, setProducts] = useState();
-	const [sucess, setsucess] = useState();
-	const [msg, setMsg] = useState();
 
 	const [filters, setFilters] = useState({
 		global: { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -128,7 +123,7 @@ const Compofflist = () => {
 		};
 
 		departmentList();
-	}, [sucess, msg]);
+	}, []);
 
 	const onGlobalFilterChange = (event) => {
 		const value = event.target.value;
@@ -170,10 +165,45 @@ const Compofflist = () => {
 
 	const ActionTemplate = (rowData) => {
 		const { isOpen, onOpen, onClose } = useDisclosure();
+		const toast = useToast();
+		const navigate = useNavigate();
+		let token = localStorage.getItem('token');
+		const [isLoading, setIsLoading] = useState(false);
+		const [compopDetails, setCompopDetails] = useState();
+		const [id, setId] = useState(rowData?.user_id);
+
+		console.log(id, 'id');
+
+		const departmentList = async () => {
+			onOpen();
+			try {
+				setIsLoading(true);
+				const response1 = await fetch(
+					`${process.env.REACT_APP_API_URL}/compoff-history/${id}`,
+					{
+						method: 'GET',
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					}
+				);
+
+				if (response1.ok) {
+					const data1 = await response1.json();
+					setCompopDetails(data1.data);
+					setIsLoading(false);
+				} else {
+					navigate('/login');
+				}
+			} catch (error) {
+				navigate('/login');
+			}
+		};
+
 		return (
 			<>
 				<Button
-					onClick={onOpen}
+					onClick={departmentList}
 					bg='none'
 					_hover={{ bg: 'none' }}
 					_active={{ bg: 'none' }}>
@@ -201,22 +231,22 @@ const Compofflist = () => {
 									fontWeight='700'
 									fontSize='28px'
 									lineHeight='36px'>
-									{' '}
-									Tier Master Item Update{rowData.id}
+									Compoff History Details
 								</Text>
 							</Box>
 						</DrawerHeader>
 
 						<DrawerBody>
-							<CompopHistory rowData={rowData} />
+							<CompopHistory
+								rowData={rowData}
+								compopDetails={compopDetails}
+							/>
 						</DrawerBody>
 					</DrawerContent>
 				</Drawer>
 			</>
 		);
 	};
-
-	console.log(products, 'setProducts');
 
 	return (
 		<CssWrapper>
@@ -242,8 +272,7 @@ const Compofflist = () => {
 							header={header}
 							filters={filters}
 							onFilter={(e) => setFilters(e.filters)}
-							editMode='row'
-							dataKey='conveyance_mode_id'
+							dataKey='cb_id'
 							tableStyle={{ minWidth: '50rem' }}>
 							<Column
 								field='emp_name'
