@@ -82,7 +82,7 @@ const CssWrapper = styled.div`
 	}
 	.p-datatable > .p-datatable-wrapper {
 		overflow: auto;
-		height: calc(100vh - 325px);
+		height: calc(100vh - 302px);
 		padding-right: 5px;
 	}
 `;

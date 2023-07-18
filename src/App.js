@@ -69,6 +69,7 @@ import MyTemplate from './pages/mastersetting/mytemplate';
 import Compofflist from './pages/reports/compofflist';
 import RegularizatonList from './pages/reports/regularizatonlist';
 import LeaveList from './pages/reports/leavelist';
+import DutyRoster from './pages/mastersetting/dutyroster';
 
 function App() {
 	return (
@@ -192,6 +193,7 @@ function App() {
 							element={<TDSCalculator />}
 						/>
 						<Route path='my-template' element={<MyTemplate />} />
+						<Route path='duty-roster' element={<DutyRoster />} />
 					</Route>
 					<Route path='manage-employee' element={<ManageEmployee />}>
 						<Route
