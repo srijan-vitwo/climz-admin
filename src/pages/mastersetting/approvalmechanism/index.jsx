@@ -129,7 +129,7 @@ const ApprovalMechanism = () => {
 				<TabPanels>
 					<TabPanel
 						p='0'
-						background='#F6F9F8'
+						background='white'
 						border='1px solid #CECECE'
 						boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
 						borderRadius='0px 0px 6px 6px;'>
@@ -237,7 +237,7 @@ const ApprovalMechanism = () => {
 					</TabPanel>
 					<TabPanel
 						p='20px'
-						background='#F6F9F8'
+						background='white'
 						border='1px solid #CECECE'
 						boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
 						borderRadius='0px 0px 6px 6px;'>

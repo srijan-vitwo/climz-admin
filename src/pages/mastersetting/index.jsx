@@ -313,7 +313,7 @@ const MasterSetting = () => {
 											'linear(180deg, #256DAA, #01325B)',
 										color: 'white',
 									}}>
-									<i className='fa-solid fa-file fa-2x'></i>
+									<i className='fa-solid fa-calculator fa-2x'></i>
 									<Text
 										fontSize='2.2rem'
 										fontWeight='700'
@@ -365,7 +365,7 @@ const MasterSetting = () => {
 											'linear(180deg, #256DAA, #01325B)',
 										color: 'white',
 									}}>
-									<i className='fa-solid fa-file fa-2x'></i>
+									<i className='fa-solid fa-briefcase fa-2x'></i>
 									<Text
 										fontSize='2.2rem'
 										fontWeight='700'

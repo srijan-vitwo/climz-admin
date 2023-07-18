@@ -76,6 +76,8 @@ const CssWrapper = styled.div`
 	}
 	.p-datatable .p-datatable-header {
 		border-top: none;
+		border-radius: 6px;
+		background: white;
 	}
 	.p-datatable > .p-datatable-wrapper {
 		overflow: auto;
@@ -358,7 +360,7 @@ const Emplist = () => {
 			) : (
 				<Box
 					className='card'
-					background='#F6F9F8'
+					background='white'
 					border='1px solid #CECECE'
 					boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
 					borderRadius='6px'>
@@ -392,7 +394,8 @@ const Emplist = () => {
 					<Box
 						display='flex'
 						justifyContent='flex-end'
-						backgroundColor='white'>
+						backgroundColor='white'
+						borderRadius='6px'>
 						<Paginator
 							first={first}
 							rows={rows}

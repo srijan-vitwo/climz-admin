@@ -64,6 +64,7 @@ const CssWrapper = styled.div`
 	}
 	.p-datatable .p-datatable-header {
 		border-top: none;
+		background: white;
 	}
 	.p-datatable > .p-datatable-wrapper {
 		overflow: auto;

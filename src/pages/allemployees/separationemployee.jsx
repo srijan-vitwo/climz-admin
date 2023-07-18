@@ -84,6 +84,7 @@ const CssWrapper = styled.div`
 	}
 	.p-datatable .p-datatable-header {
 		border-top: none;
+		background: white;
 	}
 `;
 const SeparationEmployee = () => {

@@ -10,11 +10,12 @@ import {
 	MenuButton,
 	MenuList,
 } from '@chakra-ui/react';
-import { Link, NavLink, useLocation, Outlet } from 'react-router-dom';
+import { Link, NavLink, Outlet } from 'react-router-dom';
 import { HamburgerIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
 import Logo from '../../../assets/images/logo.png';
 import React, { useState } from 'react';
+import UserLogo from '../../../assets/images/user.jpg';
 
 const navigations = [
 	{
@@ -73,6 +74,13 @@ const Globalllayout = () => {
 	let navigate = useNavigate();
 	const [flag, setFlag] = useBoolean();
 	const [isFullScreen, setIsFullScreen] = useState(false);
+	const imageUrl = user?.profile_photo;
+	const defaultImageUrl = UserLogo;
+
+	const handleImageError = (event) => {
+		event.target.src = defaultImageUrl;
+	};
+
 	const logOut = () => {
 		localStorage.clear();
 		navigate('/login');
@@ -262,11 +270,11 @@ const Globalllayout = () => {
 										m='0 auto'
 										height='40px'
 										width='40px'
-										border='2px solid #2d689b'
+										border='4px solid #2d689b'
 										bg='#2d689b'
 										color='white'
 										borderRadius='50px'>
-										{user?.profile_photo ? (
+										{/* {user?.profile_photo ? (
 											<Image
 												src={user?.profile_photo}
 												borderRadius='50px'
@@ -275,7 +283,12 @@ const Globalllayout = () => {
 											<Text fontWeight='600'>
 												{user.emp_name?.slice(0, 1)}
 											</Text>
-										)}
+										)} */}
+										<Image
+											src={imageUrl}
+											borderRadius='50px'
+											onError={handleImageError}
+										/>
 									</Box>
 									<Box
 										display='flex'

@@ -124,7 +124,7 @@ const Tdsform = ({ rowData }) => {
 
 					<DrawerBody>
 						<Box
-							background='#F6F9F8'
+							background='white'
 							border='1px solid #CECECE'
 							boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
 							borderRadius='6px'
