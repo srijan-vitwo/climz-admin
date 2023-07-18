@@ -322,20 +322,22 @@ const Emplist = () => {
 									</Tr>
 								</Thead>
 								<Tbody>
-									{shiftData?.map((data, index) => (
-										<Tr key={index}>
-											<Td p='15px'>{data.days}</Td>
-											<Td p='15px' textAlign='center'>
-												{data.in_time}
-											</Td>
-											<Td p='15px' textAlign='center'>
-												{data.out_time}
-											</Td>
-											<Td p='15px' textAlign='right'>
-												{data.grace_time}
-											</Td>
-										</Tr>
-									))}
+									{shiftData?.map((data, index) => {
+										return (
+											<Tr key={index}>
+												<Td p='15px'>{data.days}</Td>
+												<Td p='15px' textAlign='center'>
+													{data.in_time}
+												</Td>
+												<Td p='15px' textAlign='center'>
+													{data.out_time}
+												</Td>
+												<Td p='15px' textAlign='right'>
+													{data.grace_time}
+												</Td>
+											</Tr>
+										);
+									})}
 								</Tbody>
 							</Table>
 						</DrawerBody>
