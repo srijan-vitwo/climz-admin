@@ -12,6 +12,12 @@ import {
 	Button,
 	Image,
 	Heading,
+	Table,
+	Tbody,
+	Thead,
+	Tr,
+	Th,
+	Td,
 } from '@chakra-ui/react';
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import { DataTable } from 'primereact/datatable';
@@ -90,7 +96,6 @@ const Emplist = () => {
 	const navigate = useNavigate();
 	const [first, setFirst] = useState(0);
 	const [rows, setRows] = useState(10);
-	const [msg, setMsg] = useState();
 	const [empList, setEmpList] = useState();
 	const [loader, setLoader] = useState(false);
 
@@ -130,7 +135,7 @@ const Emplist = () => {
 			}
 		};
 		formDataValue();
-	}, [first, rows, msg]);
+	}, [first, rows]);
 
 	const [filters, setFilters] = useState({
 		global: { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -163,59 +168,6 @@ const Emplist = () => {
 	});
 
 	const [globalFilterValue, setGlobalFilterValue] = useState('');
-
-	const exportColumns = cols.map((col) => ({
-		title: col.header,
-		dataKey: col.field,
-	}));
-
-	const exportPdf = () => {
-		import('jspdf').then((jsPDF) => {
-			import('jspdf-autotable').then(() => {
-				const doc = new jsPDF.default(0, 0);
-
-				doc.autoTable(exportColumns, empList.data);
-				doc.save('empList.pdf');
-			});
-		});
-	};
-
-	const exportExcel = () => {
-		import('xlsx').then((xlsx) => {
-			const worksheet = xlsx.utils.json_to_sheet(empList.data);
-			const workbook = {
-				Sheets: { data: worksheet },
-				SheetNames: ['data'],
-			};
-			const excelBuffer = xlsx.write(workbook, {
-				bookType: 'xlsx',
-				type: 'array',
-			});
-
-			saveAsExcelFile(excelBuffer, 'empList');
-		});
-	};
-
-	const saveAsExcelFile = (buffer, fileName) => {
-		import('file-saver').then((module) => {
-			if (module && module.default) {
-				let EXCEL_TYPE =
-					'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-				let EXCEL_EXTENSION = '.xlsx';
-				const data = new Blob([buffer], {
-					type: EXCEL_TYPE,
-				});
-
-				module.default.saveAs(
-					data,
-					fileName +
-						'_export_' +
-						new Date().getTime() +
-						EXCEL_EXTENSION
-				);
-			}
-		});
-	};
 
 	const onPageChange = (event) => {
 		setFirst(event.first);
@@ -259,16 +211,42 @@ const Emplist = () => {
 
 	const ActionTemplate = (rowData) => {
 		const { isOpen, onOpen, onClose } = useDisclosure();
-		const {
-			isOpen: LetterIsOpen,
-			onOpen: LetterOnOpen,
-			onClose: LetterOnClose,
-		} = useDisclosure();
+		const token = localStorage.getItem('token');
+		const [shiftId] = useState(rowData.shift_variant);
+		const [shiftData, setShiftData] = useState();
+		const [daysCount, setDaysCount] = useState(0);
+
+		useEffect(() => {
+			const currentDate = new Date();
+			const daysCount = new Date(
+				currentDate.getFullYear(),
+				currentDate.getMonth() + 1,
+				0
+			).getDate();
+			setDaysCount(daysCount);
+		}, []);
+
+		const shiftView = async (e) => {
+			onOpen();
+			e.preventDefault();
+			onOpen();
+			const response = await fetch(
+				`${process.env.REACT_APP_API_URL}/shift-time/${shiftId}`,
+				{
+					method: 'GET',
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				}
+			);
+			const data = await response.json();
+			setShiftData(data.data);
+		};
 
 		return (
 			<>
 				<Button
-					onClick={onOpen}
+					onClick={shiftView}
 					bg='none'
 					_hover={{ bg: 'none' }}
 					_active={{ bg: 'none' }}>
@@ -282,13 +260,13 @@ const Emplist = () => {
 					size='xl'>
 					<DrawerOverlay />
 					<DrawerContent
-						maxW='60% !important'
+						maxW='50% !important'
 						bgGradient='linear(180deg, #DCF9FF 0%, #FFFFFF 100%)'>
 						<DrawerCloseButton size='lg' />
 						<DrawerHeader pt='28px'>
 							<Box
 								borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-								width='500px'
+								width='60%'
 								pb='10px'
 								mb='15px'>
 								<Text
@@ -297,12 +275,70 @@ const Emplist = () => {
 									fontWeight='700'
 									fontSize='28px'
 									lineHeight='36px'>
-									{rowData.emp_name} Employee Details
+									{rowData.emp_name} Details
 								</Text>
 							</Box>
 						</DrawerHeader>
 
-						<DrawerBody>drawer</DrawerBody>
+						<DrawerBody>
+							<Table>
+								<Thead>
+									<Tr
+										bgGradient='linear(180deg, #256DAA 0%, #02335C 100%)'
+										boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
+										color='white'
+										padding='10px 15px'>
+										<Th
+											p='15px'
+											fontSize='1.5rem'
+											fontWeight='600'
+											color='white'>
+											Day
+										</Th>
+										<Th
+											p='15px'
+											fontSize='1.5rem'
+											fontWeight='600'
+											color='white'
+											textAlign='center'>
+											In Time
+										</Th>
+										<Th
+											p='15px'
+											fontSize='1.5rem'
+											fontWeight='600'
+											color='white'
+											textAlign='center'>
+											Out Time
+										</Th>
+										<Th
+											p='15px'
+											fontSize='1.5rem'
+											fontWeight='600'
+											color='white'
+											textAlign='right'>
+											Grace Time
+										</Th>
+									</Tr>
+								</Thead>
+								<Tbody>
+									{shiftData?.map((data, index) => (
+										<Tr key={index}>
+											<Td p='15px'>{data.days}</Td>
+											<Td p='15px' textAlign='center'>
+												{data.in_time}
+											</Td>
+											<Td p='15px' textAlign='center'>
+												{data.out_time}
+											</Td>
+											<Td p='15px' textAlign='right'>
+												{data.grace_time}
+											</Td>
+										</Tr>
+									))}
+								</Tbody>
+							</Table>
+						</DrawerBody>
 					</DrawerContent>
 				</Drawer>
 			</>
