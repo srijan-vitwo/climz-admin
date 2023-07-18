@@ -151,13 +151,128 @@ const TDSListStatus = () => {
 						<DrawerBody>
 							<Box
 								background='#F6F9F8'
-								border='1px solid #CECECE'
+								border='1px dashed #CECECE'
 								boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
 								borderRadius='6px'
-								padding='0px 10px'
-								display='flex'>
-								<Text>Particulars</Text>
-								<Text>Value</Text>
+								padding='15px 10px'>
+								<Box
+									display='flex'
+									justifyContent='space-between'
+									borderBottom='1px dashed #CECECE'
+									pb='5px'
+									mb='1px'>
+									<Text fontSize='1.7rem' fontWeight='600'>
+										Particulars
+									</Text>
+									<Text fontSize='1.7rem' fontWeight='600'>
+										Value
+									</Text>
+								</Box>
+								<Box
+									display='flex'
+									justifyContent='space-between'
+									borderTop='1px dashed #CECECE'
+									pt='15px'
+									borderBottom='1px dashed #CECECE'
+									pb='5px'
+									mb='1px'>
+									<Box>
+										<Text mb='5px'>
+											Salary as per provisions contained
+											in section 17(1)
+										</Text>
+										<Text mb='5px'>
+											Value of perquisites under section
+											17(2)
+										</Text>
+										<Text mb='5px'>
+											Profits in lieu of salary under
+											section 17(3)
+										</Text>
+									</Box>
+									<Box>
+										<Text mb='5px' fontWeight='600'>
+											1500000
+										</Text>
+									</Box>
+								</Box>
+								<Box
+									display='flex'
+									justifyContent='space-between'
+									borderTop='1px dashed #CECECE'
+									pt='5px'>
+									<Box>
+										<Text mb='5px' fontWeight='600'>
+											CTC
+										</Text>
+									</Box>
+									<Box>
+										<Text mb='5px' fontWeight='600'>
+											1500000
+										</Text>
+									</Box>
+								</Box>
+
+								<Box
+									display='flex'
+									justifyContent='space-between'
+									borderTop='1px dashed #CECECE'
+									pt='15px'
+									borderBottom='1px dashed #CECECE'
+									pb='5px'
+									mb='1px'>
+									<Box>
+										<Text mb='5px'>
+											Cash equivalent of leave salary
+											encashment under section 10(10AA)
+										</Text>
+										<Text mb='5px'>
+											House rent allowance under section
+											10(13A)
+										</Text>
+										<Text mb='5px'>
+											Standard deduction under section
+											16(ia)
+										</Text>
+										<Text mb='5px'>
+											Entertainment allowance under
+											section 16(ii)
+										</Text>
+										<Text mb='5px'>
+											Tax on employment under section
+											16(iii)
+										</Text>
+									</Box>
+									<Box>
+										<Text mb='5px' fontWeight='600'></Text>
+										<Text mb='5px' fontWeight='600'>
+											-165000
+										</Text>
+										<Text mb='5px' fontWeight='600'>
+											-50000
+										</Text>
+										<Text mb='5px' fontWeight='600'></Text>
+										<Text mb='5px' fontWeight='600'>
+											-2400
+										</Text>
+									</Box>
+								</Box>
+								<Box
+									display='flex'
+									justifyContent='space-between'
+									borderTop='1px dashed #CECECE'
+									pt='5px'>
+									<Box>
+										<Text mb='5px' fontWeight='600'>
+											CTC
+										</Text>
+									</Box>
+									<Box>
+										<Text mb='5px' fontWeight='600'>
+											1500000
+										</Text>
+									</Box>
+								</Box>
 							</Box>
 						</DrawerBody>
 					</DrawerContent>
