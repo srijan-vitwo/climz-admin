@@ -87,7 +87,7 @@ const CssWrapper = styled.div`
 	}
 	.p-datatable > .p-datatable-wrapper {
 		overflow: auto;
-		height: calc(100vh - 258px);
+		height: calc(100vh - 260px);
 		padding-right: 5px;
 		margin-right: 5px;
 	}
@@ -102,10 +102,6 @@ const Emplist = () => {
 	const cols = [
 		{ field: 'emp_code', header: 'Emp Code' },
 		{ field: 'emp_name', header: 'Emp Name' },
-		{ field: 'mobile_no', header: 'Ph Number' },
-		{ field: 'department_name', header: 'Department' },
-		{ field: 'primary', header: '1st Reporting' },
-		{ field: 'secondary', header: '2nd Reporting' },
 	];
 
 	useEffect(() => {
@@ -263,24 +259,18 @@ const Emplist = () => {
 						maxW='50% !important'
 						bgGradient='linear(180deg, #DCF9FF 0%, #FFFFFF 100%)'>
 						<DrawerCloseButton size='lg' />
-						<DrawerHeader pt='28px'>
-							<Box
-								borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-								width='60%'
-								pb='10px'
-								mb='15px'>
-								<Text
-									background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
-									backgroundClip='text'
-									fontWeight='700'
-									fontSize='28px'
-									lineHeight='36px'>
-									{rowData.emp_name} Details
-								</Text>
-							</Box>
-						</DrawerHeader>
+						<DrawerHeader pt='28px'></DrawerHeader>
 
 						<DrawerBody>
+							<Heading
+								mb='15px'
+								background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
+								backgroundClip='text'
+								fontWeight='700'
+								fontSize='28px'
+								lineHeight='36px'>
+								{rowData.emp_name} Monthly Duty Roster :
+							</Heading>
 							<Table>
 								<Thead>
 									<Tr
@@ -347,42 +337,6 @@ const Emplist = () => {
 		);
 	};
 
-	const StatusTemplate = (rowData) => {
-		return (
-			<Box>
-				{rowData.is_active === '1' ? (
-					<Box
-						width='20px'
-						height='20px'
-						display='flex'
-						margin='0 auto'
-						alignItems='center'
-						justifyContent='center'
-						borderRadius='100%'
-						border='2px solid var(--chakra-colors-statusInactiveStrokeColor)'
-						boxShadow='0px 0px 7px var(--chakra-colors-boxShadowGrayColor)'
-						color='var(--chakra-colors-statusActiveColor)'>
-						<i className='fa-solid fa-circle'></i>
-					</Box>
-				) : (
-					<Box
-						width='20px'
-						height='20px'
-						display='flex'
-						margin='0 auto'
-						alignItems='center'
-						justifyContent='center'
-						borderRadius='100%'
-						border='2px solid var(--chakra-colors-statusInactiveStrokeColor)'
-						boxShadow='0px 0px 7px var(--chakra-colors-boxShadowGrayColor)'
-						color='var(--chakra-colors-claimzTextGrayColor)'>
-						<i className='fa-solid fa-circle'></i>
-					</Box>
-				)}
-			</Box>
-		);
-	};
-
 	const header = RenderHeader();
 
 	return (
@@ -415,17 +369,11 @@ const Emplist = () => {
 								header={col.header}
 							/>
 						))}
-						<Column
-							header='Status'
-							body={StatusTemplate}
-							bodyStyle={{ textAlign: 'center' }}
-							style={{ width: '14%' }}
-						/>
+
 						<Column
 							header='Action'
 							body={ActionTemplate}
 							bodyStyle={{ textAlign: 'center' }}
-							style={{ width: '14%' }}
 						/>
 					</DataTable>
 					{/* pegination */}

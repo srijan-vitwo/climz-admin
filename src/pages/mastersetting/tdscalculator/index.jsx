@@ -30,8 +30,8 @@ const TDSCalculator = () => {
 						bg: 'claimzMainGeadientColor',
 					},
 				}}>
-				<Tab>Travel Master Setting</Tab>
-				<Tab>Travel Limit Setting</Tab>
+				<Tab>Pending Declaration</Tab>
+				<Tab>TDS Calculation</Tab>
 			</TabList>
 			<TabIndicator
 				mt='-2.5px'

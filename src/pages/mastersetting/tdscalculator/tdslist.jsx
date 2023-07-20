@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
 	Box,
-	Button,
-	Input,
-	useToast,
-	useDisclosure,
 	Image,
 	Table,
 	Thead,
@@ -12,46 +8,43 @@ import {
 	Tr,
 	Td,
 	Th,
+	Button,
+	Text,
+	Drawer,
+	DrawerBody,
+	DrawerHeader,
+	DrawerOverlay,
+	DrawerContent,
+	DrawerCloseButton,
+	useDisclosure,
+	useToast,
+	Input,
 } from '@chakra-ui/react';
-import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../../../assets/images/loader.gif';
-import Tdsform from './tdsform';
 
 const TdsList = () => {
 	const navigate = useNavigate();
 	const token = localStorage.getItem('token');
 	const [loader, setLoader] = useState(false);
-	const [sucess, setsucess] = useState();
+	const [formDetails, setFormDetails] = useState();
 	const [products, setProducts] = useState();
-	const [isLoading, setIsLoading] = useState(false);
-	const [filters, setFilters] = useState({
-		global: { value: null, matchMode: FilterMatchMode.CONTAINS },
-		name: {
-			operator: FilterOperator.AND,
-			constraints: [
-				{ value: null, matchMode: FilterMatchMode.STARTS_WITH },
-			],
-		},
-		'country.name': {
-			operator: FilterOperator.AND,
-			constraints: [
-				{ value: null, matchMode: FilterMatchMode.STARTS_WITH },
-			],
-		},
-		representative: { value: null, matchMode: FilterMatchMode.IN },
-		status: {
-			operator: FilterOperator.OR,
-			constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }],
-		},
-	});
 
 	useEffect(() => {
 		const departmentList = async () => {
 			try {
 				setLoader(true);
 				const response1 = await fetch(
-					`${process.env.REACT_APP_API_URL}/pending-declaration-list`,
+					`${process.env.REACT_APP_API_URL}/declaration-list`,
+					{
+						method: 'GET',
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					}
+				);
+				const response2 = await fetch(
+					`${process.env.REACT_APP_API_URL}/all-exempt`,
 					{
 						method: 'GET',
 						headers: {
@@ -62,8 +55,10 @@ const TdsList = () => {
 
 				if (response1.ok) {
 					const data1 = await response1.json();
+					const data2 = await response2.json();
 
 					setProducts(data1.data);
+					setFormDetails(data2.data);
 
 					setLoader(false);
 				} else {
@@ -75,129 +70,144 @@ const TdsList = () => {
 		};
 
 		departmentList();
-	}, [sucess]);
-
-	const statusBodyTemplate = (rowData) => {
-		return <h1>O</h1>;
-	};
-
-	const onGlobalFilterChange = (event) => {
-		const value = event.target.value;
-		let _filters = { ...filters };
-
-		_filters['global'].value = value;
-
-		setFilters(_filters);
-	};
-
-	const renderHeader = () => {
-		const value = filters['global'] ? filters['global'].value : '';
-
-		return (
-			<Box
-				display='flex'
-				justifyContent='space-between'
-				alignItems='center'>
-				<Box
-					as='span'
-					className='p-input-icon-left'
-					display='flex'
-					alignItems='center'>
-					<i style={{ lineHeight: 1.5 }} className='pi pi-search' />
-					<Input
-						pl='24px'
-						type='search'
-						value={value || ''}
-						onChange={(e) => onGlobalFilterChange(e)}
-						placeholder='Global Search'
-						w='450px'
-					/>
-				</Box>
-				<Box>
-					<Button
-						bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-						boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-						borderRadius='10px'
-						p='20px'
-						fontSize='1.6rem'
-						color='white'
-						_hover={{
-							bgGradient:
-								'linear(180deg, #2267A2 0%, #0D4675 100%)',
-						}}
-						_active={{
-							bgGradient:
-								'linear(180deg, #2267A2 0%, #0D4675 100%)',
-						}}
-						_focus={{
-							bgGradient:
-								'linear(180deg, #2267A2 0%, #0D4675 100%)',
-						}}
-						onClick={() =>
-							navigate('/master-setting/add-department')
-						}>
-						Add Department
-					</Button>
-				</Box>
-			</Box>
-		);
-	};
-
-	const header = renderHeader();
+	}, []);
 
 	const ActionTemplate = (rowData) => {
-		const toast = useToast();
-		const [departmentName, setDepartmentName] = useState(
-			rowData.department.department_name
-		);
-		const [hod, setHod] = useState(rowData.department.hod);
-		const [id, setId] = useState(rowData.department.id);
 		const { isOpen, onOpen, onClose } = useDisclosure();
 
-		function toastCall() {
-			return toast({
-				title: 'Employee Department Updated Sucessfully',
-				status: 'success',
-				duration: 3000,
-				isClosable: true,
-			});
-		}
+		// const tierUpdate = async (e) => {
+		// 	e.preventDefault();
+		// 	let formData = new FormData();
+		// 	formData.append('department_name', departmentName);
+		// 	formData.append('hod', hod);
+		// 	formData.append('id', id);
 
-		const tierUpdate = async (e) => {
-			e.preventDefault();
-			let formData = new FormData();
-			formData.append('department_name', departmentName);
-			formData.append('hod', hod);
-			formData.append('id', id);
+		// 	try {
+		// 		setIsLoading(true);
+		// 		const response2 = await fetch(
+		// 			`${process.env.REACT_APP_API_URL}/department-update`,
+		// 			{
+		// 				method: 'POST',
+		// 				body: formData,
+		// 				headers: {
+		// 					Authorization: `Bearer ${token}`,
+		// 				},
+		// 			}
+		// 		);
 
-			try {
-				setIsLoading(true);
-				const response2 = await fetch(
-					`${process.env.REACT_APP_API_URL}/department-update`,
-					{
-						method: 'POST',
-						body: formData,
-						headers: {
-							Authorization: `Bearer ${token}`,
-						},
-					}
-				);
+		// 		if (response2.ok) {
+		// 			toastCall();
+		// 			setsucess(!sucess);
+		// 		} else {
+		// 			navigate('/login');
+		// 		}
+		// 	} catch (error) {
+		// 		navigate('/login');
+		// 	}
+		// };
 
-				if (response2.ok) {
-					toastCall();
-					setsucess(!sucess);
-				} else {
-					navigate('/login');
-				}
-			} catch (error) {
-				navigate('/login');
-			}
-		};
+		return (
+			<>
+				<Button
+					onClick={onOpen}
+					bg='none'
+					_hover={{ bg: 'none' }}
+					_active={{ bg: 'none' }}>
+					<i className='fa-solid fa-eye fa-2x'></i>
+				</Button>
+				<Drawer
+					isOpen={isOpen}
+					placement='right'
+					onClose={onClose}
+					size='xl'>
+					<DrawerOverlay />
+					<DrawerContent
+						maxW='50% !important'
+						bgGradient='linear(180deg, #DCF9FF 0%, #FFFFFF 100%)'>
+						<DrawerCloseButton size='lg' />
+						<DrawerHeader pt='28px'>
+							<Box
+								borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
+								width='400px'
+								pb='10px'
+								mb='15px'>
+								<Text
+									background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
+									backgroundClip='text'
+									fontWeight='700'
+									fontSize='28px'
+									lineHeight='36px'>
+									TDS Value Declaration
+								</Text>
+							</Box>
+						</DrawerHeader>
 
-		return <Tdsform />;
+						<DrawerBody>
+							<Box
+								background='white'
+								border='1px dashed #CECECE'
+								boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
+								borderRadius='6px'
+								padding='15px 10px'>
+								<Box
+									display='flex'
+									justifyContent='space-between'
+									borderBottom='1px dashed #CECECE'
+									pb='5px'
+									mb='1px'>
+									<Text fontSize='1.7rem' fontWeight='600'>
+										Particulars
+									</Text>
+									<Text fontSize='1.7rem' fontWeight='600'>
+										Value
+									</Text>
+								</Box>
+								{formDetails?.map((data, index) => {
+									return (
+										<Box
+											key={index}
+											display='flex'
+											justifyContent='space-between'
+											pt='15px'
+											pb='5px'
+											mb='1px'>
+											<Box>
+												<Text mb='5px'>
+													{data.exampt}
+												</Text>
+											</Box>
+											<Box>
+												<Input type='text' />
+											</Box>
+										</Box>
+									);
+								})}
+
+								<Box
+									display='flex'
+									justifyContent='space-between'
+									borderTop='1px dashed #CECECE'
+									pt='5px'>
+									<Box>
+										<Text mb='5px' fontWeight='600'>
+											CTC
+										</Text>
+									</Box>
+									<Box>
+										<Text mb='5px' fontWeight='600'>
+											1500000
+										</Text>
+									</Box>
+								</Box>
+							</Box>
+						</DrawerBody>
+					</DrawerContent>
+				</Drawer>
+			</>
+		);
 	};
 
-	console.log(products, 'products');
+	console.log(formDetails, 'setFormDetails');
 
 	return (
 		<>
@@ -223,14 +233,31 @@ const TdsList = () => {
 								fontSize='1.5rem'
 								fontWeight='600'
 								color='white'>
-								emp_id
+								EMP CODE
 							</Th>
 							<Th
 								p='15px'
 								fontSize='1.5rem'
 								fontWeight='600'
-								color='white'>
-								emp_code
+								color='white'
+								textAlign='center'>
+								EMP Name
+							</Th>
+							<Th
+								p='15px'
+								fontSize='1.5rem'
+								fontWeight='600'
+								color='white'
+								textAlign='center'>
+								CTC
+							</Th>
+							<Th
+								p='15px'
+								fontSize='1.5rem'
+								fontWeight='600'
+								color='white'
+								textAlign='center'>
+								Declaration
 							</Th>
 						</Tr>
 					</Thead>
@@ -238,9 +265,17 @@ const TdsList = () => {
 						{products?.map((section, index) => (
 							<React.Fragment key={index}>
 								<Tr key={section?.list[0].id}>
-									<Td p='15px'>{section?.list[0].id}</Td>
 									<Td p='15px'>
 										{section?.list[0].emp_code}
+									</Td>
+									<Td p='15px' textAlign='center'>
+										{section?.list[0].emp_name}
+									</Td>
+									<Td p='15px' textAlign='center'>
+										{section?.ctc}
+									</Td>
+									<Td p='15px' textAlign='center'>
+										<ActionTemplate rowData={section} />
 									</Td>
 								</Tr>
 							</React.Fragment>

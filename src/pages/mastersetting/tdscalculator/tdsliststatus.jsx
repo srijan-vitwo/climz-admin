@@ -2,12 +2,6 @@ import React, { useEffect, useState } from 'react';
 import {
 	Box,
 	Image,
-	Table,
-	Thead,
-	Tbody,
-	Tr,
-	Td,
-	Th,
 	Button,
 	Text,
 	Drawer,
@@ -17,7 +11,12 @@ import {
 	DrawerContent,
 	DrawerCloseButton,
 	useDisclosure,
-	useToast,
+	Table,
+	Thead,
+	Tbody,
+	Th,
+	Tr,
+	Td,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../../../assets/images/loader.gif';
@@ -28,7 +27,6 @@ const TDSListStatus = () => {
 	const [loader, setLoader] = useState(false);
 	const [sucess, setsucess] = useState();
 	const [products, setProducts] = useState();
-	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
 		const departmentList = async () => {
@@ -61,56 +59,88 @@ const TDSListStatus = () => {
 		departmentList();
 	}, [sucess]);
 
-	const ActionTemplate = (rowData) => {
+	const ActionTemplate = ({ ctc, list }) => {
 		const { isOpen, onOpen, onClose } = useDisclosure();
-		// const toast = useToast();
-		// const [departmentName, setDepartmentName] = useState(
-		// 	rowData.department.department_name
-		// );
-		// const [hod, setHod] = useState(rowData.department.hod);
-		// const [id, setId] = useState(rowData.department.id);
-		// const { isOpen, onOpen, onClose } = useDisclosure();
+		console.log(ctc, 'ctc');
+		console.log(list, 'list');
 
-		// function toastCall() {
-		// 	return toast({
-		// 		title: 'Employee Department Updated Sucessfully',
-		// 		status: 'success',
-		// 		duration: 3000,
-		// 		isClosable: true,
-		// 	});
-		// }
+		const groupOne = list?.filter((item) => item.group_id == 1);
+		const groupTwo = list?.filter((item) => item.group_id == 2);
+		const grouptTree = list?.filter((item) => item.group_id == 3);
+		const groupFour = list?.filter((item) => item.group_id == 4);
+		const groupfive = list?.filter((item) => item.group_id == 5);
 
-		// const tierUpdate = async (e) => {
-		// 	e.preventDefault();
-		// 	let formData = new FormData();
-		// 	formData.append('department_name', departmentName);
-		// 	formData.append('hod', hod);
-		// 	formData.append('id', id);
+		// Grouping declarations by type_id
+		const groupedDeclarationsOne = groupOne?.reduce((acc, declaration) => {
+			const typeId = declaration.type_id;
+			if (acc[typeId]) {
+				acc[typeId].push(declaration);
+			} else {
+				acc[typeId] = [declaration];
+			}
+			return acc;
+		}, {});
 
-		// 	try {
-		// 		setIsLoading(true);
-		// 		const response2 = await fetch(
-		// 			`${process.env.REACT_APP_API_URL}/department-update`,
-		// 			{
-		// 				method: 'POST',
-		// 				body: formData,
-		// 				headers: {
-		// 					Authorization: `Bearer ${token}`,
-		// 				},
-		// 			}
-		// 		);
+		const groupedDeclarationsTwo = groupTwo?.reduce((acc, declaration) => {
+			const typeId = declaration.type_id;
+			if (acc[typeId]) {
+				acc[typeId].push(declaration);
+			} else {
+				acc[typeId] = [declaration];
+			}
+			return acc;
+		}, {});
 
-		// 		if (response2.ok) {
-		// 			toastCall();
-		// 			setsucess(!sucess);
-		// 		} else {
-		// 			navigate('/login');
-		// 		}
-		// 	} catch (error) {
-		// 		navigate('/login');
-		// 	}
-		// };
-		console.log(rowData, 'rowData');
+		const groupedDeclarationsThree = grouptTree?.reduce(
+			(acc, declaration) => {
+				const typeId = declaration.type_id;
+				if (acc[typeId]) {
+					acc[typeId].push(declaration);
+				} else {
+					acc[typeId] = [declaration];
+				}
+				return acc;
+			},
+			{}
+		);
+
+		const groupedDeclarationsFour = groupFour?.reduce(
+			(acc, declaration) => {
+				const typeId = declaration.type_id;
+				if (acc[typeId]) {
+					acc[typeId].push(declaration);
+				} else {
+					acc[typeId] = [declaration];
+				}
+				return acc;
+			},
+			{}
+		);
+
+		const groupedDeclarationsFive = groupfive?.reduce(
+			(acc, declaration) => {
+				const typeId = declaration.type_id;
+				if (acc[typeId]) {
+					acc[typeId].push(declaration);
+				} else {
+					acc[typeId] = [declaration];
+				}
+				return acc;
+			},
+			{}
+		);
+
+		const nestedArrayOne = Object.values(groupedDeclarationsOne);
+		const nestedArrayTwo = Object.values(groupedDeclarationsTwo);
+		const nestedArrayThree = Object.values(groupedDeclarationsThree);
+		const nestedArrayFour = Object.values(groupedDeclarationsFour);
+		const nestedArrayFive = Object.values(groupedDeclarationsFive);
+
+		console.log(nestedArrayOne, 'nestedArrayOne');
+		console.log(nestedArrayTwo, 'nestedArrayTwo');
+		console.log(nestedArrayThree, 'nestedArrayThree');
+		console.log(nestedArrayFour, 'nestedArrayFour');
+		console.log(nestedArrayFive, 'nestedArrayFive');
 
 		return (
 			<>
@@ -149,131 +179,7 @@ const TDSListStatus = () => {
 						</DrawerHeader>
 
 						<DrawerBody>
-							<Box
-								background='white'
-								border='1px dashed #CECECE'
-								boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
-								borderRadius='6px'
-								padding='15px 10px'>
-								<Box
-									display='flex'
-									justifyContent='space-between'
-									borderBottom='1px dashed #CECECE'
-									pb='5px'
-									mb='1px'>
-									<Text fontSize='1.7rem' fontWeight='600'>
-										Particulars
-									</Text>
-									<Text fontSize='1.7rem' fontWeight='600'>
-										Value
-									</Text>
-								</Box>
-								<Box
-									display='flex'
-									justifyContent='space-between'
-									borderTop='1px dashed #CECECE'
-									pt='15px'
-									borderBottom='1px dashed #CECECE'
-									pb='5px'
-									mb='1px'>
-									<Box>
-										<Text mb='5px'>
-											Salary as per provisions contained
-											in section 17(1)
-										</Text>
-										<Text mb='5px'>
-											Value of perquisites under section
-											17(2)
-										</Text>
-										<Text mb='5px'>
-											Profits in lieu of salary under
-											section 17(3)
-										</Text>
-									</Box>
-									<Box>
-										<Text mb='5px' fontWeight='600'>
-											1500000
-										</Text>
-									</Box>
-								</Box>
-								<Box
-									display='flex'
-									justifyContent='space-between'
-									borderTop='1px dashed #CECECE'
-									pt='5px'>
-									<Box>
-										<Text mb='5px' fontWeight='600'>
-											CTC
-										</Text>
-									</Box>
-									<Box>
-										<Text mb='5px' fontWeight='600'>
-											1500000
-										</Text>
-									</Box>
-								</Box>
-
-								<Box
-									display='flex'
-									justifyContent='space-between'
-									borderTop='1px dashed #CECECE'
-									pt='15px'
-									borderBottom='1px dashed #CECECE'
-									pb='5px'
-									mb='1px'>
-									<Box>
-										<Text mb='5px'>
-											Cash equivalent of leave salary
-											encashment under section 10(10AA)
-										</Text>
-										<Text mb='5px'>
-											House rent allowance under section
-											10(13A)
-										</Text>
-										<Text mb='5px'>
-											Standard deduction under section
-											16(ia)
-										</Text>
-										<Text mb='5px'>
-											Entertainment allowance under
-											section 16(ii)
-										</Text>
-										<Text mb='5px'>
-											Tax on employment under section
-											16(iii)
-										</Text>
-									</Box>
-									<Box>
-										<Text mb='5px' fontWeight='600'></Text>
-										<Text mb='5px' fontWeight='600'>
-											-165000
-										</Text>
-										<Text mb='5px' fontWeight='600'>
-											-50000
-										</Text>
-										<Text mb='5px' fontWeight='600'></Text>
-										<Text mb='5px' fontWeight='600'>
-											-2400
-										</Text>
-									</Box>
-								</Box>
-								<Box
-									display='flex'
-									justifyContent='space-between'
-									borderTop='1px dashed #CECECE'
-									pt='5px'>
-									<Box>
-										<Text mb='5px' fontWeight='600'>
-											CTC
-										</Text>
-									</Box>
-									<Box>
-										<Text mb='5px' fontWeight='600'>
-											1500000
-										</Text>
-									</Box>
-								</Box>
-							</Box>
+							<h2>s</h2>
 						</DrawerBody>
 					</DrawerContent>
 				</Drawer>
@@ -305,7 +211,7 @@ const TDSListStatus = () => {
 								fontSize='1.5rem'
 								fontWeight='600'
 								color='white'>
-								EMP ID
+								EMP CODE
 							</Th>
 							<Th
 								p='15px'
@@ -313,7 +219,7 @@ const TDSListStatus = () => {
 								fontWeight='600'
 								color='white'
 								textAlign='center'>
-								EMP CODE
+								EMP Name
 							</Th>
 							<Th
 								p='15px'
@@ -347,7 +253,10 @@ const TDSListStatus = () => {
 										{section?.ctc}
 									</Td>
 									<Td p='15px' textAlign='center'>
-										<ActionTemplate rowData={section} />
+										<ActionTemplate
+											ctc={section?.ctc}
+											list={section.list}
+										/>
 									</Td>
 								</Tr>
 							</React.Fragment>

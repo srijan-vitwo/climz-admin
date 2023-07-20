@@ -14,77 +14,8 @@ import {
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
-const Tdsform = ({ rowData }) => {
-	const navigate = useNavigate();
-	const token = localStorage.getItem('token');
-	const toast = useToast();
-	const [msg, setMsg] = useState();
-	const [inputs, setInputs] = useState([]);
-	const [departmentId, setDepartmentId] = useState();
-	const [isLoading, setIsLoading] = useState(false);
-	const [flag, setFlag] = useState(false);
+const Tdsform = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-
-	function toastCall() {
-		return toast({
-			title: 'Cost Center Added Sucessfully',
-			status: 'success',
-			duration: 3000,
-			isClosable: true,
-		});
-	}
-
-	function handleChange(index, event) {
-		const values = [...inputs];
-		values[index] = event.target.value;
-		setInputs(values);
-	}
-
-	function handleAddInput() {
-		const values = [...inputs];
-		values.push('');
-		setInputs(values);
-		setFlag(true);
-		setDepartmentId(rowData.department.id);
-	}
-
-	function handleRemoveInput(index) {
-		const values = [...inputs];
-		values.splice(index, 1);
-		setInputs(values);
-		setFlag(false);
-	}
-
-	const addCostCenter = async (e) => {
-		e.preventDefault();
-		let formData = new FormData();
-		formData.append('department_id', departmentId);
-		formData.append('cost_center_name', inputs);
-
-		try {
-			setIsLoading(true);
-			const response = await fetch(
-				`${process.env.REACT_APP_API_URL}/cost-center-post/${departmentId}`,
-				{
-					method: 'POST',
-					body: formData,
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-				}
-			);
-
-			if (response.ok) {
-				toastCall();
-				setMsg(!msg);
-				setIsLoading(false);
-			} else {
-				navigate('/login');
-			}
-		} catch (error) {
-			navigate('/login');
-		}
-	};
 
 	return (
 		<>
