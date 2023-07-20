@@ -17,7 +17,6 @@ import {
 	DrawerContent,
 	DrawerCloseButton,
 	useDisclosure,
-	useToast,
 	Input,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
@@ -27,7 +26,6 @@ const TdsList = () => {
 	const navigate = useNavigate();
 	const token = localStorage.getItem('token');
 	const [loader, setLoader] = useState(false);
-	const [formDetails, setFormDetails] = useState();
 	const [products, setProducts] = useState();
 
 	useEffect(() => {
@@ -43,23 +41,10 @@ const TdsList = () => {
 						},
 					}
 				);
-				const response2 = await fetch(
-					`${process.env.REACT_APP_API_URL}/all-exempt`,
-					{
-						method: 'GET',
-						headers: {
-							Authorization: `Bearer ${token}`,
-						},
-					}
-				);
 
 				if (response1.ok) {
 					const data1 = await response1.json();
-					const data2 = await response2.json();
-
 					setProducts(data1.data);
-					setFormDetails(data2.data);
-
 					setLoader(false);
 				} else {
 					navigate('/login');
@@ -72,44 +57,40 @@ const TdsList = () => {
 		departmentList();
 	}, []);
 
-	const ActionTemplate = (rowData) => {
+	const ActionTemplate = ({ rowData }) => {
 		const { isOpen, onOpen, onClose } = useDisclosure();
+		const [formDetails, setFormDetails] = useState();
+		const userId = rowData?.list[0]?.user_id;
 
-		// const tierUpdate = async (e) => {
-		// 	e.preventDefault();
-		// 	let formData = new FormData();
-		// 	formData.append('department_name', departmentName);
-		// 	formData.append('hod', hod);
-		// 	formData.append('id', id);
+		const tierUpdate = async (e) => {
+			e.preventDefault();
+			onOpen();
+			try {
+				const response2 = await fetch(
+					`${process.env.REACT_APP_API_URL}/all-exempt/${userId}`,
+					{
+						method: 'GET',
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					}
+				);
 
-		// 	try {
-		// 		setIsLoading(true);
-		// 		const response2 = await fetch(
-		// 			`${process.env.REACT_APP_API_URL}/department-update`,
-		// 			{
-		// 				method: 'POST',
-		// 				body: formData,
-		// 				headers: {
-		// 					Authorization: `Bearer ${token}`,
-		// 				},
-		// 			}
-		// 		);
-
-		// 		if (response2.ok) {
-		// 			toastCall();
-		// 			setsucess(!sucess);
-		// 		} else {
-		// 			navigate('/login');
-		// 		}
-		// 	} catch (error) {
-		// 		navigate('/login');
-		// 	}
-		// };
+				if (response2.ok) {
+					const data2 = await response2.json();
+					setFormDetails(data2.data);
+				} else {
+					navigate('/login');
+				}
+			} catch (error) {
+				navigate('/login');
+			}
+		};
 
 		return (
 			<>
 				<Button
-					onClick={onOpen}
+					onClick={tierUpdate}
 					bg='none'
 					_hover={{ bg: 'none' }}
 					_active={{ bg: 'none' }}>
@@ -177,7 +158,10 @@ const TdsList = () => {
 												</Text>
 											</Box>
 											<Box>
-												<Input type='text' />
+												<Input
+													type='text'
+													value={data?.earnings}
+												/>
 											</Box>
 										</Box>
 									);
@@ -206,8 +190,6 @@ const TdsList = () => {
 			</>
 		);
 	};
-
-	console.log(formDetails, 'setFormDetails');
 
 	return (
 		<>

@@ -17,6 +17,12 @@ import {
 	Th,
 	Tr,
 	Td,
+	Tabs,
+	TabList,
+	TabPanels,
+	Tab,
+	TabPanel,
+	TabIndicator,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../../../assets/images/loader.gif';
@@ -25,7 +31,6 @@ const TDSListStatus = () => {
 	const navigate = useNavigate();
 	const token = localStorage.getItem('token');
 	const [loader, setLoader] = useState(false);
-	const [sucess, setsucess] = useState();
 	const [products, setProducts] = useState();
 
 	useEffect(() => {
@@ -57,18 +62,18 @@ const TDSListStatus = () => {
 		};
 
 		departmentList();
-	}, [sucess]);
+	}, []);
 
-	const ActionTemplate = ({ ctc, list }) => {
+	const ActionTemplate = ({ list }) => {
 		const { isOpen, onOpen, onClose } = useDisclosure();
-		console.log(ctc, 'ctc');
-		console.log(list, 'list');
 
 		const groupOne = list?.filter((item) => item.group_id == 1);
 		const groupTwo = list?.filter((item) => item.group_id == 2);
 		const grouptTree = list?.filter((item) => item.group_id == 3);
 		const groupFour = list?.filter((item) => item.group_id == 4);
 		const groupfive = list?.filter((item) => item.group_id == 5);
+		const groupNamesArray = list.map((item) => item.group_name);
+		const uniqueData = [...new Set(groupNamesArray)];
 
 		// Grouping declarations by type_id
 		const groupedDeclarationsOne = groupOne?.reduce((acc, declaration) => {
@@ -136,11 +141,24 @@ const TDSListStatus = () => {
 		const nestedArrayFour = Object.values(groupedDeclarationsFour);
 		const nestedArrayFive = Object.values(groupedDeclarationsFive);
 
+		const typeNamesArrayOne = nestedArrayOne.map((set) => set[0].type_name);
+		const typeNamesArrayTwo = nestedArrayTwo.map((set) => set[0].type_name);
+		const typeNamesArrayThree = nestedArrayThree.map(
+			(set) => set[0].type_name
+		);
+		const typeNamesArrayFour = nestedArrayFour.map(
+			(set) => set[0].type_name
+		);
+		const typeNamesArrayFive = nestedArrayFive.map(
+			(set) => set[0].type_name
+		);
+
+		// const typeNameOne = [...new Set(nestedArrayOneType)];
+		// console.log(nestedArrayOne, 'nestedArrayOne');
+		// console.log(nestedArrayTwo, 'nestedArrayTwo');
+		// console.log(nestedArrayThree, 'nestedArrayThree');
+		// console.log(nestedArrayFour, 'nestedArrayFour');
 		console.log(nestedArrayOne, 'nestedArrayOne');
-		console.log(nestedArrayTwo, 'nestedArrayTwo');
-		console.log(nestedArrayThree, 'nestedArrayThree');
-		console.log(nestedArrayFour, 'nestedArrayFour');
-		console.log(nestedArrayFive, 'nestedArrayFive');
 
 		return (
 			<>
@@ -179,7 +197,324 @@ const TDSListStatus = () => {
 						</DrawerHeader>
 
 						<DrawerBody>
-							<h2>s</h2>
+							<Tabs position='relative' variant='unstyled'>
+								<TabList
+									sx={{
+										'& .chakra-tabs__tab': {
+											borderRadius: '15px 15px 0px 0px',
+											color: 'claimzTextBlueLightColor',
+											fontSize: '1.6rem',
+											fontWeight: '700',
+											pb: '10px',
+											pt: '10px',
+										},
+										'& .chakra-tabs__tab[aria-selected=true]':
+											{
+												borderRadius:
+													'15px 15px 0px 0px',
+												color: 'white',
+												bg: 'claimzMainGeadientColor',
+											},
+									}}>
+									{uniqueData.map((groupName, index) => (
+										<Tab key={index}>{groupName}</Tab>
+									))}
+								</TabList>
+								<TabIndicator
+									mt='-2.5px'
+									height='3px'
+									bg='claimzTextBlueLightColor'
+									borderRadius='1px'
+								/>
+								<TabPanels>
+									<TabPanel p='0px 0px 0px'>
+										<Box
+											background='white'
+											border='1px solid #CECECE'
+											boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
+											borderRadius='0px 0px 6px 6px'
+											padding='0px'>
+											<Tabs
+												position='relative'
+												variant='unstyled'>
+												<TabList
+													sx={{
+														'& .chakra-tabs__tab': {
+															color: 'claimzTextBlueLightColor',
+															fontSize: '1.6rem',
+															fontWeight: '700',
+															pb: '10px',
+															pt: '10px',
+														},
+														'& .chakra-tabs__tab[aria-selected=true]':
+															{
+																color: 'white',
+																bg: 'claimzMainGeadientColor',
+															},
+													}}>
+													{typeNamesArrayOne.map(
+														(groupName, index) => (
+															<Tab key={index}>
+																{groupName}
+															</Tab>
+														)
+													)}
+												</TabList>
+												<TabIndicator
+													mt='-2.5px'
+													height='3px'
+													bg='claimzTextBlueLightColor'
+													borderRadius='1px'
+												/>
+												<TabPanels>
+													<TabPanel p='0px 0px 0px'>
+														<Box
+															background='white'
+															border='1px solid #CECECE'
+															boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
+															borderRadius='0px 0px 6px 6px'
+															padding='0px'>
+															4
+														</Box>
+													</TabPanel>
+												</TabPanels>
+											</Tabs>
+										</Box>
+									</TabPanel>
+									<TabPanel p='0px 0px 0px'>
+										<Box
+											background='white'
+											border='1px solid #CECECE'
+											boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
+											borderRadius='0px 0px 6px 6px'
+											padding='0px'>
+											<Tabs
+												position='relative'
+												variant='unstyled'>
+												<TabList
+													sx={{
+														'& .chakra-tabs__tab': {
+															borderRadius:
+																'15px 15px 0px 0px',
+															color: 'claimzTextBlueLightColor',
+															fontSize: '1.6rem',
+															fontWeight: '700',
+															pb: '10px',
+															pt: '10px',
+														},
+														'& .chakra-tabs__tab[aria-selected=true]':
+															{
+																borderRadius:
+																	'15px 15px 0px 0px',
+																color: 'white',
+																bg: 'claimzMainGeadientColor',
+															},
+													}}>
+													{typeNamesArrayTwo.map(
+														(groupName, index) => (
+															<Tab key={index}>
+																{groupName}
+															</Tab>
+														)
+													)}
+												</TabList>
+												<TabIndicator
+													mt='-2.5px'
+													height='3px'
+													bg='claimzTextBlueLightColor'
+													borderRadius='1px'
+												/>
+												<TabPanels>
+													<TabPanel p='0px 0px 0px'>
+														<Box
+															background='white'
+															border='1px solid #CECECE'
+															boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
+															borderRadius='0px 0px 6px 6px'
+															padding='0px'>
+															4
+														</Box>
+													</TabPanel>
+												</TabPanels>
+											</Tabs>
+										</Box>
+									</TabPanel>
+									<TabPanel p='0px 0px 0px'>
+										<Box
+											background='white'
+											border='1px solid #CECECE'
+											boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
+											borderRadius='0px 0px 6px 6px'
+											padding='0px'>
+											<Tabs
+												position='relative'
+												variant='unstyled'>
+												<TabList
+													sx={{
+														'& .chakra-tabs__tab': {
+															borderRadius:
+																'15px 15px 0px 0px',
+															color: 'claimzTextBlueLightColor',
+															fontSize: '1.6rem',
+															fontWeight: '700',
+															pb: '10px',
+															pt: '10px',
+														},
+														'& .chakra-tabs__tab[aria-selected=true]':
+															{
+																borderRadius:
+																	'15px 15px 0px 0px',
+																color: 'white',
+																bg: 'claimzMainGeadientColor',
+															},
+													}}>
+													{typeNamesArrayThree.map(
+														(groupName, index) => (
+															<Tab key={index}>
+																{groupName}
+															</Tab>
+														)
+													)}
+												</TabList>
+												<TabIndicator
+													mt='-2.5px'
+													height='3px'
+													bg='claimzTextBlueLightColor'
+													borderRadius='1px'
+												/>
+												<TabPanels>
+													<TabPanel p='0px 0px 0px'>
+														<Box
+															background='white'
+															border='1px solid #CECECE'
+															boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
+															borderRadius='0px 0px 6px 6px'
+															padding='0px'>
+															4
+														</Box>
+													</TabPanel>
+												</TabPanels>
+											</Tabs>
+										</Box>
+									</TabPanel>
+									<TabPanel p='0px 0px 0px'>
+										<Box
+											background='white'
+											border='1px solid #CECECE'
+											boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
+											borderRadius='0px 0px 6px 6px'
+											padding='0px'>
+											<Tabs
+												position='relative'
+												variant='unstyled'>
+												<TabList
+													sx={{
+														'& .chakra-tabs__tab': {
+															borderRadius:
+																'15px 15px 0px 0px',
+															color: 'claimzTextBlueLightColor',
+															fontSize: '1.6rem',
+															fontWeight: '700',
+															pb: '10px',
+															pt: '10px',
+														},
+														'& .chakra-tabs__tab[aria-selected=true]':
+															{
+																borderRadius:
+																	'15px 15px 0px 0px',
+																color: 'white',
+																bg: 'claimzMainGeadientColor',
+															},
+													}}>
+													{typeNamesArrayFour.map(
+														(groupName, index) => (
+															<Tab key={index}>
+																{groupName}
+															</Tab>
+														)
+													)}
+												</TabList>
+												<TabIndicator
+													mt='-2.5px'
+													height='3px'
+													bg='claimzTextBlueLightColor'
+													borderRadius='1px'
+												/>
+												<TabPanels>
+													<TabPanel p='0px 0px 0px'>
+														<Box
+															background='white'
+															border='1px solid #CECECE'
+															boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
+															borderRadius='0px 0px 6px 6px'
+															padding='0px'>
+															4
+														</Box>
+													</TabPanel>
+												</TabPanels>
+											</Tabs>
+										</Box>
+									</TabPanel>
+									<TabPanel p='0px 0px 0px'>
+										<Box
+											background='white'
+											border='1px solid #CECECE'
+											boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
+											borderRadius='0px 0px 6px 6px'
+											padding='0px'>
+											<Tabs
+												position='relative'
+												variant='unstyled'>
+												<TabList
+													sx={{
+														'& .chakra-tabs__tab': {
+															borderRadius:
+																'15px 15px 0px 0px',
+															color: 'claimzTextBlueLightColor',
+															fontSize: '1.6rem',
+															fontWeight: '700',
+															pb: '10px',
+															pt: '10px',
+														},
+														'& .chakra-tabs__tab[aria-selected=true]':
+															{
+																borderRadius:
+																	'15px 15px 0px 0px',
+																color: 'white',
+																bg: 'claimzMainGeadientColor',
+															},
+													}}>
+													{typeNamesArrayFive.map(
+														(groupName, index) => (
+															<Tab key={index}>
+																{groupName}
+															</Tab>
+														)
+													)}
+												</TabList>
+												<TabIndicator
+													mt='-2.5px'
+													height='3px'
+													bg='claimzTextBlueLightColor'
+													borderRadius='1px'
+												/>
+												<TabPanels>
+													<TabPanel p='0px 0px 0px'>
+														<Box
+															background='white'
+															border='1px solid #CECECE'
+															boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
+															borderRadius='0px 0px 6px 6px'
+															padding='0px'>
+															4
+														</Box>
+													</TabPanel>
+												</TabPanels>
+											</Tabs>
+										</Box>
+									</TabPanel>
+								</TabPanels>
+							</Tabs>
 						</DrawerBody>
 					</DrawerContent>
 				</Drawer>
