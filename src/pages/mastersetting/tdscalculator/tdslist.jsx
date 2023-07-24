@@ -18,6 +18,7 @@ import {
 	DrawerCloseButton,
 	useDisclosure,
 	Input,
+	FormControl,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../../../assets/images/loader.gif';
@@ -59,7 +60,7 @@ const TdsList = () => {
 
 	const ActionTemplate = ({ rowData }) => {
 		const { isOpen, onOpen, onClose } = useDisclosure();
-		const [formDetails, setFormDetails] = useState();
+		const [earningComponents, setEarnignComponents] = useState([]);
 		const userId = rowData?.list[0]?.user_id;
 
 		const tierUpdate = async (e) => {
@@ -78,7 +79,7 @@ const TdsList = () => {
 
 				if (response2.ok) {
 					const data2 = await response2.json();
-					setFormDetails(data2.data);
+					setEarnignComponents(data2.data);
 				} else {
 					navigate('/login');
 				}
@@ -86,6 +87,76 @@ const TdsList = () => {
 				navigate('/login');
 			}
 		};
+
+		const handleEarningInputChange = (key, e) => {
+			const inputVal = e.target.value;
+			const earningComponentsObj = JSON.parse(
+				JSON.stringify(earningComponents)
+			);
+			earningComponentsObj[key].value = inputVal;
+
+			const findMyChildrenList = (mykey) => {
+				let childrenList = [];
+				Object.entries(earningComponentsObj).map(([index, row]) => {
+					if (row.percentage_of == mykey) {
+						childrenList.push(index);
+					}
+				});
+				return childrenList;
+			};
+
+			const updateMyChildrensInput = (key, childrenList) => {
+				childrenList.map((childrenKey) => {
+					const parentValue = earningComponentsObj[key].value;
+					earningComponentsObj[childrenKey].value = (
+						(parentValue *
+							earningComponentsObj[childrenKey].percentage) /
+						100
+					).toFixed(2);
+					earningComponentsObj[childrenKey].inputPercentage =
+						earningComponentsObj[childrenKey].percentage;
+					updateMyChildrensInput(
+						childrenKey,
+						findMyChildrenList(childrenKey)
+					);
+				});
+			};
+			updateMyChildrensInput(key, findMyChildrenList(key));
+			setEarnignComponents(earningComponentsObj);
+		};
+
+		// dynamic calculation earning components
+		const EarningDetails = Object.entries(earningComponents).map(
+			([key, data]) => {
+				return (
+					<Box
+						key={key}
+						display='flex'
+						justifyContent='space-between'
+						pt='15px'
+						pb='5px'
+						mb='1px'>
+						<Box>
+							<Text mb='5px'>{data.exampt}</Text>
+						</Box>
+						<Box>
+							<Input
+								type='number'
+								placeholder={data.salary_component}
+								name={data.salary_component}
+								value={data.value}
+								className='handleScroll'
+								onChange={(e) =>
+									handleEarningInputChange(key, e)
+								}
+							/>
+						</Box>
+					</Box>
+				);
+			}
+		);
+
+		console.log(earningComponents, 'earningComponents');
 
 		return (
 			<>
@@ -143,7 +214,7 @@ const TdsList = () => {
 										Value
 									</Text>
 								</Box>
-								{formDetails?.map((data, index) => {
+								{/* {formDetails?.map((data, index) => {
 									return (
 										<Box
 											key={index}
@@ -165,7 +236,8 @@ const TdsList = () => {
 											</Box>
 										</Box>
 									);
-								})}
+								})} */}
+								<Box>{EarningDetails}</Box>
 
 								<Box
 									display='flex'

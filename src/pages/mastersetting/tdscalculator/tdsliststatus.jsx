@@ -23,6 +23,7 @@ import {
 	Tab,
 	TabPanel,
 	TabIndicator,
+	useToast,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../../../assets/images/loader.gif';
@@ -32,6 +33,7 @@ const TDSListStatus = () => {
 	const token = localStorage.getItem('token');
 	const [loader, setLoader] = useState(false);
 	const [products, setProducts] = useState();
+	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
 		const departmentList = async () => {
@@ -62,11 +64,16 @@ const TDSListStatus = () => {
 		};
 
 		departmentList();
-	}, []);
+	}, [isLoading]);
 
 	const ActionTemplate = ({ list }) => {
+		console.log(list[0], 'list');
+		const toast = useToast();
 		const { isOpen, onOpen, onClose } = useDisclosure();
-
+		const [docNo, setDocNo] = useState(list[0].doc_no);
+		const [userId, setUserId] = useState(list[0].id);
+		const [approved, setApproved] = useState(2);
+		const [reject, setReject] = useState(3);
 		const groupOne = list?.filter((item) => item.group_id == 1);
 		const groupTwo = list?.filter((item) => item.group_id == 2);
 		const grouptTree = list?.filter((item) => item.group_id == 3);
@@ -74,6 +81,23 @@ const TDSListStatus = () => {
 		const groupfive = list?.filter((item) => item.group_id == 5);
 		const groupNamesArray = list.map((item) => item.group_name);
 		const uniqueData = [...new Set(groupNamesArray)];
+
+		function toastCall() {
+			return toast({
+				title: 'Business Location Added Sucessfully',
+				status: 'success',
+				duration: 3000,
+				isClosable: true,
+			});
+		}
+		function toastCallFaild() {
+			return toast({
+				title: 'Request Faild',
+				status: 'error',
+				duration: 3000,
+				isClosable: true,
+			});
+		}
 
 		// Grouping declarations by type_id
 		const groupedDeclarationsOne = groupOne?.reduce((acc, declaration) => {
@@ -141,24 +165,71 @@ const TDSListStatus = () => {
 		const nestedArrayFour = Object.values(groupedDeclarationsFour);
 		const nestedArrayFive = Object.values(groupedDeclarationsFive);
 
-		const typeNamesArrayOne = nestedArrayOne.map((set) => set[0].type_name);
-		const typeNamesArrayTwo = nestedArrayTwo.map((set) => set[0].type_name);
-		const typeNamesArrayThree = nestedArrayThree.map(
-			(set) => set[0].type_name
-		);
-		const typeNamesArrayFour = nestedArrayFour.map(
-			(set) => set[0].type_name
-		);
-		const typeNamesArrayFive = nestedArrayFive.map(
-			(set) => set[0].type_name
-		);
+		const approver = async (e) => {
+			e.preventDefault();
+			let formData = new FormData();
+			formData.append('doc_no', docNo);
+			formData.append('user_id', userId);
+			formData.append('status', approved);
 
-		// const typeNameOne = [...new Set(nestedArrayOneType)];
-		// console.log(nestedArrayOne, 'nestedArrayOne');
-		// console.log(nestedArrayTwo, 'nestedArrayTwo');
-		// console.log(nestedArrayThree, 'nestedArrayThree');
-		// console.log(nestedArrayFour, 'nestedArrayFour');
-		console.log(nestedArrayOne, 'nestedArrayOne');
+			try {
+				setIsLoading(true);
+				const response = await fetch(
+					`${process.env.REACT_APP_API_URL}/approve-declaration-list`,
+					{
+						method: 'POST',
+						body: formData,
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					}
+				);
+
+				if (response.ok) {
+					toastCall();
+					setIsLoading(false);
+				} else if (response.status === 400) {
+					toastCallFaild();
+				} else {
+					toastCallFaild();
+				}
+			} catch (error) {
+				navigate('/login');
+			}
+		};
+
+		const decline = async (e) => {
+			e.preventDefault();
+			let formData = new FormData();
+			formData.append('doc_no', docNo);
+			formData.append('user_id', userId);
+			formData.append('status', reject);
+
+			try {
+				setIsLoading(true);
+				const response = await fetch(
+					`${process.env.REACT_APP_API_URL}/approve-declaration-list`,
+					{
+						method: 'POST',
+						body: formData,
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					}
+				);
+
+				if (response.ok) {
+					toastCall();
+					setIsLoading(false);
+				} else if (response.status === 400) {
+					toastCallFaild();
+				} else {
+					toastCallFaild();
+				}
+			} catch (error) {
+				navigate('/login');
+			}
+		};
 
 		return (
 			<>
@@ -191,7 +262,7 @@ const TDSListStatus = () => {
 									fontWeight='700'
 									fontSize='28px'
 									lineHeight='36px'>
-									TDS Value Declaration
+									TDS Declaration Approver
 								</Text>
 							</Box>
 						</DrawerHeader>
@@ -201,6 +272,7 @@ const TDSListStatus = () => {
 								<TabList
 									sx={{
 										'& .chakra-tabs__tab': {
+											width: '100%',
 											borderRadius: '15px 15px 0px 0px',
 											color: 'claimzTextBlueLightColor',
 											fontSize: '1.6rem',
@@ -234,51 +306,79 @@ const TDSListStatus = () => {
 											boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
 											borderRadius='0px 0px 6px 6px'
 											padding='0px'>
-											<Tabs
-												position='relative'
-												variant='unstyled'>
-												<TabList
-													sx={{
-														'& .chakra-tabs__tab': {
-															color: 'claimzTextBlueLightColor',
-															fontSize: '1.6rem',
-															fontWeight: '700',
-															pb: '10px',
-															pt: '10px',
-														},
-														'& .chakra-tabs__tab[aria-selected=true]':
-															{
-																color: 'white',
-																bg: 'claimzMainGeadientColor',
-															},
-													}}>
-													{typeNamesArrayOne.map(
-														(groupName, index) => (
-															<Tab key={index}>
-																{groupName}
+											{nestedArrayOne?.map(
+												(category, index) => (
+													<Tabs
+														key={index}
+														position='relative'
+														variant='unstyled'>
+														<TabList
+															sx={{
+																'& .chakra-tabs__tab':
+																	{
+																		color: 'claimzTextBlueLightColor',
+																		fontSize:
+																			'1.6rem',
+																		fontWeight:
+																			'700',
+																		pb: '10px',
+																		pt: '10px',
+																		width: '100%',
+																	},
+																'& .chakra-tabs__tab[aria-selected=true]':
+																	{
+																		color: 'white',
+																		bg: 'claimzMainGeadientColor',
+																	},
+															}}>
+															<Tab>
+																{
+																	category[0]
+																		.type_name
+																}
 															</Tab>
-														)
-													)}
-												</TabList>
-												<TabIndicator
-													mt='-2.5px'
-													height='3px'
-													bg='claimzTextBlueLightColor'
-													borderRadius='1px'
-												/>
-												<TabPanels>
-													<TabPanel p='0px 0px 0px'>
-														<Box
-															background='white'
-															border='1px solid #CECECE'
-															boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
-															borderRadius='0px 0px 6px 6px'
-															padding='0px'>
-															4
-														</Box>
-													</TabPanel>
-												</TabPanels>
-											</Tabs>
+														</TabList>
+														<TabIndicator
+															mt='-2.5px'
+															height='3px'
+															bg='claimzTextBlueLightColor'
+															borderRadius='1px'
+														/>
+
+														<TabPanels>
+															<TabPanel p='0px 15px'>
+																{category.map(
+																	(
+																		declaration
+																	) => (
+																		<Box
+																			display='flex'
+																			justifyContent='space-between'
+																			alignItems='center'>
+																			<Box
+																				background='white'
+																				padding='0px'
+																				m='15px 0px'
+																				key={
+																					declaration.declaration_id
+																				}>
+																				{
+																					declaration.declaration_name
+																				}
+																			</Box>
+																			<Box fontWeight='600'>
+																				{
+																					declaration.amount
+																				}
+																			</Box>
+																		</Box>
+																	)
+																)}
+															</TabPanel>
+														</TabPanels>
+													</Tabs>
+												)
+											)}
 										</Box>
 									</TabPanel>
 									<TabPanel p='0px 0px 0px'>
@@ -288,55 +388,79 @@ const TDSListStatus = () => {
 											boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
 											borderRadius='0px 0px 6px 6px'
 											padding='0px'>
-											<Tabs
-												position='relative'
-												variant='unstyled'>
-												<TabList
-													sx={{
-														'& .chakra-tabs__tab': {
-															borderRadius:
-																'15px 15px 0px 0px',
-															color: 'claimzTextBlueLightColor',
-															fontSize: '1.6rem',
-															fontWeight: '700',
-															pb: '10px',
-															pt: '10px',
-														},
-														'& .chakra-tabs__tab[aria-selected=true]':
-															{
-																borderRadius:
-																	'15px 15px 0px 0px',
-																color: 'white',
-																bg: 'claimzMainGeadientColor',
-															},
-													}}>
-													{typeNamesArrayTwo.map(
-														(groupName, index) => (
-															<Tab key={index}>
-																{groupName}
+											{nestedArrayTwo?.map(
+												(category, index) => (
+													<Tabs
+														key={index}
+														position='relative'
+														variant='unstyled'>
+														<TabList
+															sx={{
+																'& .chakra-tabs__tab':
+																	{
+																		color: 'claimzTextBlueLightColor',
+																		fontSize:
+																			'1.6rem',
+																		fontWeight:
+																			'700',
+																		pb: '10px',
+																		pt: '10px',
+																		width: '100%',
+																	},
+																'& .chakra-tabs__tab[aria-selected=true]':
+																	{
+																		color: 'white',
+																		bg: 'claimzMainGeadientColor',
+																	},
+															}}>
+															<Tab>
+																{
+																	category[0]
+																		.type_name
+																}
 															</Tab>
-														)
-													)}
-												</TabList>
-												<TabIndicator
-													mt='-2.5px'
-													height='3px'
-													bg='claimzTextBlueLightColor'
-													borderRadius='1px'
-												/>
-												<TabPanels>
-													<TabPanel p='0px 0px 0px'>
-														<Box
-															background='white'
-															border='1px solid #CECECE'
-															boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
-															borderRadius='0px 0px 6px 6px'
-															padding='0px'>
-															4
-														</Box>
-													</TabPanel>
-												</TabPanels>
-											</Tabs>
+														</TabList>
+														<TabIndicator
+															mt='-2.5px'
+															height='3px'
+															bg='claimzTextBlueLightColor'
+															borderRadius='1px'
+														/>
+
+														<TabPanels>
+															<TabPanel p='0px 15px'>
+																{category.map(
+																	(
+																		declaration
+																	) => (
+																		<Box
+																			display='flex'
+																			justifyContent='space-between'
+																			alignItems='center'>
+																			<Box
+																				background='white'
+																				padding='0px'
+																				m='15px 0px'
+																				key={
+																					declaration.declaration_id
+																				}>
+																				{
+																					declaration.declaration_name
+																				}
+																			</Box>
+																			<Box fontWeight='600'>
+																				{
+																					declaration.amount
+																				}
+																			</Box>
+																		</Box>
+																	)
+																)}
+															</TabPanel>
+														</TabPanels>
+													</Tabs>
+												)
+											)}
 										</Box>
 									</TabPanel>
 									<TabPanel p='0px 0px 0px'>
@@ -346,55 +470,79 @@ const TDSListStatus = () => {
 											boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
 											borderRadius='0px 0px 6px 6px'
 											padding='0px'>
-											<Tabs
-												position='relative'
-												variant='unstyled'>
-												<TabList
-													sx={{
-														'& .chakra-tabs__tab': {
-															borderRadius:
-																'15px 15px 0px 0px',
-															color: 'claimzTextBlueLightColor',
-															fontSize: '1.6rem',
-															fontWeight: '700',
-															pb: '10px',
-															pt: '10px',
-														},
-														'& .chakra-tabs__tab[aria-selected=true]':
-															{
-																borderRadius:
-																	'15px 15px 0px 0px',
-																color: 'white',
-																bg: 'claimzMainGeadientColor',
-															},
-													}}>
-													{typeNamesArrayThree.map(
-														(groupName, index) => (
-															<Tab key={index}>
-																{groupName}
+											{nestedArrayThree?.map(
+												(category, index) => (
+													<Tabs
+														key={index}
+														position='relative'
+														variant='unstyled'>
+														<TabList
+															sx={{
+																'& .chakra-tabs__tab':
+																	{
+																		color: 'claimzTextBlueLightColor',
+																		fontSize:
+																			'1.6rem',
+																		fontWeight:
+																			'700',
+																		pb: '10px',
+																		pt: '10px',
+																		width: '100%',
+																	},
+																'& .chakra-tabs__tab[aria-selected=true]':
+																	{
+																		color: 'white',
+																		bg: 'claimzMainGeadientColor',
+																	},
+															}}>
+															<Tab>
+																{
+																	category[0]
+																		.type_name
+																}
 															</Tab>
-														)
-													)}
-												</TabList>
-												<TabIndicator
-													mt='-2.5px'
-													height='3px'
-													bg='claimzTextBlueLightColor'
-													borderRadius='1px'
-												/>
-												<TabPanels>
-													<TabPanel p='0px 0px 0px'>
-														<Box
-															background='white'
-															border='1px solid #CECECE'
-															boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
-															borderRadius='0px 0px 6px 6px'
-															padding='0px'>
-															4
-														</Box>
-													</TabPanel>
-												</TabPanels>
-											</Tabs>
+														</TabList>
+														<TabIndicator
+															mt='-2.5px'
+															height='3px'
+															bg='claimzTextBlueLightColor'
+															borderRadius='1px'
+														/>
+
+														<TabPanels>
+															<TabPanel p='0px 15px'>
+																{category.map(
+																	(
+																		declaration
+																	) => (
+																		<Box
+																			display='flex'
+																			justifyContent='space-between'
+																			alignItems='center'>
+																			<Box
+																				background='white'
+																				padding='0px'
+																				m='15px 0px'
+																				key={
+																					declaration.declaration_id
+																				}>
+																				{
+																					declaration.declaration_name
+																				}
+																			</Box>
+																			<Box fontWeight='600'>
+																				{
+																					declaration.amount
+																				}
+																			</Box>
+																		</Box>
+																	)
+																)}
+															</TabPanel>
+														</TabPanels>
+													</Tabs>
+												)
+											)}
 										</Box>
 									</TabPanel>
 									<TabPanel p='0px 0px 0px'>
@@ -404,55 +552,79 @@ const TDSListStatus = () => {
 											boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
 											borderRadius='0px 0px 6px 6px'
 											padding='0px'>
-											<Tabs
-												position='relative'
-												variant='unstyled'>
-												<TabList
-													sx={{
-														'& .chakra-tabs__tab': {
-															borderRadius:
-																'15px 15px 0px 0px',
-															color: 'claimzTextBlueLightColor',
-															fontSize: '1.6rem',
-															fontWeight: '700',
-															pb: '10px',
-															pt: '10px',
-														},
-														'& .chakra-tabs__tab[aria-selected=true]':
-															{
-																borderRadius:
-																	'15px 15px 0px 0px',
-																color: 'white',
-																bg: 'claimzMainGeadientColor',
-															},
-													}}>
-													{typeNamesArrayFour.map(
-														(groupName, index) => (
-															<Tab key={index}>
-																{groupName}
+											{nestedArrayFour?.map(
+												(category, index) => (
+													<Tabs
+														key={index}
+														position='relative'
+														variant='unstyled'>
+														<TabList
+															sx={{
+																'& .chakra-tabs__tab':
+																	{
+																		color: 'claimzTextBlueLightColor',
+																		fontSize:
+																			'1.6rem',
+																		fontWeight:
+																			'700',
+																		pb: '10px',
+																		pt: '10px',
+																		width: '100%',
+																	},
+																'& .chakra-tabs__tab[aria-selected=true]':
+																	{
+																		color: 'white',
+																		bg: 'claimzMainGeadientColor',
+																	},
+															}}>
+															<Tab>
+																{
+																	category[0]
+																		.type_name
+																}
 															</Tab>
-														)
-													)}
-												</TabList>
-												<TabIndicator
-													mt='-2.5px'
-													height='3px'
-													bg='claimzTextBlueLightColor'
-													borderRadius='1px'
-												/>
-												<TabPanels>
-													<TabPanel p='0px 0px 0px'>
-														<Box
-															background='white'
-															border='1px solid #CECECE'
-															boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
-															borderRadius='0px 0px 6px 6px'
-															padding='0px'>
-															4
-														</Box>
-													</TabPanel>
-												</TabPanels>
-											</Tabs>
+														</TabList>
+														<TabIndicator
+															mt='-2.5px'
+															height='3px'
+															bg='claimzTextBlueLightColor'
+															borderRadius='1px'
+														/>
+
+														<TabPanels>
+															<TabPanel p='0px 15px'>
+																{category.map(
+																	(
+																		declaration
+																	) => (
+																		<Box
+																			display='flex'
+																			justifyContent='space-between'
+																			alignItems='center'>
+																			<Box
+																				background='white'
+																				padding='0px'
+																				m='15px 0px'
+																				key={
+																					declaration.declaration_id
+																				}>
+																				{
+																					declaration.declaration_name
+																				}
+																			</Box>
+																			<Box fontWeight='600'>
+																				{
+																					declaration.amount
+																				}
+																			</Box>
+																		</Box>
+																	)
+																)}
+															</TabPanel>
+														</TabPanels>
+													</Tabs>
+												)
+											)}
 										</Box>
 									</TabPanel>
 									<TabPanel p='0px 0px 0px'>
@@ -462,59 +634,140 @@ const TDSListStatus = () => {
 											boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
 											borderRadius='0px 0px 6px 6px'
 											padding='0px'>
-											<Tabs
-												position='relative'
-												variant='unstyled'>
-												<TabList
-													sx={{
-														'& .chakra-tabs__tab': {
-															borderRadius:
-																'15px 15px 0px 0px',
-															color: 'claimzTextBlueLightColor',
-															fontSize: '1.6rem',
-															fontWeight: '700',
-															pb: '10px',
-															pt: '10px',
-														},
-														'& .chakra-tabs__tab[aria-selected=true]':
-															{
-																borderRadius:
-																	'15px 15px 0px 0px',
-																color: 'white',
-																bg: 'claimzMainGeadientColor',
-															},
-													}}>
-													{typeNamesArrayFive.map(
-														(groupName, index) => (
-															<Tab key={index}>
-																{groupName}
+											{nestedArrayFive?.map(
+												(category, index) => (
+													<Tabs
+														key={index}
+														position='relative'
+														variant='unstyled'>
+														<TabList
+															sx={{
+																'& .chakra-tabs__tab':
+																	{
+																		color: 'claimzTextBlueLightColor',
+																		fontSize:
+																			'1.6rem',
+																		fontWeight:
+																			'700',
+																		pb: '10px',
+																		pt: '10px',
+																		width: '100%',
+																	},
+																'& .chakra-tabs__tab[aria-selected=true]':
+																	{
+																		color: 'white',
+																		bg: 'claimzMainGeadientColor',
+																	},
+															}}>
+															<Tab>
+																{
+																	category[0]
+																		.type_name
+																}
 															</Tab>
-														)
-													)}
-												</TabList>
-												<TabIndicator
-													mt='-2.5px'
-													height='3px'
-													bg='claimzTextBlueLightColor'
-													borderRadius='1px'
-												/>
-												<TabPanels>
-													<TabPanel p='0px 0px 0px'>
-														<Box
-															background='white'
-															border='1px solid #CECECE'
-															boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
-															borderRadius='0px 0px 6px 6px'
-															padding='0px'>
-															4
-														</Box>
-													</TabPanel>
-												</TabPanels>
-											</Tabs>
+														</TabList>
+														<TabIndicator
+															mt='-2.5px'
+															height='3px'
+															bg='claimzTextBlueLightColor'
+															borderRadius='1px'
+														/>
+
+														<TabPanels>
+															<TabPanel p='0px 15px'>
+																{category.map(
+																	(
+																		declaration
+																	) => (
+																		<Box
+																			display='flex'
+																			justifyContent='space-between'
+																			alignItems='center'>
+																			<Box
+																				background='white'
+																				padding='0px'
+																				m='15px 0px'
+																				key={
+																					declaration.declaration_id
+																				}>
+																				{
+																					declaration.declaration_name
+																				}
+																			</Box>
+																			<Box fontWeight='600'>
+																				{
+																					declaration.amount
+																				}
+																			</Box>
+																		</Box>
+																	)
+																)}
+															</TabPanel>
+														</TabPanels>
+													</Tabs>
+												)
+											)}
 										</Box>
 									</TabPanel>
 								</TabPanels>
 							</Tabs>
+							<Box
+								display='flex'
+								width='100%'
+								justifyContent='flex-end'
+								mt='20px'>
+								<Button
+									bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
+									boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
+									p='20px 20px'
+									color='white'
+									mt='15px'
+									mr='15px'
+									fontSize='1.6rem'
+									borderRadius='15px'
+									_hover={{
+										bgGradient:
+											'linear(180deg, #2267A2 0%, #0D4675 100%)',
+									}}
+									_active={{
+										bgGradient:
+											'linear(180deg, #2267A2 0%, #0D4675 100%)',
+									}}
+									_focus={{
+										bgGradient:
+											'linear(180deg, #2267A2 0%, #0D4675 100%)',
+									}}
+									onClick={decline}>
+									<Text fontSize='1.6rem' fontWeight='700'>
+										Decline
+									</Text>
+								</Button>
+								<Button
+									bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
+									boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
+									p='20px 20px'
+									color='white'
+									mt='15px'
+									fontSize='1.6rem'
+									borderRadius='15px'
+									_hover={{
+										bgGradient:
+											'linear(180deg, #2267A2 0%, #0D4675 100%)',
+									}}
+									_active={{
+										bgGradient:
+											'linear(180deg, #2267A2 0%, #0D4675 100%)',
+									}}
+									_focus={{
+										bgGradient:
+											'linear(180deg, #2267A2 0%, #0D4675 100%)',
+									}}
+									onClick={approver}>
+									<Text fontSize='1.6rem' fontWeight='700'>
+										Approve
+									</Text>
+								</Button>
+							</Box>
 						</DrawerBody>
 					</DrawerContent>
 				</Drawer>

@@ -237,7 +237,7 @@ const PayslipList = () => {
 						value={value || ''}
 						onChange={(e) => onGlobalFilterChange(e)}
 						placeholder='Global Search'
-						w='450px'
+						w='100%'
 					/>
 				</Box>
 				<Box>

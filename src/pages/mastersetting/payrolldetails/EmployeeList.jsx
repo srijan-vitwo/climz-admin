@@ -259,7 +259,7 @@ const EmployeeList = () => {
 						<Input
 							type='search'
 							pl='24px'
-							w='450px'
+							w='100%'
 							value={globalFilterValue}
 							onChange={onGlobalFilterChange}
 							placeholder='Keyword Search'
