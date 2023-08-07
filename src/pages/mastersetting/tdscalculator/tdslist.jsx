@@ -146,6 +146,9 @@ const TdsList = () => {
 								name={data.salary_component}
 								value={data.value}
 								className='handleScroll'
+								isReadOnly={
+									data.exampt === 'CTC' ? true : false
+								}
 								onChange={(e) =>
 									handleEarningInputChange(key, e)
 								}
