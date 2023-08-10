@@ -1040,7 +1040,7 @@ const EmployeeDataList = () => {
 											'var(--chakra-colors-claimzMainGeadientColor)',
 									}}
 									_active={'none'}>
-									Appointmentletter Letter
+									Appointment Letter
 								</Button>
 							</Box>
 							<Box mt='20px'>
