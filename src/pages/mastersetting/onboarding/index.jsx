@@ -462,15 +462,6 @@ const OnboardingCandidate = () => {
 		);
 	};
 
-	const DocStatus = () => {
-		console.log('empList', empList);
-		return (
-			<CircularProgress size='40px' value={40} color='blue.400'>
-				<CircularProgressLabel>40%</CircularProgressLabel>
-			</CircularProgress>
-		);
-	};
-
 	const DetailsTemplate = (rowData) => {
 		return (
 			<OnbordingDrawer
@@ -548,11 +539,7 @@ const OnboardingCandidate = () => {
 										header={col.header}
 									/>
 								))}
-								<Column
-									header='Doc Status'
-									body={DocStatus}
-									bodyStyle={{ textAlign: 'center' }}
-								/>
+
 								<Column
 									header='Details'
 									body={DetailsTemplate}

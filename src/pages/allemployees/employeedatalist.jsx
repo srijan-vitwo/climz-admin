@@ -114,6 +114,8 @@ const EmployeeDataList = () => {
 	const [msg, setMsg] = useState();
 	const [empList, setEmpList] = useState();
 	const [offerLetter, setOfferLetter] = useState();
+	const [warningLetter, setWarningLetter] = useState();
+	const [appointmentLetter, setAppointmentLetter] = useState();
 	const [fromValue, setFromValue] = useState([]);
 	const [userData, setUserData] = useState('');
 	const [loader, setLoader] = useState(false);
@@ -696,6 +698,16 @@ const EmployeeDataList = () => {
 			onOpen: LetterOnOpen,
 			onClose: LetterOnClose,
 		} = useDisclosure();
+		const {
+			isOpen: WarningIsOpen,
+			onOpen: WarningOnOpen,
+			onClose: WarningOnClose,
+		} = useDisclosure();
+		const {
+			isOpen: appointmentIsOpen,
+			onOpen: appointmentOnOpen,
+			onClose: appointmentOnClose,
+		} = useDisclosure();
 
 		function toastCallBlock() {
 			return toast({
@@ -836,7 +848,61 @@ const EmployeeDataList = () => {
 			}
 		};
 
-		console.log(offerLetter, 'offerLetter');
+		const sendWarning = async (e) => {
+			e.preventDefault();
+			let formValues = new FormData();
+			formValues.append('id', rowData.id);
+			formValues.append('warning_letter', warningLetter);
+			try {
+				setIsLoadingModal(true);
+				const response = await fetch(
+					`${process.env.REACT_APP_API_URL}/send-warningletter`,
+					{
+						method: 'POST',
+						body: formValues,
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					}
+				);
+
+				if (response.ok) {
+					setIsLoadingModal(false);
+				} else {
+					navigate('/login');
+				}
+			} catch (error) {
+				navigate('/login');
+			}
+		};
+
+		const sendAppointment = async (e) => {
+			e.preventDefault();
+			let formValues = new FormData();
+			formValues.append('id', rowData.id);
+			formValues.append('appointment_letter', appointmentLetter);
+			try {
+				setIsLoadingModal(true);
+				const response = await fetch(
+					`${process.env.REACT_APP_API_URL}/send-appointmentletter`,
+					{
+						method: 'POST',
+						body: formValues,
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					}
+				);
+
+				if (response.ok) {
+					setIsLoadingModal(false);
+				} else {
+					navigate('/login');
+				}
+			} catch (error) {
+				navigate('/login');
+			}
+		};
 
 		return (
 			<>
@@ -923,7 +989,7 @@ const EmployeeDataList = () => {
 									</Button>
 								)}
 								<Button
-									onClick={LetterOnOpen}
+									onClick={WarningOnOpen}
 									mr='15px'
 									fontSize='1.4rem'
 									padding='20px 10px'
@@ -957,6 +1023,24 @@ const EmployeeDataList = () => {
 									}}
 									_active={'none'}>
 									Terminate Letter
+								</Button>
+								<Button
+									onClick={appointmentOnOpen}
+									mr='15px'
+									fontSize='1.4rem'
+									padding='20px 10px'
+									background='var(--chakra-colors-claimzMainGeadientColor)'
+									color='white'
+									display='flex'
+									alignItems='center'
+									justifyContent='center'
+									borderRadius='50px'
+									_hover={{
+										background:
+											'var(--chakra-colors-claimzMainGeadientColor)',
+									}}
+									_active={'none'}>
+									Appointmentletter Letter
 								</Button>
 							</Box>
 							<Box mt='20px'>
@@ -1013,6 +1097,148 @@ const EmployeeDataList = () => {
 										value={offerLetter}
 										onTextChange={(e) =>
 											setOfferLetter(e.htmlValue)
+										}
+										style={{ height: '320px' }}
+									/>
+								</div>
+							</ModalBody>
+							<ModalFooter pb='28px'>
+								<Button
+									disabled={isLoadingModal}
+									isLoading={isLoadingModal}
+									spinner={
+										<BeatLoader size={8} color='white' />
+									}
+									type='submit'
+									bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
+									border='4px solid #FFFFFF'
+									boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
+									borderRadius='15px'
+									p='20px 20px'
+									fontSize='1.6rem'
+									color='white'
+									_hover={{
+										bgGradient:
+											'linear(180deg, #2267A2 0%, #0D4675 100%)',
+									}}
+									_active={{
+										bgGradient:
+											'linear(180deg, #2267A2 0%, #0D4675 100%)',
+									}}
+									_focus={{
+										bgGradient:
+											'linear(180deg, #2267A2 0%, #0D4675 100%)',
+									}}
+									onClick={onClose}>
+									Submit
+								</Button>
+							</ModalFooter>
+						</form>
+					</ModalContent>
+				</Modal>
+				<Modal
+					onClose={WarningOnClose}
+					isOpen={WarningIsOpen}
+					isCentered>
+					<ModalOverlay />
+					<ModalContent
+						maxW='50% !important'
+						bgGradient='linear(180deg, #DCF9FF 0%, #FFFFFF 100%)'>
+						<form onSubmit={sendWarning}>
+							<ModalHeader pt='28px'>
+								<Box
+									borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
+									width='400px'
+									pb='10px'
+									mb='15px'>
+									<Text
+										background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
+										backgroundClip='text'
+										fontWeight='700'
+										fontSize='28px'
+										lineHeight='36px'>
+										Letter Config Template
+									</Text>
+								</Box>
+							</ModalHeader>
+							<ModalCloseButton />
+							<ModalBody>
+								<div className='card'>
+									<Editor
+										value={warningLetter}
+										onTextChange={(e) =>
+											setWarningLetter(e.htmlValue)
+										}
+										style={{ height: '320px' }}
+									/>
+								</div>
+							</ModalBody>
+							<ModalFooter pb='28px'>
+								<Button
+									disabled={isLoadingModal}
+									isLoading={isLoadingModal}
+									spinner={
+										<BeatLoader size={8} color='white' />
+									}
+									type='submit'
+									bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
+									border='4px solid #FFFFFF'
+									boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
+									borderRadius='15px'
+									p='20px 20px'
+									fontSize='1.6rem'
+									color='white'
+									_hover={{
+										bgGradient:
+											'linear(180deg, #2267A2 0%, #0D4675 100%)',
+									}}
+									_active={{
+										bgGradient:
+											'linear(180deg, #2267A2 0%, #0D4675 100%)',
+									}}
+									_focus={{
+										bgGradient:
+											'linear(180deg, #2267A2 0%, #0D4675 100%)',
+									}}
+									onClick={onClose}>
+									Submit
+								</Button>
+							</ModalFooter>
+						</form>
+					</ModalContent>
+				</Modal>
+				<Modal
+					onClose={appointmentOnClose}
+					isOpen={appointmentIsOpen}
+					isCentered>
+					<ModalOverlay />
+					<ModalContent
+						maxW='50% !important'
+						bgGradient='linear(180deg, #DCF9FF 0%, #FFFFFF 100%)'>
+						<form onSubmit={sendAppointment}>
+							<ModalHeader pt='28px'>
+								<Box
+									borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
+									width='400px'
+									pb='10px'
+									mb='15px'>
+									<Text
+										background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
+										backgroundClip='text'
+										fontWeight='700'
+										fontSize='28px'
+										lineHeight='36px'>
+										Letter Config Template
+									</Text>
+								</Box>
+							</ModalHeader>
+							<ModalCloseButton />
+							<ModalBody>
+								<div className='card'>
+									<Editor
+										value={appointmentLetter}
+										onTextChange={(e) =>
+											setAppointmentLetter(e.htmlValue)
 										}
 										style={{ height: '320px' }}
 									/>

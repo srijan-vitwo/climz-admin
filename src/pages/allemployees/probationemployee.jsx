@@ -32,7 +32,7 @@ import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
-// import { Paginator } from 'primereact/paginator';
+import { BeatLoader } from 'react-spinners';
 import 'primereact/resources/themes/lara-light-indigo/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
@@ -106,6 +106,7 @@ const ProbationEmployee = () => {
 	const [empList, setEmpList] = useState();
 	const [loader, setLoader] = useState(false);
 	const [offerLetter, setOfferLetter] = useState();
+	const [isLoadingModal, setIsLoadingModal] = useState(false);
 	const [sucess, setSucess] = useState(false);
 	const cols = [
 		{ field: 'emp_code', header: 'Emp Code' },
@@ -477,8 +478,34 @@ const ProbationEmployee = () => {
 				navigate('/login');
 			}
 		};
-		console.log(formattedDate, formattedDate);
-		console.log(formattedLastDate, formattedLastDate);
+
+		const sendConfirmationletter = async (e) => {
+			e.preventDefault();
+			let formValues = new FormData();
+			formValues.append('id', rowData.id);
+			formValues.append('confirmation_letter', offerLetter);
+			try {
+				setIsLoadingModal(true);
+				const response = await fetch(
+					`${process.env.REACT_APP_API_URL}/send-confirmationletter`,
+					{
+						method: 'POST',
+						body: formValues,
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					}
+				);
+
+				if (response.ok) {
+					setIsLoadingModal(false);
+				} else {
+					navigate('/login');
+				}
+			} catch (error) {
+				navigate('/login');
+			}
+		};
 
 		return (
 			<>
@@ -498,13 +525,13 @@ const ProbationEmployee = () => {
 					size='xl'>
 					<DrawerOverlay />
 					<DrawerContent
-						maxW='40% !important'
+						maxW='45% !important'
 						bgGradient='linear(180deg, #DCF9FF 0%, #FFFFFF 100%)'>
 						<DrawerCloseButton size='lg' />
 						<DrawerHeader pt='28px'>
 							<Box
 								borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-								width='300px'
+								width='400px'
 								pb='10px'
 								mb='15px'>
 								<Text
@@ -539,36 +566,12 @@ const ProbationEmployee = () => {
 											'var(--chakra-colors-claimzMainGeadientColor)',
 									}}
 									_active={'none'}>
-									<i className='fa-solid fa-circle-exclamation'></i>
-									<Text
-										ml='5px'
-										fontSize='1.4rem'
-										fontWeight='600'>
-										Warning{' '}
-									</Text>
-								</Button>
-								<Button
-									onClick={LetterOnOpen}
-									mr='15px'
-									fontSize='1.4rem'
-									padding='20px 10px'
-									background='var(--chakra-colors-claimzMainGeadientColor)'
-									color='white'
-									display='flex'
-									alignItems='center'
-									justifyContent='center'
-									borderRadius='50px'
-									_hover={{
-										background:
-											'var(--chakra-colors-claimzMainGeadientColor)',
-									}}
-									_active={'none'}>
 									<i className='fa-solid fa-envelope'></i>
 									<Text
 										ml='5px'
 										fontSize='1.4rem'
 										fontWeight='600'>
-										Terminate{' '}
+										confirmationletter
 									</Text>
 								</Button>
 								<Button
@@ -713,7 +716,7 @@ const ProbationEmployee = () => {
 					<ModalContent
 						maxW='50% !important'
 						bgGradient='linear(180deg, #DCF9FF 0%, #FFFFFF 100%)'>
-						<form>
+						<form onSubmit={sendConfirmationletter}>
 							<ModalHeader pt='28px'>
 								<Box
 									borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
@@ -744,6 +747,11 @@ const ProbationEmployee = () => {
 							</ModalBody>
 							<ModalFooter pb='28px'>
 								<Button
+									disabled={isLoadingModal}
+									isLoading={isLoadingModal}
+									spinner={
+										<BeatLoader size={8} color='white' />
+									}
 									type='submit'
 									bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
 									border='4px solid #FFFFFF'
