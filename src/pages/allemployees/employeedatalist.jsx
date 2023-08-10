@@ -27,7 +27,6 @@ import {
 	Tooltip,
 	FormControl,
 	FormLabel,
-	Select,
 	Input,
 } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
@@ -738,7 +737,6 @@ const EmployeeDataList = () => {
 						setMsg(!msg);
 						onClose();
 					} else {
-						console.error('Error:');
 						toastCallFaild();
 					}
 				} catch (error) {
@@ -766,7 +764,6 @@ const EmployeeDataList = () => {
 				setMsg(!msg);
 				onClose();
 			} else {
-				console.error('Error:', data.message);
 				toastCallFaild();
 			}
 		};
@@ -1060,6 +1057,8 @@ const EmployeeDataList = () => {
 	};
 
 	const header = RenderHeader();
+
+	console.log(offerLetter, 'offerLetter');
 
 	return (
 		<CssWrapper>

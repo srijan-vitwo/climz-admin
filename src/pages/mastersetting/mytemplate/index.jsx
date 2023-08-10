@@ -114,7 +114,7 @@ const MyTemplate = () => {
 						)}
 					</Box>
 				</TabPanel>
-				<TabPanel p='0px 0px 0px' height='calc(100vh - 188px)'>
+				<TabPanel p='0px 0px 0px' height='100%'>
 					<Box
 						background='white'
 						border='1px solid #CECECE'

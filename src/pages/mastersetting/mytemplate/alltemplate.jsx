@@ -73,20 +73,20 @@ const Alltemplate = ({ template, sucess, setSucess }) => {
 	};
 
 	return (
-		<Box height='calc(100vh - 188px)'>
-			<Box display='flex'>
+		<Box>
+			<Box display='flex' flexWrap='wrap' gap='2%'>
 				{template?.map((data, index) => {
 					return (
 						<Box
 							key={index}
-							width='30%'
+							width='31%'
 							textAlign='center'
 							borderWidth='1px'
 							borderRadius='5px'
 							shadow='1px 1px 3px rgba(0,0,0,0.3)'
 							bg='white'
-							paddingTop='20px'
-							marginRight='2%'>
+							padding='15px'
+							mb='30px'>
 							<Image
 								src={Template}
 								alt='Dan Abramov'
