@@ -119,6 +119,7 @@ const EmployeeDataList = () => {
 	const [loader, setLoader] = useState(false);
 	const [fromLoader, setFromLoader] = useState(false);
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const [isLoadingModal, setIsLoadingModal] = useState(false);
 
 	const cols = [
 		{ field: 'emp_code', header: 'Emp Code' },
@@ -807,6 +808,36 @@ const EmployeeDataList = () => {
 			}
 		};
 
+		const sendTermination = async (e) => {
+			e.preventDefault();
+			let formValues = new FormData();
+			formValues.append('id', rowData.id);
+			formValues.append('termination_letter', offerLetter);
+			try {
+				setIsLoadingModal(true);
+				const response = await fetch(
+					`${process.env.REACT_APP_API_URL}/send-terminationletter`,
+					{
+						method: 'POST',
+						body: formValues,
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					}
+				);
+
+				if (response.ok) {
+					setIsLoadingModal(false);
+				} else {
+					navigate('/login');
+				}
+			} catch (error) {
+				navigate('/login');
+			}
+		};
+
+		console.log(offerLetter, 'offerLetter');
+
 		return (
 			<>
 				<Button
@@ -958,7 +989,7 @@ const EmployeeDataList = () => {
 					<ModalContent
 						maxW='50% !important'
 						bgGradient='linear(180deg, #DCF9FF 0%, #FFFFFF 100%)'>
-						<form>
+						<form onSubmit={sendTermination}>
 							<ModalHeader pt='28px'>
 								<Box
 									borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
@@ -989,6 +1020,11 @@ const EmployeeDataList = () => {
 							</ModalBody>
 							<ModalFooter pb='28px'>
 								<Button
+									disabled={isLoadingModal}
+									isLoading={isLoadingModal}
+									spinner={
+										<BeatLoader size={8} color='white' />
+									}
 									type='submit'
 									bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
 									border='4px solid #FFFFFF'

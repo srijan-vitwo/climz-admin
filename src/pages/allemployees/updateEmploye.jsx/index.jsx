@@ -252,8 +252,6 @@ const EmployeeUpdate = ({ details, fromValue, userData, msg, setMsg }) => {
 		}
 	};
 
-	console.log(userData, 'userData');
-
 	return (
 		<Box className='form'>
 			<Box className='progressbar' mb='0px'>

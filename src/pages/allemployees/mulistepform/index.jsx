@@ -284,11 +284,6 @@ const MultiStepForm = () => {
 		}
 	};
 
-	console.log(
-		formData?.employee_code_prefix,
-		'formData?.employee_code_prefix'
-	);
-
 	return (
 		<Box
 			width='100%'
