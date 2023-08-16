@@ -329,11 +329,11 @@ const EmpDetails = ({
 					<FormLabel>Approval-Variant</FormLabel>
 					<Select
 						placeholder='Select option'
-						value={formData?.approval_variant}
+						value={formData?.approver}
 						onChange={(event) =>
 							setFormData({
 								...formData,
-								approval_variant: event.target.value,
+								approver: event.target.value,
 							})
 						}>
 						{fromValue.approval_variant?.map((data, index) => {

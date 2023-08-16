@@ -62,7 +62,7 @@ const EmployeeUpdate = ({ details, fromValue, userData, msg, setMsg }) => {
 		place_of_posting: userData?.data?.place_of_posting,
 		cost_center_id: '',
 		weekoff: userData?.data?.weekoff,
-		approval_variant: userData?.data?.approver,
+		approver: userData?.data?.approver,
 		aadhar_front: '',
 		aadhar_back: '',
 		voter_front: '',

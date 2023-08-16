@@ -62,7 +62,7 @@ const MultiStepForm = () => {
 		cost_center_id: '',
 		primary_reporting: '',
 		weekoff: '',
-		approval_variant: '',
+		approver: '',
 		shift_variant: '',
 		ptax_variant: '',
 		aadhar_front: '',
