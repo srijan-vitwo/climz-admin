@@ -255,7 +255,7 @@ const GradeSetting = () => {
 					boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
 					p='40px 30px'
 					borderRadius='6px'
-					maxH='358px'>
+					maxH='calc(100vh - 400px)'>
 					<form onSubmit={empListAdd}>
 						<h1>{msg}</h1>
 						<Box
@@ -302,7 +302,7 @@ const GradeSetting = () => {
 				</Box>
 				<Box
 					width='58%'
-					maxH='358px'
+					maxH='calc(100vh - 400px)'
 					pr='10px'
 					background='white'
 					border='1px solid #CECECE'

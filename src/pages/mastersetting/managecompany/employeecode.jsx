@@ -260,7 +260,7 @@ const EmployeeCode = () => {
 					boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
 					p='40px 30px'
 					borderRadius='6px'
-					height='343px'>
+					height='calc(100vh - 400px)'>
 					<form onSubmit={empListAdd}>
 						<Box
 							display='flex'
@@ -325,7 +325,7 @@ const EmployeeCode = () => {
 				</Box>
 				<Box
 					width='58%'
-					height='343px'
+					height='calc(100vh - 400px)'
 					background='white'
 					border='1px solid #CECECE'
 					boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'

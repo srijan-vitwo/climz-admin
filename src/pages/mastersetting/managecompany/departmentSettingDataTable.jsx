@@ -422,7 +422,7 @@ const DepartmentSettingDataTable = () => {
 		<CssWrapper>
 			{loader ? (
 				<Box
-					height='375px'
+					height='calc(100vh - 400px)'
 					width='100%'
 					display='flex'
 					justifyContent='center'

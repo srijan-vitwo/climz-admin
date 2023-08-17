@@ -288,7 +288,7 @@ const Designation = () => {
 					boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
 					p='40px 30px'
 					borderRadius='6px'
-					height='358px'>
+					height='calc(100vh - 400px)'>
 					<form onSubmit={designationValueAdd}>
 						<Box
 							display='flex'
@@ -355,7 +355,7 @@ const Designation = () => {
 				</Box>
 				<Box
 					width='58%'
-					height='358px'
+					height='calc(100vh - 400px)'
 					overflowY='hidden'
 					background='white'
 					border='1px solid #CECECE'
