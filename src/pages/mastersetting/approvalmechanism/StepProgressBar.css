@@ -1,0 +1,32 @@
+/* src/components/StepProgressBar.css */
+
+.step-progress-bar {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 20px;
+}
+
+.steps {
+	display: flex;
+	gap: 50px;
+	margin-bottom: 20px;
+}
+
+.step {
+	flex: 1;
+	text-align: center;
+	padding: 10px;
+	border: 1px solid #ccc;
+	background-color: #f0f0f0;
+}
+
+.step.active {
+	background: linear-gradient(rgb(40, 114, 176), rgb(0, 48, 88));
+	color: white;
+}
+
+.actions {
+	display: flex;
+	gap: 10px;
+}

@@ -18,6 +18,7 @@ import {
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
+import StepProgressBar from './StepProgressBa.jsx';
 import userLogo from '../../../assets/images/user.png';
 
 const ApprovalVeriantform = ({ approval }) => {
@@ -32,6 +33,7 @@ const ApprovalVeriantform = ({ approval }) => {
 	const [employeeId, setEmployeeId] = useState();
 	const [userData, setUserData] = useState([]);
 	const [variantName, setVariantName] = useState();
+	const steps = ['Step 1', 'Step 2', 'Step 3'];
 	const [variants, setVariants] = useState({
 		variants: [],
 	});
@@ -190,6 +192,8 @@ const ApprovalVeriantform = ({ approval }) => {
 		}
 	};
 
+	console.log(variants, 'variants');
+
 	return (
 		<>
 			<Tooltip hasArrow label='Add New Approval veriant' fontSize='1rem'>
@@ -227,6 +231,7 @@ const ApprovalVeriantform = ({ approval }) => {
 							}}
 							onSubmit={approvalSubmit}>
 							<Box w='100%'>
+								<StepProgressBar steps={steps} />
 								<Box>
 									<FormControl>
 										<FormLabel>Variant Name</FormLabel>
@@ -244,13 +249,18 @@ const ApprovalVeriantform = ({ approval }) => {
 									display='flex'
 									justifyContent='space-between'
 									mt='20px'>
-									<Box width='32%'>
+									<Box
+										width='32%'
+										display='flex'
+										alignItems='center'
+										flexDirection='column'
+										marginTop='15px'>
 										{selectBoxes.map((_, index) => (
 											<Box
 												key={index}
 												display='flex'
-												alignItems='flex-end'
-												mb='15px'>
+												alignItems='flex-startr'
+												height='120px'>
 												<FormControl>
 													<FormLabel>
 														Select Approval
@@ -286,6 +296,7 @@ const ApprovalVeriantform = ({ approval }) => {
 													boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
 													color='white'
 													mr='10px'
+													mt='24px'
 													p='17px 20px'
 													_hover={{
 														bgGradient:
@@ -308,12 +319,15 @@ const ApprovalVeriantform = ({ approval }) => {
 											</Box>
 										))}
 									</Box>
-									<Box width='58%'>
+									<Box
+										width='58%'
+										display='flex'
+										alignItems='flex-start'>
 										<div className='timeline'>
 											{Object.entries(
 												variants?.variants
 											)?.map(([key, value]) => (
-												<Box>
+												<Box mb='35px'>
 													<Text
 														fontWeight='600'
 														marginBottom='5px'
@@ -358,42 +372,19 @@ const ApprovalVeriantform = ({ approval }) => {
 													</Box>
 												</Box>
 											))}
-											{newArray?.map((data, index) => {
+											{newArray?.map((index) => {
 												return (
 													<>
-														{data?.name && (
-															<Text
-																fontWeight='600'
-																marginBottom='5px'
-																color='var(--chakra-colors-claimzTextBlueLightColor)'>
-																{
-																	lastApproval[0]
-																		?.type_name
-																}
-															</Text>
-														)}
-														<div
-															className='timeline__event animated fadeInUp timeline__event--type2'
-															key={index}>
-															<Box className='timeline__event__icon'>
-																<Image
-																	src={
-																		data?.img ==
-																		null
-																			? userLogo
-																			: data?.img
-																	}
-																	alt={
-																		data?.name
-																	}
-																	h='50px'
-																	w='50px'
-																	mr='10px'
-																/>
-															</Box>
+														<Box
+															className='timeline__event animated fadeInUp timeline__event--type2 last_child'
+															key={index}
+															h='65px'
+															mt='10px'
+															mb='20px'>
 															<Box
 																className='timeline__event__content'
 																display='flex'
+																p='0px'
 																alignItems='center'
 																w='100%'>
 																<Box className='timeline__event__description'>
@@ -401,13 +392,12 @@ const ApprovalVeriantform = ({ approval }) => {
 																		fontSize='1.4rem'
 																		fontWeight='600'
 																		color='var(--chakra-colors-claimzTextBlueLightColor)'>
-																		{
-																			data?.name
-																		}
+																		payment
+																		process
 																	</Text>
 																</Box>
 															</Box>
-														</div>
+														</Box>
 													</>
 												);
 											})}
