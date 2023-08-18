@@ -28,6 +28,7 @@ const ApprovalVeriantform = ({ approval }) => {
 	const toast = useToast();
 	let counter = approval?.length - 1;
 	const [isLoading, setIsLoading] = useState(false);
+	const [currentStep, setCurrentStep] = useState(1);
 	const [selectBoxes, setSelectBoxes] = useState([1]);
 	const [empList, setEmpList] = useState();
 	const [employeeId, setEmployeeId] = useState();
@@ -103,6 +104,7 @@ const ApprovalVeriantform = ({ approval }) => {
 
 	const userDetails = async (e, index) => {
 		e.preventDefault();
+		setCurrentStep((prevStep) => prevStep + 1);
 		try {
 			const response = await fetch(
 				`${process.env.REACT_APP_API_URL}/emp-details/${employeeId}`,
@@ -158,7 +160,6 @@ const ApprovalVeriantform = ({ approval }) => {
 	};
 
 	const newArray = [variants?.variants[variants?.variants?.length - 1]];
-	const lastObject = approval[approval?.length - 1];
 
 	const approvalSubmit = async (e) => {
 		e.preventDefault();
@@ -189,6 +190,10 @@ const ApprovalVeriantform = ({ approval }) => {
 			navigate('/login');
 		}
 	};
+
+	console.log(variants, 'variants');
+	console.log(selectBoxes, 'selectBoxes');
+	console.log(empList, 'empList');
 
 	return (
 		<>
@@ -230,6 +235,8 @@ const ApprovalVeriantform = ({ approval }) => {
 								<StepProgressBar
 									steps={steps}
 									approval={approval}
+									variants={variants}
+									currentStep={currentStep}
 								/>
 								<Box>
 									<FormControl>
@@ -290,23 +297,25 @@ const ApprovalVeriantform = ({ approval }) => {
 													</Select>
 												</FormControl>
 												<Button
-													bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
+													bg={
+														variants.variants
+															?.length === index
+															? 'var(--chakra-colors-claimzLightBlueColor)'
+															: 'rgb(37 37 37 / 60%)'
+													}
 													boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
 													color='white'
 													mr='10px'
 													mt='24px'
 													p='17px 20px'
 													_hover={{
-														bgGradient:
-															'linear(180deg, #2267A2 0%, #0D4675 100%)',
+														bgGradient: 'none',
 													}}
 													_active={{
-														bgGradient:
-															'linear(180deg, #2267A2 0%, #0D4675 100%)',
+														bgGradient: 'none',
 													}}
 													_focus={{
-														bgGradient:
-															'linear(180deg, #2267A2 0%, #0D4675 100%)',
+														bgGradient: 'none',
 													}}
 													onClick={(e) =>
 														userDetails(e, index)
