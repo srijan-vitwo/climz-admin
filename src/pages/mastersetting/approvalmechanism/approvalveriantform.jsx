@@ -192,10 +192,6 @@ const ApprovalVeriantform = ({ approval }) => {
 		}
 	};
 
-	console.log(variants, 'variants');
-	console.log(selectBoxes, 'selectBoxes');
-	console.log(empList, 'empList');
-
 	return (
 		<>
 			<Tooltip hasArrow label='Add New Approval veriant' fontSize='1rem'>
@@ -335,7 +331,7 @@ const ApprovalVeriantform = ({ approval }) => {
 											{Object.entries(
 												variants?.variants
 											)?.map(([key, value]) => (
-												<Box mb='35px'>
+												<Box mb='35px' key={key}>
 													<Text
 														fontWeight='600'
 														marginBottom='5px'

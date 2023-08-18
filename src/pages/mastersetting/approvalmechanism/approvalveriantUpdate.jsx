@@ -26,6 +26,8 @@ const ApprovalVeriantUpdate = ({ approval, rowData }) => {
 
 	const newArray = [matchedData?.[matchedData?.length - 1]];
 
+	console.log(matchedData, 'matchedData');
+
 	return (
 		<Box>
 			<Box
@@ -33,7 +35,11 @@ const ApprovalVeriantUpdate = ({ approval, rowData }) => {
 				display='flex'
 				flexDirection='column'
 				alignItems='flex-end'>
-				<ApprovalModal />
+				<ApprovalModal
+					approval={approval}
+					matchedData={matchedData}
+					rowData={rowData}
+				/>
 				<Box w='100%'>
 					<Box>
 						<FormControl>
@@ -54,7 +60,7 @@ const ApprovalVeriantUpdate = ({ approval, rowData }) => {
 						<Box width='100%'>
 							<div className='timeline'>
 								{matchedData?.map((value, index) => (
-									<Box mb='15px'>
+									<Box mb='15px' key={index}>
 										<Text
 											fontWeight='600'
 											marginBottom='5px'

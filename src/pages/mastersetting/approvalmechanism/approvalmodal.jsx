@@ -22,7 +22,7 @@ import React, { useState, useEffect } from 'react';
 import StepProgressBar from './StepProgressBa.jsx';
 import userLogo from '../../../assets/images/user.png';
 
-const ApprovalModal = ({ approval }) => {
+const ApprovalModal = ({ approval, matchedData, rowData }) => {
 	const token = localStorage.getItem('token');
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const navigate = useNavigate();
@@ -34,7 +34,7 @@ const ApprovalModal = ({ approval }) => {
 	const [empList, setEmpList] = useState();
 	const [employeeId, setEmployeeId] = useState();
 	const [userData, setUserData] = useState([]);
-	const [variantName, setVariantName] = useState();
+	const [variantName, setVariantName] = useState(rowData?.variant_name);
 	const steps = ['Step 1', 'Step 2', 'Step 3'];
 	const [variants, setVariants] = useState({
 		variants: [],
@@ -192,9 +192,8 @@ const ApprovalModal = ({ approval }) => {
 		}
 	};
 
-	console.log(variants, 'variants');
-	console.log(selectBoxes, 'selectBoxes');
-	console.log(empList, 'empList');
+	console.log(matchedData, 'matchedData');
+	// console.log(rowData.approvers, 'rowData');
 
 	return (
 		<>
@@ -215,7 +214,7 @@ const ApprovalModal = ({ approval }) => {
 						backgroundClip='text'
 						fontSize='1.6rem'
 						fontWeight='700'>
-						Add New
+						Edit
 					</Text>
 				</Button>
 			</Tooltip>
@@ -244,6 +243,7 @@ const ApprovalModal = ({ approval }) => {
 										<FormLabel>Variant Name</FormLabel>
 										<Input
 											type='text'
+											value={variantName}
 											placeholder='Enter Name'
 											required
 											onChange={(e) =>
@@ -335,7 +335,7 @@ const ApprovalModal = ({ approval }) => {
 											{Object.entries(
 												variants?.variants
 											)?.map(([key, value]) => (
-												<Box mb='35px'>
+												<Box mb='35px' key={key}>
 													<Text
 														fontWeight='600'
 														marginBottom='5px'
