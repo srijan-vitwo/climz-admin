@@ -55,6 +55,7 @@ const CssWrapper = styled.div`
 	.p-datatable .p-datatable-header {
 		border-top: none;
 		padding-bottom: 10px;
+		background: none;
 	}
 	.p-datatable .p-column-header-content {
 		display: flex;
@@ -157,7 +158,7 @@ const ApprovalVariantList = ({ approval }) => {
 						w='50%'
 					/>
 				</Box>
-				<Box>
+				<Box display='flex' justifyContent='flex-end'>
 					<ApprovalVeriantform
 						approvalState={products}
 						approval={approval}
@@ -191,7 +192,11 @@ const ApprovalVariantList = ({ approval }) => {
 						maxW='40% !important'
 						bgGradient='linear(180deg, #DCF9FF 0%, #FFFFFF 100%)'>
 						<DrawerCloseButton size='lg' />
-						<DrawerHeader pt='28px'>
+						<DrawerHeader
+							pt='28px'
+							display='flex'
+							justifyContent='space-between'
+							alignItems='center'>
 							<Box
 								borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
 								width='400px'

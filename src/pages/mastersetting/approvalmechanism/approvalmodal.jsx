@@ -17,12 +17,12 @@ import {
 	useDisclosure,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
 import { BeatLoader } from 'react-spinners';
+import React, { useState, useEffect } from 'react';
 import StepProgressBar from './StepProgressBa.jsx';
 import userLogo from '../../../assets/images/user.png';
 
-const ApprovalVeriantform = ({ approval }) => {
+const ApprovalModal = ({ approval }) => {
 	const token = localStorage.getItem('token');
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const navigate = useNavigate();
@@ -446,4 +446,4 @@ const ApprovalVeriantform = ({ approval }) => {
 	);
 };
 
-export default ApprovalVeriantform;
+export default ApprovalModal;

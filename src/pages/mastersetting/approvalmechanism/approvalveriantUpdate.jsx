@@ -9,6 +9,7 @@ import {
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import userLogo from '../../../assets/images/user.png';
+import ApprovalModal from './approvalmodal';
 
 const ApprovalVeriantUpdate = ({ approval, rowData }) => {
 	const [variantName, setVariantName] = useState(rowData?.variant_name);
@@ -25,18 +26,14 @@ const ApprovalVeriantUpdate = ({ approval, rowData }) => {
 
 	const newArray = [matchedData?.[matchedData?.length - 1]];
 
-	console.log(matchedData, 'matchedData');
-	console.log(newArray, 'newArray');
-
 	return (
 		<Box>
-			<form
-				style={{
-					width: '100%',
-					display: 'flex',
-					flexDirection: 'column',
-					alignItems: 'flex-end',
-				}}>
+			<Box
+				w='100%'
+				display='flex'
+				flexDirection='column'
+				alignItems='flex-end'>
+				<ApprovalModal />
 				<Box w='100%'>
 					<Box>
 						<FormControl>
@@ -57,7 +54,7 @@ const ApprovalVeriantUpdate = ({ approval, rowData }) => {
 						<Box width='100%'>
 							<div className='timeline'>
 								{matchedData?.map((value, index) => (
-									<Box>
+									<Box mb='15px'>
 										<Text
 											fontWeight='600'
 											marginBottom='5px'
@@ -101,26 +98,7 @@ const ApprovalVeriantUpdate = ({ approval, rowData }) => {
 						</Box>
 					</Box>
 				</Box>
-				<Button
-					bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-					boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-					borderRadius='10px'
-					p='20px 30px'
-					fontSize='1.6rem'
-					color='white'
-					_hover={{
-						bgGradient: 'linear(180deg, #2267A2 0%, #0D4675 100%)',
-					}}
-					_active={{
-						bgGradient: 'linear(180deg, #2267A2 0%, #0D4675 100%)',
-					}}
-					_focus={{
-						bgGradient: 'linear(180deg, #2267A2 0%, #0D4675 100%)',
-					}}
-					type='submit'>
-					Submit
-				</Button>
-			</form>
+			</Box>
 		</Box>
 	);
 };
