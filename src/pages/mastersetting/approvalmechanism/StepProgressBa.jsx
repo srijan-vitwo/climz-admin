@@ -2,8 +2,9 @@
 
 import React, { useState } from 'react';
 import './StepProgressBar.css';
+import { Box, Button } from '@chakra-ui/react';
 
-const StepProgressBar = ({ steps }) => {
+const StepProgressBar = ({ steps, approval }) => {
 	const [currentStep, setCurrentStep] = useState(0);
 
 	const handleNextStep = () => {
@@ -15,29 +16,33 @@ const StepProgressBar = ({ steps }) => {
 	};
 
 	return (
-		<div className='step-progress-bar'>
-			<div className='steps'>
-				{steps.map((step, index) => (
-					<div
-						key={index}
-						className={`step ${
-							index === currentStep ? 'active' : ''
-						}`}>
-						{step}
-					</div>
-				))}
-			</div>
-			<div className='actions'>
-				<button onClick={handlePrevStep} disabled={currentStep === 0}>
+		<Box className='step-progress-bar'>
+			<Box className='steps'>
+				{approval?.map((step, index) => {
+					return (
+						<Box
+							key={index}
+							className={`step ${
+								index === currentStep ? 'active' : ''
+							}`}
+							fontWeight='600'
+							borderRadius='10px'>
+							{step?.type_name}
+						</Box>
+					);
+				})}
+			</Box>
+			<Box className='actions'>
+				<Button onClick={handlePrevStep} disabled={currentStep === 0}>
 					Previous
-				</button>
-				<button
+				</Button>
+				<Button
 					onClick={handleNextStep}
 					disabled={currentStep === steps.length - 1}>
 					Next
-				</button>
-			</div>
-		</div>
+				</Button>
+			</Box>
+		</Box>
 	);
 };
 

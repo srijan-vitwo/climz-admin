@@ -159,8 +159,6 @@ const ApprovalVeriantform = ({ approval }) => {
 
 	const newArray = [variants?.variants[variants?.variants?.length - 1]];
 	const lastObject = approval[approval?.length - 1];
-	const lastApproval = [lastObject];
-	// const lastValue =
 
 	const approvalSubmit = async (e) => {
 		e.preventDefault();
@@ -191,8 +189,6 @@ const ApprovalVeriantform = ({ approval }) => {
 			navigate('/login');
 		}
 	};
-
-	console.log(variants, 'variants');
 
 	return (
 		<>
@@ -231,7 +227,10 @@ const ApprovalVeriantform = ({ approval }) => {
 							}}
 							onSubmit={approvalSubmit}>
 							<Box w='100%'>
-								<StepProgressBar steps={steps} />
+								<StepProgressBar
+									steps={steps}
+									approval={approval}
+								/>
 								<Box>
 									<FormControl>
 										<FormLabel>Variant Name</FormLabel>
@@ -253,8 +252,7 @@ const ApprovalVeriantform = ({ approval }) => {
 										width='32%'
 										display='flex'
 										alignItems='center'
-										flexDirection='column'
-										marginTop='15px'>
+										flexDirection='column'>
 										{selectBoxes.map((_, index) => (
 											<Box
 												key={index}
