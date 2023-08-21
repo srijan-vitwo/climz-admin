@@ -192,9 +192,6 @@ const ApprovalModal = ({ approval, matchedData, rowData }) => {
 		}
 	};
 
-	console.log(matchedData, 'matchedData');
-	// console.log(rowData.approvers, 'rowData');
-
 	return (
 		<>
 			<Tooltip hasArrow label='Add New Approval veriant' fontSize='1rem'>
@@ -238,20 +235,20 @@ const ApprovalModal = ({ approval, matchedData, rowData }) => {
 									variants={variants}
 									currentStep={currentStep}
 								/>
-								<Box>
-									<FormControl>
-										<FormLabel>Variant Name</FormLabel>
-										<Input
-											type='text'
-											value={variantName}
-											placeholder='Enter Name'
-											required
-											onChange={(e) =>
-												setVariantName(e.target.value)
-											}
-										/>
-									</FormControl>
-								</Box>
+
+								<FormControl>
+									<FormLabel>Variant Name</FormLabel>
+									<Input
+										type='text'
+										value={variantName}
+										placeholder='Enter Name'
+										required
+										onChange={(e) =>
+											setVariantName(e.target.value)
+										}
+									/>
+								</FormControl>
+
 								<Box
 									display='flex'
 									justifyContent='space-between'
@@ -266,7 +263,8 @@ const ApprovalModal = ({ approval, matchedData, rowData }) => {
 												key={index}
 												display='flex'
 												alignItems='flex-startr'
-												height='120px'>
+												height='120px'
+												width='100%'>
 												<FormControl>
 													<FormLabel>
 														Select Approval

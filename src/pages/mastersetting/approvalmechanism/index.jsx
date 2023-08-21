@@ -236,7 +236,7 @@ const ApprovalMechanism = () => {
 						</Modal>
 					</TabPanel>
 					<TabPanel
-						p='20px'
+						p='10px'
 						background='white'
 						border='1px solid #CECECE'
 						boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'

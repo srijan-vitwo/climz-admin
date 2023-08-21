@@ -66,7 +66,7 @@ const CssWrapper = styled.div`
 		margin-top: 5px;
 		padding-right: 9px;
 		overflow-y: scroll;
-		height: calc(100vh - 281px);
+		height: calc(100vh - 260px);
 	}
 `;
 const ApprovalVariantList = ({ approval }) => {
@@ -230,7 +230,7 @@ const ApprovalVariantList = ({ approval }) => {
 		<CssWrapper>
 			{loader ? (
 				<Box
-					height='calc(100vh - 200px)'
+					height='calc(100vh - 180px)'
 					width='100%'
 					display='flex'
 					justifyContent='center'
