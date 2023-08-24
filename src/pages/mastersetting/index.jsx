@@ -397,7 +397,7 @@ const MasterSetting = () => {
 							<Image src={BadgeGif} w='40px' h='40px' />
 						</Box>
 
-						<Box display='flex' mt='15px'>
+						<Box display='flex' mt='15px' pb='30px'>
 							<Accordion
 								w='100%'
 								sx={{

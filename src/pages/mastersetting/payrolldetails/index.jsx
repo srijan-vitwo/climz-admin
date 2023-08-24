@@ -535,7 +535,7 @@ function App() {
 																fontSize='1.4rem'
 																fontWeight='600'
 																color='var(--chakra-colors-claimzTextBlueLightColor)'>
-																Perquisits
+																Perquisite
 															</Text>
 														</Radio>
 														<Radio

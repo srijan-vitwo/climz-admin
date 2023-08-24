@@ -122,7 +122,7 @@ const ReportList = () => {
 				color='white'
 				padding='10px 15px'
 				marginBottom='30px'>
-				<Heading>Attendance Report</Heading>
+				<Heading>Others Report</Heading>
 			</Box>
 			<Grid templateColumns='repeat(3, 1fr)' gap={39} mb='30px'>
 				<GridItem>

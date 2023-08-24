@@ -69,6 +69,28 @@ const ApprovalModal = ({ approval, matchedData, rowData }) => {
 		}
 	};
 
+	const selectBox = () => {
+		onOpen();
+		let setSelectBoxesArr = [];
+		let varientArr = [];
+		const updateSize = matchedData?.map((data, index) => {
+			console.log(index + 1, data);
+			setSelectBoxesArr.push(index + 1);
+			varientArr.push({
+				vm_id: data.vm_id,
+				user_id: data.id,
+				type_name: data.type_name,
+				get_status: data.get_status,
+				status_maker: data.status_maker,
+				name: data.emp_name,
+				img: data.profile_photo,
+			});
+		});
+		console.log(setSelectBoxesArr);
+		setSelectBoxes(setSelectBoxesArr);
+		setVariants({ variants: varientArr });
+	};
+
 	useEffect(() => {
 		const empList = async () => {
 			try {
@@ -192,6 +214,8 @@ const ApprovalModal = ({ approval, matchedData, rowData }) => {
 		}
 	};
 
+	console.log(variants, 'variants');
+
 	return (
 		<>
 			<Tooltip hasArrow label='Add New Approval veriant' fontSize='1rem'>
@@ -205,7 +229,7 @@ const ApprovalModal = ({ approval, matchedData, rowData }) => {
 					severity='success'
 					background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
 					backgroundClip='text'
-					onClick={onOpen}>
+					onClick={selectBox}>
 					<Text
 						background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
 						backgroundClip='text'
@@ -262,7 +286,7 @@ const ApprovalModal = ({ approval, matchedData, rowData }) => {
 											<Box
 												key={index}
 												display='flex'
-												alignItems='flex-startr'
+												alignItems='flex-start'
 												height='120px'
 												width='100%'>
 												<FormControl>
@@ -333,7 +357,10 @@ const ApprovalModal = ({ approval, matchedData, rowData }) => {
 											{Object.entries(
 												variants?.variants
 											)?.map(([key, value]) => (
-												<Box mb='35px' key={key}>
+												<Box
+													mb='25px'
+													width='100%'
+													key={key}>
 													<Text
 														fontWeight='600'
 														marginBottom='5px'

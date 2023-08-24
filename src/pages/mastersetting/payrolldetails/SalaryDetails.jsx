@@ -1062,7 +1062,7 @@ const SalaryDetails = () => {
 							color='white'
 							padding='10px 15px'
 							my='30px'>
-							<Heading> Perquisits :</Heading>
+							<Heading> perquisite :</Heading>
 						</Box>
 						<Grid templateColumns='repeat(3, 1fr)' gap={6}>
 							{empDetails?.perquisits_components?.map(

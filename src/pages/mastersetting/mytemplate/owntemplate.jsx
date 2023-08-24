@@ -36,7 +36,6 @@ const PersonalTemplate = ({ OwnTemplate, sucess, setSucess }) => {
 	const [globalTemplateId, setGlobalTemplateId] = useState();
 	const [templateId, setTemplateId] = useState();
 	const [templateName, setTemplateName] = useState();
-	const [loader, setLoader] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 
 	function toastCall() {
@@ -148,9 +147,11 @@ const PersonalTemplate = ({ OwnTemplate, sucess, setSucess }) => {
 								bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
 								boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
 								borderRadius='10px'
-								p='20px'
+								padding='26px 10px'
 								fontSize='1.4rem'
 								color='white'
+								whiteSpace='wrap'
+								lineHeight='20px'
 								_hover={{
 									bgGradient:
 										'linear(180deg, #2267A2 0%, #0D4675 100%)',
@@ -213,6 +214,7 @@ const PersonalTemplate = ({ OwnTemplate, sucess, setSucess }) => {
 								p='20px 20px'
 								fontSize='1.6rem'
 								color='white'
+								whiteSpace='wrap'
 								_hover={{
 									bgGradient:
 										'linear(180deg, #2267A2 0%, #0D4675 100%)',
