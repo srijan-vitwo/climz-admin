@@ -78,7 +78,7 @@ const CssWrapper = styled.div`
 		margin-top: 5px;
 		padding-right: 9px;
 		overflow-y: scroll;
-		height: calc(100vh - 414px);
+		height: calc(100vh - 390px);
 	}
 `;
 
@@ -858,7 +858,7 @@ const HolidayPolicies = () => {
 			<Box>
 				{loader ? (
 					<Box
-						height='408px'
+						height='393px'
 						width='100%'
 						display='flex'
 						justifyContent='center'

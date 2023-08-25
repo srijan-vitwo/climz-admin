@@ -66,7 +66,7 @@ const CssWrapper = styled.div`
 		margin-top: 5px;
 		padding-right: 9px;
 		overflow-y: scroll;
-		height: calc(100vh - 460px);
+		height: calc(100vh - 420px);
 	}
 `;
 const GradeSettingDataTable = ({ Msg }) => {

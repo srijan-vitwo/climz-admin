@@ -50,7 +50,7 @@ const CssWrapper = styled.div`
 		margin-top: 5px;
 		padding-right: 9px;
 		overflow-y: scroll;
-		height: calc(100vh - 462px);
+		height: calc(100vh - 440px);
 	}
 `;
 
@@ -162,7 +162,7 @@ const BudgetlistDataTable = () => {
 		<CssWrapper>
 			{loader ? (
 				<Box
-					height='calc(100vh - 400px)'
+					height='calc(100vh - 370px)'
 					width='100%'
 					display='flex'
 					justifyContent='center'
