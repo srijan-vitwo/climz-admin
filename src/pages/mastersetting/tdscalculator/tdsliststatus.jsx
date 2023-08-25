@@ -67,18 +67,29 @@ const TDSListStatus = () => {
 	}, [isLoading]);
 
 	const ActionTemplate = ({ list }) => {
-		console.log(list[0], 'list');
 		const toast = useToast();
 		const { isOpen, onOpen, onClose } = useDisclosure();
 		const [docNo, setDocNo] = useState(list[0].doc_no);
 		const [userId, setUserId] = useState(list[0].id);
 		const [approved, setApproved] = useState(2);
 		const [reject, setReject] = useState(3);
-		const groupOne = list?.filter((item) => item.group_id == 1);
-		const groupTwo = list?.filter((item) => item.group_id == 2);
-		const grouptTree = list?.filter((item) => item.group_id == 3);
-		const groupFour = list?.filter((item) => item.group_id == 4);
-		const groupfive = list?.filter((item) => item.group_id == 5);
+		const groupOne = list?.filter(
+			(item) => item.group_name === 'Investment'
+		);
+		const groupTwo = list?.filter(
+			(item) => item.group_name === 'Political'
+		);
+		const grouptTree = list?.filter(
+			(item) => item.group_name === 'Medical'
+		);
+		const groupFour = list?.filter((item) => item.group_name === 'Loan');
+		const groupFive = list?.filter((item) => item.group_name == 'Donation');
+		const groupSix = list?.filter(
+			(item) => item.group_name === 'Others Royalty'
+		);
+		const groupSeven = list?.filter(
+			(item) => item.group_name == 'Disabled Individuals'
+		);
 		const groupNamesArray = list.map((item) => item.group_name);
 		const uniqueData = [...new Set(groupNamesArray)];
 
@@ -146,7 +157,30 @@ const TDSListStatus = () => {
 			{}
 		);
 
-		const groupedDeclarationsFive = groupfive?.reduce(
+		const groupedDeclarationsFive = groupFive?.reduce(
+			(acc, declaration) => {
+				const typeId = declaration.type_id;
+				if (acc[typeId]) {
+					acc[typeId].push(declaration);
+				} else {
+					acc[typeId] = [declaration];
+				}
+				return acc;
+			},
+			{}
+		);
+
+		const groupedDeclarationsSix = groupFive?.reduce((acc, declaration) => {
+			const typeId = declaration.type_id;
+			if (acc[typeId]) {
+				acc[typeId].push(declaration);
+			} else {
+				acc[typeId] = [declaration];
+			}
+			return acc;
+		}, {});
+
+		const groupedDeclarationsSeven = groupSeven?.reduce(
 			(acc, declaration) => {
 				const typeId = declaration.type_id;
 				if (acc[typeId]) {
@@ -164,6 +198,8 @@ const TDSListStatus = () => {
 		const nestedArrayThree = Object.values(groupedDeclarationsThree);
 		const nestedArrayFour = Object.values(groupedDeclarationsFour);
 		const nestedArrayFive = Object.values(groupedDeclarationsFive);
+		const nestedArraySix = Object.values(groupedDeclarationsFour);
+		const nestedArraySeven = Object.values(groupedDeclarationsFive);
 
 		const approver = async (e) => {
 			e.preventDefault();
@@ -635,6 +671,172 @@ const TDSListStatus = () => {
 											borderRadius='0px 0px 6px 6px'
 											padding='0px'>
 											{nestedArrayFive?.map(
+												(category, index) => (
+													<Tabs
+														key={index}
+														position='relative'
+														variant='unstyled'>
+														<TabList
+															sx={{
+																'& .chakra-tabs__tab':
+																	{
+																		color: 'claimzTextBlueLightColor',
+																		fontSize:
+																			'1.6rem',
+																		fontWeight:
+																			'700',
+																		pb: '10px',
+																		pt: '10px',
+																		width: '100%',
+																	},
+																'& .chakra-tabs__tab[aria-selected=true]':
+																	{
+																		color: 'white',
+																		bg: 'claimzMainGeadientColor',
+																	},
+															}}>
+															<Tab>
+																{
+																	category[0]
+																		.type_name
+																}
+															</Tab>
+														</TabList>
+														<TabIndicator
+															mt='-2.5px'
+															height='3px'
+															bg='claimzTextBlueLightColor'
+															borderRadius='1px'
+														/>
+
+														<TabPanels>
+															<TabPanel p='0px 15px'>
+																{category.map(
+																	(
+																		declaration
+																	) => (
+																		<Box
+																			display='flex'
+																			justifyContent='space-between'
+																			alignItems='center'>
+																			<Box
+																				background='white'
+																				padding='0px'
+																				m='15px 0px'
+																				key={
+																					declaration.declaration_id
+																				}>
+																				{
+																					declaration.declaration_name
+																				}
+																			</Box>
+																			<Box fontWeight='600'>
+																				{
+																					declaration.amount
+																				}
+																			</Box>
+																		</Box>
+																	)
+																)}
+															</TabPanel>
+														</TabPanels>
+													</Tabs>
+												)
+											)}
+										</Box>
+									</TabPanel>
+
+									<TabPanel p='0px 0px 0px'>
+										<Box
+											background='white'
+											border='1px solid #CECECE'
+											boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
+											borderRadius='0px 0px 6px 6px'
+											padding='0px'>
+											{nestedArraySix?.map(
+												(category, index) => (
+													<Tabs
+														key={index}
+														position='relative'
+														variant='unstyled'>
+														<TabList
+															sx={{
+																'& .chakra-tabs__tab':
+																	{
+																		color: 'claimzTextBlueLightColor',
+																		fontSize:
+																			'1.6rem',
+																		fontWeight:
+																			'700',
+																		pb: '10px',
+																		pt: '10px',
+																		width: '100%',
+																	},
+																'& .chakra-tabs__tab[aria-selected=true]':
+																	{
+																		color: 'white',
+																		bg: 'claimzMainGeadientColor',
+																	},
+															}}>
+															<Tab>
+																{
+																	category[0]
+																		.type_name
+																}
+															</Tab>
+														</TabList>
+														<TabIndicator
+															mt='-2.5px'
+															height='3px'
+															bg='claimzTextBlueLightColor'
+															borderRadius='1px'
+														/>
+
+														<TabPanels>
+															<TabPanel p='0px 15px'>
+																{category.map(
+																	(
+																		declaration
+																	) => (
+																		<Box
+																			display='flex'
+																			justifyContent='space-between'
+																			alignItems='center'>
+																			<Box
+																				background='white'
+																				padding='0px'
+																				m='15px 0px'
+																				key={
+																					declaration.declaration_id
+																				}>
+																				{
+																					declaration.declaration_name
+																				}
+																			</Box>
+																			<Box fontWeight='600'>
+																				{
+																					declaration.amount
+																				}
+																			</Box>
+																		</Box>
+																	)
+																)}
+															</TabPanel>
+														</TabPanels>
+													</Tabs>
+												)
+											)}
+										</Box>
+									</TabPanel>
+
+									<TabPanel p='0px 0px 0px'>
+										<Box
+											background='white'
+											border='1px solid #CECECE'
+											boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
+											borderRadius='0px 0px 6px 6px'
+											padding='0px'>
+											{nestedArraySeven?.map(
 												(category, index) => (
 													<Tabs
 														key={index}

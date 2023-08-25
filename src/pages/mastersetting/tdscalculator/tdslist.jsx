@@ -18,7 +18,6 @@ import {
 	DrawerCloseButton,
 	useDisclosure,
 	Input,
-	FormControl,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../../../assets/images/loader.gif';
@@ -125,9 +124,11 @@ const TdsList = () => {
 			setEarnignComponents(earningComponentsObj);
 		};
 
+		let totalEarnings = 0; // Initialize the total earnings
 		// dynamic calculation earning components
 		const EarningDetails = Object.entries(earningComponents).map(
 			([key, data]) => {
+				totalEarnings += parseFloat(data.value || 0);
 				return (
 					<Box
 						key={key}
@@ -146,8 +147,19 @@ const TdsList = () => {
 								name={data.salary_component}
 								value={data.value}
 								className='handleScroll'
+								fontWeight={
+									data.exampt === 'CTC'
+										? '600'
+										: data.exampt === 'Total Gross'
+										? '600'
+										: '400'
+								}
 								isReadOnly={
-									data.exampt === 'CTC' ? true : false
+									data.exampt === 'CTC'
+										? true
+										: data.exampt === 'Total Gross'
+										? true
+										: false
 								}
 								onChange={(e) =>
 									handleEarningInputChange(key, e)
@@ -159,7 +171,28 @@ const TdsList = () => {
 			}
 		);
 
-		console.log(earningComponents, 'earningComponents');
+		const ctcValue = totalEarnings.toFixed(2);
+
+		// Calculate the sum of the values of the first three components
+		const sumOfFirstThreeValues = Object.values(earningComponents)
+			.slice(0, 3)
+			.reduce((sum, data) => sum + parseFloat(data.value || 0), 0);
+
+		// Update the fourth component's value with the calculated sum
+		if (earningComponents['3']) {
+			earningComponents['3'].value = sumOfFirstThreeValues.toFixed(2);
+		}
+
+		const sumOfLastSixthValues = Object.values(earningComponents)
+			.slice(4, 9)
+			.reduce((sum, data) => sum + parseFloat(data.value || 0), 0);
+
+		// Update the fourth component's value with the calculated sum
+		if (earningComponents['10']) {
+			earningComponents['10'].value = sumOfLastSixthValues.toFixed(2);
+		}
+
+		const totalvalue = sumOfFirstThreeValues - sumOfLastSixthValues;
 
 		return (
 			<>
@@ -217,29 +250,7 @@ const TdsList = () => {
 										Value
 									</Text>
 								</Box>
-								{/* {formDetails?.map((data, index) => {
-									return (
-										<Box
-											key={index}
-											display='flex'
-											justifyContent='space-between'
-											pt='15px'
-											pb='5px'
-											mb='1px'>
-											<Box>
-												<Text mb='5px'>
-													{data.exampt}
-												</Text>
-											</Box>
-											<Box>
-												<Input
-													type='text'
-													value={data?.earnings}
-												/>
-											</Box>
-										</Box>
-									);
-								})} */}
+
 								<Box>{EarningDetails}</Box>
 
 								<Box
@@ -254,7 +265,7 @@ const TdsList = () => {
 									</Box>
 									<Box>
 										<Text mb='5px' fontWeight='600'>
-											1500000
+											{totalvalue.toFixed(2)}
 										</Text>
 									</Box>
 								</Box>

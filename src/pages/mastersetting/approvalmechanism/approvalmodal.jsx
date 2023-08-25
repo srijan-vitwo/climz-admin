@@ -188,6 +188,7 @@ const ApprovalModal = ({ approval, matchedData, rowData }) => {
 		e.preventDefault();
 		let formData = new FormData();
 		formData.append('variant_name', variantName);
+		formData.append('variant_id', rowData?.variant_id);
 		formData.append('variants', JSON.stringify(variants.variants));
 
 		try {

@@ -3,8 +3,6 @@ import {
 	Box,
 	Text,
 	Button,
-	CircularProgress,
-	CircularProgressLabel,
 	Tooltip,
 	Input,
 	FormControl,
@@ -31,6 +29,7 @@ import { Paginator } from 'primereact/paginator';
 import { useNavigate } from 'react-router-dom';
 import OnbordingDrawer from './onbordingDrawer';
 import Loader from '../../../assets/images/loader.gif';
+import { BeatLoader } from 'react-spinners';
 
 const CssWrapper = styled.div`
 	.p-datatable-wrapper::-webkit-scrollbar {
@@ -102,6 +101,7 @@ const OnboardingCandidate = () => {
 	const [empUser, setEmpUser] = useState();
 	const [fromValue, setFromValue] = useState([]);
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const [isLoading, setIsLoading] = useState(false);
 	const [loader, setLoader] = useState(false);
 
 	const cols = [
@@ -265,24 +265,33 @@ const OnboardingCandidate = () => {
 			formData.append('email', mail);
 			formData.append('join_date', date);
 
-			const response = await fetch(
-				`${process.env.REACT_APP_API_URL}/post-candidates`,
-				{
-					method: 'POST',
-					body: formData,
-					headers: {
-						Authorization: `Bearer ${tokens}`,
-					},
+			try {
+				setIsLoading(true);
+				const response = await fetch(
+					`${process.env.REACT_APP_API_URL}/post-candidates`,
+					{
+						method: 'POST',
+						body: formData,
+						headers: {
+							Authorization: `Bearer ${tokens}`,
+						},
+					}
+				);
+				const data = await response.json();
+				if (response.status === 200) {
+					toastCall();
+					setsucess(!sucess);
+					setIsLoading(false);
+				} else if (response.status === 400) {
+					toastCallFaild();
+					setIsLoading(false);
+				} else {
+					toastCallError();
+					setIsLoading(false);
 				}
-			);
-			const data = await response.json();
-			if (response.status === 200) {
-				toastCall();
-				setsucess(!sucess);
-			} else if (response.status === 400) {
-				toastCallFaild();
-			} else {
+			} catch {
 				toastCallError();
+				setIsLoading(false);
 			}
 		};
 
@@ -430,6 +439,14 @@ const OnboardingCandidate = () => {
 										/>
 									</FormControl>
 									<Button
+										disabled={isLoading}
+										isLoading={isLoading}
+										spinner={
+											<BeatLoader
+												size={8}
+												color='white'
+											/>
+										}
 										bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
 										boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
 										borderRadius='5px'
