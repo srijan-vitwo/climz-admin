@@ -18,15 +18,36 @@ import {
 	DrawerCloseButton,
 	useDisclosure,
 	Input,
+	useToast,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../../../assets/images/loader.gif';
+import { BeatLoader } from 'react-spinners';
 
 const TdsList = () => {
 	const navigate = useNavigate();
+	const toast = useToast();
 	const token = localStorage.getItem('token');
 	const [loader, setLoader] = useState(false);
 	const [products, setProducts] = useState();
+	const [tdsSlab, setTdsSlab] = useState();
+
+	function toastCall() {
+		return toast({
+			title: 'Business Location Added Sucessfully',
+			status: 'success',
+			duration: 3000,
+			isClosable: true,
+		});
+	}
+	function toastCallFaild() {
+		return toast({
+			title: 'Request Faild',
+			status: 'error',
+			duration: 3000,
+			isClosable: true,
+		});
+	}
 
 	useEffect(() => {
 		const departmentList = async () => {
@@ -41,13 +62,22 @@ const TdsList = () => {
 						},
 					}
 				);
+				const response2 = await fetch(
+					`${process.env.REACT_APP_API_URL}/tds-slab`,
+					{
+						method: 'GET',
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					}
+				);
 
-				if (response1.ok) {
+				if (response1.ok && response2.ok) {
 					const data1 = await response1.json();
+					const data2 = await response2.json();
 					setProducts(data1.data);
+					setTdsSlab(data2.data);
 					setLoader(false);
-				} else {
-					navigate('/login');
 				}
 			} catch (error) {
 				navigate('/login');
@@ -57,9 +87,10 @@ const TdsList = () => {
 		departmentList();
 	}, []);
 
-	const ActionTemplate = ({ rowData }) => {
+	const ActionTemplate = ({ rowData, tdsSlab }) => {
 		const { isOpen, onOpen, onClose } = useDisclosure();
 		const [earningComponents, setEarnignComponents] = useState([]);
+		const [isLoading, setIsLoading] = useState(false);
 		const userId = rowData?.list[0]?.user_id;
 
 		const tierUpdate = async (e) => {
@@ -127,8 +158,9 @@ const TdsList = () => {
 		let totalEarnings = 0; // Initialize the total earnings
 		// dynamic calculation earning components
 		const EarningDetails = Object.entries(earningComponents).map(
-			([key, data]) => {
+			([key, data], index, array) => {
 				totalEarnings += parseFloat(data.value || 0);
+				const isLastElement = index === array.length - 1;
 				return (
 					<Box
 						key={key}
@@ -138,41 +170,85 @@ const TdsList = () => {
 						pb='5px'
 						mb='1px'>
 						<Box>
-							<Text mb='5px'>{data.exampt}</Text>
+							{!isLastElement && (
+								<Text
+									mb='5px'
+									fontWeight={
+										data.exampt === 'Total CTC'
+											? '600'
+											: data.exampt ===
+											  'Allowance to the extent exempt under section 10'
+											? '600'
+											: data.exampt ===
+											  'Gross Total Income'
+											? '600'
+											: data.exampt ===
+											  'Total taxable income'
+											? '600'
+											: data.exampt === 'Tax payable'
+											? '600'
+											: data.exampt === 'Net tax payable'
+											? '600'
+											: '400'
+									}>
+									{data.exampt}
+								</Text>
+							)}
 						</Box>
-						<Box>
-							<Input
-								type='number'
-								placeholder={data.salary_component}
-								name={data.salary_component}
-								value={data.value}
-								className='handleScroll'
-								fontWeight={
-									data.exampt === 'CTC'
-										? '600'
-										: data.exampt === 'Total Gross'
-										? '600'
-										: '400'
-								}
-								isReadOnly={
-									data.exampt === 'CTC'
-										? true
-										: data.exampt === 'Total Gross'
-										? true
-										: false
-								}
-								onChange={(e) =>
-									handleEarningInputChange(key, e)
-								}
-							/>
-						</Box>
+						{!isLastElement && (
+							<Box>
+								<Input
+									type='number'
+									placeholder={data.salary_component}
+									name={data.salary_component}
+									value={data.value}
+									className='handleScroll'
+									fontWeight={
+										data.exampt === 'Total CTC'
+											? '600'
+											: data.exampt ===
+											  'Allowance to the extent exempt under section 10'
+											? '600'
+											: data.exampt ===
+											  'Gross Total Income'
+											? '600'
+											: data.exampt ===
+											  'Total taxable income'
+											? '600'
+											: data.exampt === 'Tax payable'
+											? '600'
+											: data.exampt === 'Net tax payable'
+											? '600'
+											: '400'
+									}
+									isReadOnly={
+										data.exampt === 'Total CTC'
+											? true
+											: data.exampt ===
+											  'Allowance to the extent exempt under section 10'
+											? true
+											: data.exampt ===
+											  'Gross Total Income'
+											? true
+											: data.exampt ===
+											  'Total taxable income'
+											? true
+											: data.exampt === 'Tax payable'
+											? true
+											: data.exampt === 'Net tax payable'
+											? true
+											: false
+									}
+									onChange={(e) =>
+										handleEarningInputChange(key, e)
+									}
+								/>
+							</Box>
+						)}
 					</Box>
 				);
 			}
 		);
-
-		const ctcValue = totalEarnings.toFixed(2);
-
 		// Calculate the sum of the values of the first three components
 		const sumOfFirstThreeValues = Object.values(earningComponents)
 			.slice(0, 3)
@@ -188,11 +264,115 @@ const TdsList = () => {
 			.reduce((sum, data) => sum + parseFloat(data.value || 0), 0);
 
 		// Update the fourth component's value with the calculated sum
-		if (earningComponents['10']) {
-			earningComponents['10'].value = sumOfLastSixthValues.toFixed(2);
+		if (earningComponents['9']) {
+			earningComponents['9'].value = sumOfLastSixthValues.toFixed(2);
 		}
 
-		const totalvalue = sumOfFirstThreeValues - sumOfLastSixthValues;
+		const difference = sumOfFirstThreeValues - sumOfLastSixthValues;
+		// Update the fourth component's value with the calculated sum
+		if (earningComponents['10']) {
+			earningComponents['10'].value = difference.toFixed(2);
+		}
+		const deductionUnderChapterVIA =
+			Object.values(earningComponents)[11]?.value;
+
+		const TotalTaxableIncome = difference - deductionUnderChapterVIA;
+
+		if (earningComponents['12']) {
+			earningComponents['12'].value = TotalTaxableIncome.toFixed(2);
+		}
+
+		const TaxTotalIncome = Object.values(earningComponents)[13]?.value;
+		const SurchargeWhereverApplicable =
+			Object.values(earningComponents)[15]?.value;
+		const HealthEducationCess = Object.values(earningComponents)[16]?.value;
+		const RebateUnderSection87A =
+			Object.values(earningComponents)[14]?.value;
+
+		const totalTaxPayable =
+			TaxTotalIncome +
+			SurchargeWhereverApplicable +
+			HealthEducationCess -
+			RebateUnderSection87A;
+
+		if (earningComponents['17']) {
+			earningComponents['17'].value = totalTaxPayable.toFixed(2);
+		}
+
+		const ReliefUnderSection89 =
+			Object.values(earningComponents)[18]?.value;
+		const NetTaxPayable = totalTaxPayable - ReliefUnderSection89;
+
+		if (earningComponents['19']) {
+			earningComponents['19'].value = NetTaxPayable.toFixed(2);
+		}
+
+		const taxStructure = tdsSlab;
+
+		const calculateTax = (salary) => {
+			let tax = 0;
+			for (const [lower, upper, rate] of taxStructure) {
+				if (upper === '') {
+					if (salary >= lower) {
+						tax += salary * (rate / 100);
+					}
+				} else if (lower <= salary && salary < upper) {
+					tax += (salary - lower) * (rate / 100);
+					break;
+				} else {
+					tax += (upper - lower) * (rate / 100);
+				}
+			}
+			return tax;
+		};
+
+		if (earningComponents['13']) {
+			earningComponents['13'].value =
+				calculateTax(TotalTaxableIncome).toFixed(2);
+			earningComponents['17'].value =
+				calculateTax(TotalTaxableIncome).toFixed(2);
+		}
+
+		console.log(earningComponents, 'earningComponents');
+
+		const tdsSubmit = async (e) => {
+			e.preventDefault();
+			const submitEarningComponents = earningComponents.map((item) => ({
+				exampt_submit_id: '',
+				exampt_detail_id: item.exampt_details_id,
+				user_id: userId,
+				exampt_amount: item.value,
+			}));
+			let formData = new FormData();
+			formData.append('exempt', JSON.stringify(submitEarningComponents));
+
+			try {
+				setIsLoading(true);
+				const response = await fetch(
+					`${process.env.REACT_APP_API_URL}/exempt-submit`,
+					{
+						method: 'POST',
+						body: formData,
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					}
+				);
+
+				if (response.ok) {
+					toastCall();
+					setIsLoading(false);
+				} else if (response.status === 400) {
+					toastCallFaild();
+					setIsLoading(false);
+				} else {
+					toastCallFaild();
+					setIsLoading(false);
+				}
+			} catch (error) {
+				navigate('/login');
+			}
+		};
 
 		return (
 			<>
@@ -230,8 +410,13 @@ const TdsList = () => {
 							</Box>
 						</DrawerHeader>
 
-						<DrawerBody>
+						<DrawerBody
+							display='flex'
+							flexDirection='column'
+							alignItems='flex-end'
+							width='100%'>
 							<Box
+								width='100%'
 								background='white'
 								border='1px dashed #CECECE'
 								boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
@@ -260,16 +445,52 @@ const TdsList = () => {
 									pt='5px'>
 									<Box>
 										<Text mb='5px' fontWeight='600'>
-											CTC
+											{
+												Object.values(
+													earningComponents
+												)[19]?.exampt
+											}
 										</Text>
 									</Box>
 									<Box>
 										<Text mb='5px' fontWeight='600'>
-											{totalvalue.toFixed(2)}
+											{
+												Object.values(
+													earningComponents
+												)[19]?.value
+											}
 										</Text>
 									</Box>
 								</Box>
 							</Box>
+							<Button
+								disabled={isLoading}
+								isLoading={isLoading}
+								spinner={<BeatLoader size={8} color='white' />}
+								onClick={tdsSubmit}
+								mt='15px'
+								mb='15px'
+								bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
+								border='4px solid #FFFFFF'
+								boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
+								borderRadius='15px'
+								p='20px 20px'
+								fontSize='1.6rem'
+								color='white'
+								_hover={{
+									bgGradient:
+										'linear(180deg, #2267A2 0%, #0D4675 100%)',
+								}}
+								_active={{
+									bgGradient:
+										'linear(180deg, #2267A2 0%, #0D4675 100%)',
+								}}
+								_focus={{
+									bgGradient:
+										'linear(180deg, #2267A2 0%, #0D4675 100%)',
+								}}>
+								Submit
+							</Button>
 						</DrawerBody>
 					</DrawerContent>
 				</Drawer>
@@ -343,7 +564,10 @@ const TdsList = () => {
 										{section?.ctc}
 									</Td>
 									<Td p='15px' textAlign='center'>
-										<ActionTemplate rowData={section} />
+										<ActionTemplate
+											rowData={section}
+											tdsSlab={tdsSlab}
+										/>
 									</Td>
 								</Tr>
 							</React.Fragment>
