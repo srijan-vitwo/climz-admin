@@ -30,6 +30,7 @@ import { Column } from 'primereact/column';
 import styled from '@emotion/styled';
 import { Link, useNavigate } from 'react-router-dom';
 import LoaderImg from '../../assets/images/loader.gif';
+import { BeatLoader } from 'react-spinners';
 
 const CssWrapper = styled.div`
 	.p-datatable-wrapper::-webkit-scrollbar {
@@ -64,6 +65,7 @@ const CssWrapper = styled.div`
 	.p-datatable .p-datatable-header {
 		border-top: none;
 		padding-bottom: 10px;
+		background: #fff;
 	}
 	.p-datatable .p-column-header-content {
 		display: flex;
@@ -79,6 +81,7 @@ const CssWrapper = styled.div`
 `;
 
 const ShiftDataTable = () => {
+	const toast = useToast();
 	const navigate = useNavigate();
 	const [loader, setLoader] = useState(false);
 	const token = localStorage.getItem('token');
@@ -86,6 +89,7 @@ const ShiftDataTable = () => {
 	const [sucess, setSucess] = useState();
 	const [products, setProducts] = useState();
 	const [updatedValue, setUpdatedValue] = useState();
+	const [isLoading, setIsLoading] = useState(false);
 	const [filters, setFilters] = useState({
 		global: { value: null, matchMode: FilterMatchMode.CONTAINS },
 		name: {
@@ -106,6 +110,15 @@ const ShiftDataTable = () => {
 			constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }],
 		},
 	});
+
+	function toastCallFaild() {
+		return toast({
+			title: 'Request Faild',
+			status: 'error',
+			duration: 5000,
+			isClosable: true,
+		});
+	}
 
 	useEffect(() => {
 		const departmentList = async () => {
@@ -581,22 +594,29 @@ const ShiftDataTable = () => {
 			fromValues.append('shift_id', rowData.shift_id);
 			fromValues.append('times', JSON.stringify(formFields));
 
-			const response = await fetch(
-				`${process.env.REACT_APP_API_URL}/shift-post`,
-				{
-					method: 'POST',
-					body: fromValues,
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
+			try {
+				setIsLoading(true);
+				const response = await fetch(
+					`${process.env.REACT_APP_API_URL}/shift-post`,
+					{
+						method: 'POST',
+						body: fromValues,
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					}
+				);
+				const data = await response.json();
+				if (response.status === 200) {
+					toastCall();
+					setSucess(!sucess);
+					setIsLoading(false);
+				} else {
+					setIsLoading(false);
 				}
-			);
-			const data = await response.json();
-			if (response.status === 200) {
-				toastCall();
-				setSucess(!sucess);
-			} else {
-				console.error('Error:', data.message);
+			} catch {
+				toastCallFaild();
+				setIsLoading(false);
 			}
 		};
 
@@ -1008,6 +1028,14 @@ const ShiftDataTable = () => {
 										))}
 									</Box>
 									<Button
+										disabled={isLoading}
+										isLoading={isLoading}
+										spinner={
+											<BeatLoader
+												size={8}
+												color='white'
+											/>
+										}
 										bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
 										boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
 										borderRadius='5px'
@@ -1028,8 +1056,7 @@ const ShiftDataTable = () => {
 											bgGradient:
 												'linear(180deg, #2267A2 0%, #0D4675 100%)',
 										}}
-										type='submit'
-										onClick={onClose}>
+										type='submit'>
 										Submit
 									</Button>
 								</form>
@@ -1045,7 +1072,7 @@ const ShiftDataTable = () => {
 		<CssWrapper>
 			{loader ? (
 				<Box
-					height='575px'
+					height='calc(100vh - 147px)'
 					width='100%'
 					display='flex'
 					justifyContent='center'
