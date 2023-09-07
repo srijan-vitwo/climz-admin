@@ -355,7 +355,7 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser }) => {
 									bgGradient:
 										'linear(180deg, #2267A2 0%, #0D4675 100%)',
 								}}>
-								Sending Offer Letter
+								Send Offer Letter
 							</Button>
 							<Button
 								onClick={EmployeOnOpen}
@@ -386,7 +386,9 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser }) => {
 							background='var(--chakra-colors-claimzMainGeadientColor)'
 							p='10px 10px 15px'
 							color='white'>
-							<Heading>Personal Information</Heading>
+							<Heading fontWeight='500' fontSize='20px'>
+								Personal Information
+							</Heading>
 						</Box>
 						<Box p='10px' mb='15px'>
 							<Text
@@ -464,7 +466,9 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser }) => {
 							mb='15px'
 							p='10px 10px 15px'
 							color='white'>
-							<Heading>Document Progress</Heading>
+							<Heading fontWeight='500' fontSize='20px'>
+								Document Progress
+							</Heading>
 						</Box>
 						<Box>
 							<Box
