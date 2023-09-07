@@ -156,7 +156,7 @@ const TravelLimit = () => {
 				</Heading>
 				{loader ? (
 					<Box
-						height='calc(100vh - 274px)'
+						height='calc(100vh - 252px)'
 						display='flex'
 						alignItems='center'
 						justifyContent='center'>
@@ -171,7 +171,7 @@ const TravelLimit = () => {
 							<Box
 								w='100%'
 								overflowY='auto'
-								height='calc(100vh - 345px)'>
+								height='calc(100vh - 320px)'>
 								<Table
 									className='reportsTable'
 									variant='striped'>

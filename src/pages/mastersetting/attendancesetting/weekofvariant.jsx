@@ -223,7 +223,7 @@ const WeekofVariant = () => {
 					boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
 					p='40px 30px'
 					borderRadius='6px'
-					maxH='350px'>
+					height='calc(100vh - 365px)'>
 					<form onSubmit={variantAdd}>
 						<Box
 							display='flex'
@@ -338,7 +338,7 @@ const WeekofVariant = () => {
 				</Box>
 				<Box
 					width='58%'
-					maxH='350px'
+					height='calc(100vh - 365px)'
 					overflowY='hidden'
 					background='white'
 					border='1px solid #CECECE'

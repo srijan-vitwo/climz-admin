@@ -271,7 +271,6 @@ const EmployeeCode = () => {
 								<Input
 									type='text'
 									onChange={(e) => setCode(e.target.value)}
-									required
 								/>
 							</FormControl>
 							<FormControl mb='10px'>
@@ -281,7 +280,6 @@ const EmployeeCode = () => {
 									onChange={(e) =>
 										setStartNumber(e.target.value)
 									}
-									required
 								/>
 							</FormControl>
 							<FormControl mb='10px'>

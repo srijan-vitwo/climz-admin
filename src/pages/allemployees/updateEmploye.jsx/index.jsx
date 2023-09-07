@@ -102,6 +102,15 @@ const EmployeeUpdate = ({ details, fromValue, userData, msg, setMsg }) => {
 		});
 	}
 
+	function toastCallFaild() {
+		return toast({
+			title: 'Employee Update Faild',
+			status: 'error',
+			duration: 5000,
+			isClosable: true,
+		});
+	}
+
 	useEffect(() => {
 		if (formData?.department > 0) {
 			const formDataValue = async () => {
@@ -248,7 +257,7 @@ const EmployeeUpdate = ({ details, fromValue, userData, msg, setMsg }) => {
 				setIsLoading(false);
 			}
 		} catch (error) {
-			navigate('/login');
+			toastCallFaild();
 		}
 	};
 

@@ -94,7 +94,14 @@ const MultiStepForm = () => {
 			isClosable: true,
 		});
 	}
-
+	function toastCallFaild() {
+		return toast({
+			title: 'Employee Creation Faild',
+			status: 'error',
+			duration: 5000,
+			isClosable: true,
+		});
+	}
 	function toastCallError(error) {
 		return toast({
 			title: error,
@@ -280,7 +287,7 @@ const MultiStepForm = () => {
 				setIsLoading(false);
 			}
 		} catch (error) {
-			navigate('/login');
+			toastCallFaild();
 		}
 	};
 
