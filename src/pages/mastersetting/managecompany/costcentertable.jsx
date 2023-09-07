@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
 	Box,
 	Button,
@@ -76,6 +76,18 @@ const CostCenterTable = ({ data }) => {
 	const toast = useToast();
 	const [sucess, setSucess] = useState();
 	const token = localStorage.getItem('token');
+
+	const {
+		isOpen: bugetIsOpen,
+		onOpen: bugetOnOpen,
+		onClose: bugetOnClose,
+	} = useDisclosure();
+	const {
+		isOpen: editIsOpen,
+		onOpen: editOnOpen,
+		onClose: editOnClose,
+	} = useDisclosure();
+
 	function toastCall() {
 		return toast({
 			title: 'Cost Center Added Sucessfully',
@@ -86,11 +98,6 @@ const CostCenterTable = ({ data }) => {
 	}
 
 	const BudgetBodyTemplate = (rowData) => {
-		const {
-			isOpen: bugetIsOpen,
-			onOpen: bugetOnOpen,
-			onClose: bugetOnClose,
-		} = useDisclosure();
 		const [inputList, setInputList] = useState([
 			{ firstName: '', lastName: '' },
 		]);
@@ -125,7 +132,7 @@ const CostCenterTable = ({ data }) => {
 						<DrawerHeader pt='28px'>
 							<Box
 								borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-								width='300px'
+								width='550px'
 								pb='10px'
 								mb='15px'>
 								<Text
@@ -134,7 +141,7 @@ const CostCenterTable = ({ data }) => {
 									fontWeight='700'
 									fontSize='28px'
 									lineHeight='36px'>
-									Manage Budget
+									Manage Budget for {rowData.id}
 								</Text>
 							</Box>
 						</DrawerHeader>
@@ -209,7 +216,6 @@ const CostCenterTable = ({ data }) => {
 									p='20px'
 									fontSize='1.6rem'
 									color='white'
-									type='submit'
 									_hover={{
 										bgGradient:
 											'linear(180deg, #2267A2 0%, #0D4675 100%)',
@@ -238,11 +244,6 @@ const CostCenterTable = ({ data }) => {
 		const [costCenterName, setCostCentername] = useState(
 			rowData?.cost_center_name
 		);
-		const {
-			isOpen: editIsOpen,
-			onOpen: editOnOpen,
-			onClose: editOnClose,
-		} = useDisclosure();
 
 		const updateCostCenter = async (e) => {
 			e.preventDefault();

@@ -17,9 +17,8 @@ import {
 	TabPanels,
 	Text,
 	useToast,
-	spinner,
 } from '@chakra-ui/react';
-import BeatLoader from 'react-spinners/BeatLoader';
+
 import PtaxSlab from './PtaxSlab';
 import EmployeeList from './EmployeeList';
 import ComponentList from './componentlist';
@@ -33,9 +32,8 @@ function App() {
 	const [type, setType] = useState('earning');
 	const [ruleId, setRuleId] = useState('');
 	const [isChecked, setIsChecked] = useState(0);
-	const [marking, setMarking] = useState('');
 	const [sucess, setSucess] = useState(false);
-	const [loading, setLoading] = useState(false);
+
 	function toastCall() {
 		return toast({
 			title: 'Request Sucessfully',

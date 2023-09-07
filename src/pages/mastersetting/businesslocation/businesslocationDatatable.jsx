@@ -618,6 +618,7 @@ const BusinessLocationDatatable = () => {
 									/>
 								</FormControl>
 								<Button
+									disabled={isLoading}
 									isLoading={isLoading}
 									spinner={
 										<BeatLoader size={8} color='white' />
