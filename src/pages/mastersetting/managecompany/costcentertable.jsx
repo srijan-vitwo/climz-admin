@@ -77,17 +77,6 @@ const CostCenterTable = ({ data }) => {
 	const [sucess, setSucess] = useState();
 	const token = localStorage.getItem('token');
 
-	const {
-		isOpen: bugetIsOpen,
-		onOpen: bugetOnOpen,
-		onClose: bugetOnClose,
-	} = useDisclosure();
-	const {
-		isOpen: editIsOpen,
-		onOpen: editOnOpen,
-		onClose: editOnClose,
-	} = useDisclosure();
-
 	function toastCall() {
 		return toast({
 			title: 'Cost Center Added Sucessfully',
@@ -101,6 +90,13 @@ const CostCenterTable = ({ data }) => {
 		const [inputList, setInputList] = useState([
 			{ firstName: '', lastName: '' },
 		]);
+
+		const {
+			isOpen: bugetIsOpen,
+			onOpen: bugetOnOpen,
+			onClose: bugetOnClose,
+		} = useDisclosure();
+
 		// handle input change
 		const handleInputChange = (e, index) => {
 			const { name, value } = e.target;
@@ -244,6 +240,11 @@ const CostCenterTable = ({ data }) => {
 		const [costCenterName, setCostCentername] = useState(
 			rowData?.cost_center_name
 		);
+		const {
+			isOpen: editIsOpen,
+			onOpen: editOnOpen,
+			onClose: editOnClose,
+		} = useDisclosure();
 
 		const updateCostCenter = async (e) => {
 			e.preventDefault();
