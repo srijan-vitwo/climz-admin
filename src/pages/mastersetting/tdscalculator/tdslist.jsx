@@ -502,7 +502,7 @@ const TdsList = () => {
 		<>
 			{loader ? (
 				<Box
-					height='calc(100vh - 117px)'
+					height='calc(100vh - 160px)'
 					width='100%'
 					display='flex'
 					justifyContent='center'
@@ -510,70 +510,72 @@ const TdsList = () => {
 					<Image src={Loader} alt='Loader' />
 				</Box>
 			) : (
-				<Table>
-					<Thead>
-						<Tr
-							bgGradient='linear(180deg, #256DAA 0%, #02335C 100%)'
-							boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-							color='white'
-							padding='10px 15px'>
-							<Th
-								p='15px'
-								fontSize='1.5rem'
-								fontWeight='600'
-								color='white'>
-								EMP CODE
-							</Th>
-							<Th
-								p='15px'
-								fontSize='1.5rem'
-								fontWeight='600'
+				<Box height='calc(100vh - 160px)' width='100%' display='flex'>
+					<Table>
+						<Thead>
+							<Tr
+								bgGradient='linear(180deg, #256DAA 0%, #02335C 100%)'
+								boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
 								color='white'
-								textAlign='center'>
-								EMP Name
-							</Th>
-							<Th
-								p='15px'
-								fontSize='1.5rem'
-								fontWeight='600'
-								color='white'
-								textAlign='center'>
-								CTC
-							</Th>
-							<Th
-								p='15px'
-								fontSize='1.5rem'
-								fontWeight='600'
-								color='white'
-								textAlign='center'>
-								Declaration
-							</Th>
-						</Tr>
-					</Thead>
-					<Tbody>
-						{products?.map((section, index) => (
-							<React.Fragment key={index}>
-								<Tr key={section?.list[0].id}>
-									<Td p='15px'>
-										{section?.list[0].emp_code}
-									</Td>
-									<Td p='15px' textAlign='center'>
-										{section?.list[0].emp_name}
-									</Td>
-									<Td p='15px' textAlign='center'>
-										{section?.ctc}
-									</Td>
-									<Td p='15px' textAlign='center'>
-										<ActionTemplate
-											rowData={section}
-											tdsSlab={tdsSlab}
-										/>
-									</Td>
-								</Tr>
-							</React.Fragment>
-						))}
-					</Tbody>
-				</Table>
+								padding='10px 15px'>
+								<Th
+									p='15px'
+									fontSize='1.5rem'
+									fontWeight='600'
+									color='white'>
+									EMP CODE
+								</Th>
+								<Th
+									p='15px'
+									fontSize='1.5rem'
+									fontWeight='600'
+									color='white'
+									textAlign='center'>
+									EMP Name
+								</Th>
+								<Th
+									p='15px'
+									fontSize='1.5rem'
+									fontWeight='600'
+									color='white'
+									textAlign='center'>
+									CTC
+								</Th>
+								<Th
+									p='15px'
+									fontSize='1.5rem'
+									fontWeight='600'
+									color='white'
+									textAlign='center'>
+									Declaration
+								</Th>
+							</Tr>
+						</Thead>
+						<Tbody>
+							{products?.map((section, index) => (
+								<React.Fragment key={index}>
+									<Tr key={section?.list[0].id}>
+										<Td p='15px'>
+											{section?.list[0].emp_code}
+										</Td>
+										<Td p='15px' textAlign='center'>
+											{section?.list[0].emp_name}
+										</Td>
+										<Td p='15px' textAlign='center'>
+											{section?.ctc}
+										</Td>
+										<Td p='15px' textAlign='center'>
+											<ActionTemplate
+												rowData={section}
+												tdsSlab={tdsSlab}
+											/>
+										</Td>
+									</Tr>
+								</React.Fragment>
+							))}
+						</Tbody>
+					</Table>
+				</Box>
 			)}
 		</>
 	);

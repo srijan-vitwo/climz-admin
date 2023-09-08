@@ -32,6 +32,7 @@ const TDSCalculator = () => {
 				}}>
 				<Tab>Pending Declaration</Tab>
 				<Tab>TDS Calculation</Tab>
+				<Tab>TDS Calculation Update</Tab>
 			</TabList>
 			<TabIndicator
 				mt='-2.5px'
@@ -48,6 +49,16 @@ const TDSCalculator = () => {
 						borderRadius='0px 0px 6px 6px'
 						padding='0px'>
 						<TDSListStatus />
+					</Box>
+				</TabPanel>
+				<TabPanel p='0px 0px 0px'>
+					<Box
+						background='white'
+						border='1px solid #CECECE'
+						boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
+						borderRadius='0px 0px 6px 6px'
+						padding='0px'>
+						<TdsList />
 					</Box>
 				</TabPanel>
 				<TabPanel p='0px 0px 0px'>
