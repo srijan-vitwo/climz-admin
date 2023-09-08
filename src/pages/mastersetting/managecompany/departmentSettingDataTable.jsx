@@ -243,7 +243,6 @@ const DepartmentSettingDataTable = () => {
 			e.preventDefault();
 			onOpen();
 			try {
-				setIsLoading(true);
 				const response2 = await fetch(
 					`${process.env.REACT_APP_API_URL}/emp-list`,
 					{
@@ -257,7 +256,6 @@ const DepartmentSettingDataTable = () => {
 				if (response2.ok) {
 					const data2 = await response2.json();
 					setDepartmentList(data2.data);
-					setIsLoading(false);
 				} else {
 					navigate('/login');
 				}
