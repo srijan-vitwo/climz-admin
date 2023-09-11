@@ -163,7 +163,7 @@ const TdsListEdit = () => {
 				const isLastElement = index === array.length - 1;
 				return (
 					<Box
-						key={data.exampt_details_id}
+						key={data.exampt_submit_id}
 						display='flex'
 						justifyContent='space-between'
 						pt='15px'
@@ -336,7 +336,7 @@ const TdsListEdit = () => {
 		const tdsSubmit = async (e) => {
 			e.preventDefault();
 			const submitEarningComponents = earningComponents.map((item) => ({
-				exampt_submit_id: '',
+				exampt_submit_id: item.exampt_submit_id,
 				exampt_detail_id: item.exampt_details_id,
 				user_id: userId,
 				exampt_amount: item.value,
@@ -372,6 +372,8 @@ const TdsListEdit = () => {
 			}
 		};
 
+		console.log(earningComponents, 'edit');
+
 		return (
 			<>
 				<Button
@@ -394,7 +396,7 @@ const TdsListEdit = () => {
 						<DrawerHeader pt='28px'>
 							<Box
 								borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-								width='400px'
+								width='450px'
 								pb='10px'
 								mb='15px'>
 								<Text
@@ -403,7 +405,7 @@ const TdsListEdit = () => {
 									fontWeight='700'
 									fontSize='28px'
 									lineHeight='36px'>
-									TDS Value Declaration
+									TDS Value Declaration Update
 								</Text>
 							</Box>
 						</DrawerHeader>
@@ -497,8 +499,6 @@ const TdsListEdit = () => {
 	};
 
 	const submitedTdsList = products?.filter((item) => item.submitted === 1);
-
-	console.log(submitedTdsList, 'submitedTdsList');
 
 	return (
 		<>
