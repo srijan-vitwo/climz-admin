@@ -18,6 +18,7 @@ import {
 import styled from '@emotion/styled';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import { BeatLoader } from 'react-spinners';
 
 const CssWrapper = styled.div`
 	.p-datatable-wrapper {
@@ -86,9 +87,32 @@ const CostCenterTable = ({ data }) => {
 		});
 	}
 
+	function toastCallBugetAdd() {
+		return toast({
+			title: 'Budget Added Sucessfully',
+			status: 'success',
+			duration: 3000,
+			isClosable: true,
+		});
+	}
+
+	function toastCallFaild() {
+		return toast({
+			title: 'Request Faild',
+			status: 'success',
+			duration: 3000,
+			isClosable: true,
+		});
+	}
+
 	const BudgetBodyTemplate = (rowData) => {
+		const [isLoading, setIsLoading] = useState(false);
 		const [inputList, setInputList] = useState([
-			{ firstName: '', lastName: '' },
+			{
+				budget_amount: ' ',
+				financial_year_start: ' ',
+				financial_year_end: '',
+			},
 		]);
 
 		const {
@@ -107,7 +131,41 @@ const CostCenterTable = ({ data }) => {
 
 		// handle click event of the Add button
 		const handleAddClick = () => {
-			setInputList([...inputList, { firstName: '', lastName: '' }]);
+			setInputList([
+				...inputList,
+				{ financialYear: '', assignedBudget: '' },
+			]);
+		};
+
+		const addBudget = async (e) => {
+			e.preventDefault();
+			let formData = new FormData();
+			formData.append('budget', JSON.stringify(inputList));
+
+			try {
+				setIsLoading(true);
+				const response = await fetch(
+					`${process.env.REACT_APP_API_URL}/budget-post/${rowData.id}`,
+					{
+						method: 'POST',
+						body: formData,
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					}
+				);
+
+				if (response.ok) {
+					toastCallBugetAdd();
+					setIsLoading(false);
+				} else {
+					toastCallFaild();
+					setIsLoading(false);
+				}
+			} catch (error) {
+				toastCallFaild();
+				setIsLoading(false);
+			}
 		};
 
 		return (
@@ -128,7 +186,7 @@ const CostCenterTable = ({ data }) => {
 						<DrawerHeader pt='28px'>
 							<Box
 								borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-								width='550px'
+								width='400px'
 								pb='10px'
 								mb='15px'>
 								<Text
@@ -137,97 +195,147 @@ const CostCenterTable = ({ data }) => {
 									fontWeight='700'
 									fontSize='28px'
 									lineHeight='36px'>
-									Manage Budget for {rowData.id}
+									Manage Budget for {rowData.cost_center_name}
 								</Text>
 							</Box>
 						</DrawerHeader>
 
 						<DrawerBody>
-							<form
-								style={{
-									display: 'flex',
-									width: '100%',
-									flexDirection: 'column',
-									alignItems: 'flex-end',
-								}}>
-								{inputList.map((x, i) => {
-									return (
-										<Box
-											display='flex'
-											w='100%'
-											justifyContent='space-between'
-											alignItems='center'
-											gap='15px'>
+							<Box boxShadow='rgba(0, 0, 0, 0.16) 0px 1px 4px'>
+								<form
+									style={{
+										display: 'flex',
+										width: '100%',
+										flexDirection: 'column',
+										alignItems: 'flex-end',
+									}}>
+									{inputList.map((x, i) => {
+										return (
 											<Box
 												display='flex'
 												w='100%'
 												justifyContent='space-between'
 												alignItems='center'
-												gap='15px'>
-												<Input
-													name='firstName'
-													placeholder='Enter First Name'
-													value={x.firstName}
-													onChange={(e) =>
-														handleInputChange(e, i)
-													}
-												/>
-												<Input
-													className='ml10'
-													name='lastName'
-													placeholder='Enter Last Name'
-													value={x.lastName}
-													onChange={(e) =>
-														handleInputChange(e, i)
-													}
-												/>
-											</Box>
+												gap='15px'
+												marginBottom='15px'
+												key={i}>
+												<Box
+													display='flex'
+													w='100%'
+													justifyContent='space-between'
+													alignItems='center'
+													gap='15px'>
+													<Input
+														bg='white'
+														type='text'
+														name='financial_year_start'
+														placeholder='Financial Year Start'
+														value={
+															x.financial_year_start
+														}
+														onChange={(e) =>
+															handleInputChange(
+																e,
+																i
+															)
+														}
+													/>
+													<Input
+														bg='white'
+														type='text'
+														name='financial_year_end'
+														placeholder='Financial Year End'
+														value={
+															x.financial_year_end
+														}
+														onChange={(e) =>
+															handleInputChange(
+																e,
+																i
+															)
+														}
+													/>
+													<Input
+														type='number'
+														bg='white'
+														className='ml10'
+														name='budget_amount'
+														placeholder='Assigned Budget'
+														value={x.budget_amount}
+														onChange={(e) =>
+															handleInputChange(
+																e,
+																i
+															)
+														}
+													/>
+												</Box>
 
-											<Box>
-												{inputList.length - 1 === i && (
-													<Button
-														p='0px'
-														width='10px'
-														color='white'
-														_hover={{ bg: 'none' }}
-														_active={{ bg: 'none' }}
-														_focus={{ bg: 'none' }}
-														bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-														onClick={
-															handleAddClick
-														}>
-														<i className='fa-sharp fa-solid fa-plus'></i>
-													</Button>
-												)}
+												<Box>
+													{inputList.length - 1 ===
+														i && (
+														<Button
+															p='0px'
+															width='10px'
+															color='white'
+															_hover={{
+																bgGradient:
+																	'linear(180deg, #2267A2 0%, #0D4675 100%)',
+															}}
+															_active={{
+																bgGradient:
+																	'linear(180deg, #2267A2 0%, #0D4675 100%)',
+															}}
+															_focus={{
+																bgGradient:
+																	'linear(180deg, #2267A2 0%, #0D4675 100%)',
+															}}
+															bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
+															onClick={
+																handleAddClick
+															}>
+															<i className='fa-sharp fa-solid fa-plus'></i>
+														</Button>
+													)}
+												</Box>
 											</Box>
-										</Box>
-									);
-								})}
+										);
+									})}
 
-								<Button
-									mt='20px'
-									bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-									boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-									borderRadius='10px'
-									p='20px'
-									fontSize='1.6rem'
-									color='white'
-									_hover={{
-										bgGradient:
-											'linear(180deg, #2267A2 0%, #0D4675 100%)',
-									}}
-									_active={{
-										bgGradient:
-											'linear(180deg, #2267A2 0%, #0D4675 100%)',
-									}}
-									_focus={{
-										bgGradient:
-											'linear(180deg, #2267A2 0%, #0D4675 100%)',
-									}}
-									onClick={bugetOnClose}>
-									Submit
-								</Button>
-							</form>
+									<Button
+										disabled={isLoading}
+										isLoading={isLoading}
+										spinner={
+											<BeatLoader
+												size={8}
+												color='white'
+											/>
+										}
+										mt='20px'
+										bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
+										boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
+										borderRadius='10px'
+										p='20px'
+										fontSize='1.6rem'
+										color='white'
+										type='submit'
+										_hover={{
+											bgGradient:
+												'linear(180deg, #2267A2 0%, #0D4675 100%)',
+										}}
+										_active={{
+											bgGradient:
+												'linear(180deg, #2267A2 0%, #0D4675 100%)',
+										}}
+										_focus={{
+											bgGradient:
+												'linear(180deg, #2267A2 0%, #0D4675 100%)',
+										}}
+										onClick={addBudget}>
+										Submit
+									</Button>
+								</form>
+							</Box>
 						</DrawerBody>
 					</DrawerContent>
 				</Drawer>
@@ -288,7 +396,7 @@ const CostCenterTable = ({ data }) => {
 						<DrawerHeader pt='28px'>
 							<Box
 								borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-								width='550px'
+								width='400px'
 								pb='10px'
 								mb='15px'>
 								<Text
@@ -313,6 +421,7 @@ const CostCenterTable = ({ data }) => {
 								<FormControl mb='15px'>
 									<FormLabel>Cost Center Name</FormLabel>
 									<Input
+										bg='white'
 										type='text'
 										value={costCenterName}
 										onChange={(e) =>
@@ -354,7 +463,7 @@ const CostCenterTable = ({ data }) => {
 
 	return (
 		<CssWrapper>
-			<div className='card p-fluid'>
+			<Box className='card p-fluid'>
 				<DataTable
 					value={data?.cost_center}
 					dataKey='id'
@@ -378,7 +487,7 @@ const CostCenterTable = ({ data }) => {
 						bodyStyle={{ textAlign: 'center' }}
 						style={{ width: '31%' }}></Column>
 				</DataTable>
-			</div>
+			</Box>
 		</CssWrapper>
 	);
 };

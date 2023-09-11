@@ -59,6 +59,7 @@ const CssWrapper = styled.div`
 	.p-datatable .p-datatable-header {
 		border-top: none;
 		padding-bottom: 10px;
+		background-color: #fff;
 	}
 	.p-datatable .p-column-header-content {
 		display: flex;
@@ -79,7 +80,6 @@ const DepartmentSettingDataTable = () => {
 	const [sucess, setsucess] = useState();
 	const [products, setProducts] = useState();
 	const [departmentList, setDepartmentList] = useState();
-	const [updatedValue, setUpdatedValue] = useState();
 	const [isLoading, setIsLoading] = useState(false);
 	const [filters, setFilters] = useState({
 		global: { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -138,8 +138,6 @@ const DepartmentSettingDataTable = () => {
 		let { newData, index } = e;
 
 		_products[index] = newData;
-
-		setUpdatedValue(_products);
 	};
 
 	const textEditor = (options) => {

@@ -104,9 +104,11 @@ const AddDepartment = () => {
 				setIsLoading(false);
 			} else {
 				navigate('/login');
+				setIsLoading(false);
 			}
 		} catch (error) {
 			navigate('/login');
+			setIsLoading(false);
 		}
 	};
 
