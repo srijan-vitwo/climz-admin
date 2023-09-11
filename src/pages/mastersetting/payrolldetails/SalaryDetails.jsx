@@ -104,12 +104,12 @@ const SalaryDetails = () => {
 
 		const inputNumbers = document.querySelectorAll('.handleScroll');
 		inputNumbers.forEach((input) => {
-			input.addEventListener('wheel', handleScroll);
+			input?.addEventListener('wheel', handleScroll);
 		});
 
 		return () => {
 			inputNumbers.forEach((input) => {
-				input.removeEventListener('wheel', handleScroll);
+				input?.removeEventListener('wheel', handleScroll);
 			});
 		};
 	}, []);
@@ -296,8 +296,6 @@ const SalaryDetails = () => {
 		delete updatedComponents[key];
 		setDeductionComponents(updatedComponents);
 	};
-
-	console.log(earningComponents, 'earningComponents');
 
 	// dynamic calculation earning components
 	const EarningDetails = Object.entries(earningComponents).map(
@@ -552,6 +550,8 @@ const SalaryDetails = () => {
 			([key, value]) => value.fixed_component_marking === 1
 		)
 	);
+
+	console.log(filterMarkcomponent, 'filterMarkcomponent');
 
 	const handleDeleteObjects = (ruleId) => {
 		const newData = { ...deductionComponents };

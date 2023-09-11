@@ -510,7 +510,11 @@ const TdsList = () => {
 					<Image src={Loader} alt='Loader' />
 				</Box>
 			) : (
-				<Box height='calc(100vh - 160px)' width='100%' display='flex'>
+				<Box
+					height='calc(100vh - 160px)'
+					width='100%'
+					display='flex'
+					alignItems='flex-start'>
 					<Table>
 						<Thead>
 							<Tr

@@ -993,7 +993,8 @@ const TDSListStatus = () => {
 					height='calc(100vh - 160px)'
 					width='100%'
 					display='flex'
-					justifyContent='center'>
+					justifyContent='center'
+					alignItems='flex-start'>
 					<Table>
 						<Thead>
 							<Tr
