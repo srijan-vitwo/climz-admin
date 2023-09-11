@@ -1118,8 +1118,7 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser }) => {
 												cost_center_id:
 													event.target.value,
 											})
-										}
-										required>
+										}>
 										{costCenter?.map((data, index) => {
 											return (
 												<option

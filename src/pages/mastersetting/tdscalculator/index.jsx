@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react';
 import TdsList from './tdslist';
 import TDSListStatus from './tdsliststatus';
+import TdsListEdit from './tdslistedit';
 
 const TDSCalculator = () => {
 	return (
@@ -68,7 +69,7 @@ const TDSCalculator = () => {
 						boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
 						borderRadius='0px 0px 6px 6px'
 						padding='0px'>
-						<TdsList />
+						<TdsListEdit />
 					</Box>
 				</TabPanel>
 			</TabPanels>

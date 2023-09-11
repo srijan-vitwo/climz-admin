@@ -24,7 +24,7 @@ import { useNavigate } from 'react-router-dom';
 import Loader from '../../../assets/images/loader.gif';
 import { BeatLoader } from 'react-spinners';
 
-const TdsList = () => {
+const TdsListEdit = () => {
 	const navigate = useNavigate();
 	const toast = useToast();
 	const token = localStorage.getItem('token');
@@ -98,7 +98,7 @@ const TdsList = () => {
 			onOpen();
 			try {
 				const response2 = await fetch(
-					`${process.env.REACT_APP_API_URL}/all-exempt/${userId}`,
+					`${process.env.REACT_APP_API_URL}/declaration-exempt/${userId}`,
 					{
 						method: 'GET',
 						headers: {
@@ -161,7 +161,6 @@ const TdsList = () => {
 			([key, data], index, array) => {
 				totalEarnings += parseFloat(data.value || 0);
 				const isLastElement = index === array.length - 1;
-
 				return (
 					<Box
 						key={data.exampt_details_id}
@@ -250,7 +249,6 @@ const TdsList = () => {
 				);
 			}
 		);
-
 		// Calculate the sum of the values of the first three components
 		const sumOfFirstThreeValues = Object.values(earningComponents)
 			.slice(0, 3)
@@ -498,7 +496,9 @@ const TdsList = () => {
 		);
 	};
 
-	const submitedTdsList = products?.filter((item) => item.submitted === 0);
+	const submitedTdsList = products?.filter((item) => item.submitted === 1);
+
+	console.log(submitedTdsList, 'submitedTdsList');
 
 	return (
 		<>
@@ -558,7 +558,7 @@ const TdsList = () => {
 							</Tr>
 						</Thead>
 						<Tbody>
-							{submitedTdsList?.map((section) => (
+							{submitedTdsList?.map((section, index) => (
 								<Tr key={section?.list[0].id}>
 									<Td p='15px'>
 										{section?.list[0].emp_code}
@@ -585,4 +585,4 @@ const TdsList = () => {
 	);
 };
 
-export default TdsList;
+export default TdsListEdit;
