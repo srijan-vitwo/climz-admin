@@ -52,7 +52,7 @@ const AttendanceReportView = () => {
 
   useEffect(() => {
     fetch(
-      `http://consoledev.claimz.in/admin-api/api/auth/monthly-attendance/${date1stValue}/${date2ndValue}`,
+      `${process.env.REACT_APP_API_URL}/monthly-attendance/${date1stValue}/${date2ndValue}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -182,7 +182,7 @@ const AttendanceReportView = () => {
 
   function apiCall() {
     fetch(
-      `http://consoledev.claimz.in/admin-api/api/auth/monthly-attendance/${date1stValue}/${date2ndValue}`,
+      `${process.env.REACT_APP_API_URL}/monthly-attendance/${date1stValue}/${date2ndValue}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
