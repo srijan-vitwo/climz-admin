@@ -159,7 +159,7 @@ const EmployeeDataList = () => {
 			}
 		};
 		formDataValue();
-	}, [first, rows, msg]);
+	}, [first, rows, msg, isLoadingModal]);
 
 	const [filters, setFilters] = useState({
 		global: { value: null, matchMode: FilterMatchMode.CONTAINS },
@@ -727,6 +727,24 @@ const EmployeeDataList = () => {
 			});
 		}
 
+		function toastCallDeviceIDSuccessfully() {
+			return toast({
+				title: 'Device ID Clear Successfully',
+				status: 'success',
+				duration: 5000,
+				isClosable: true,
+			});
+		}
+
+		function toastCallDeviceIDFaild() {
+			return toast({
+				title: 'Device ID Clear Faild',
+				status: 'error',
+				duration: 5000,
+				isClosable: true,
+			});
+		}
+
 		function toastCallFaild() {
 			console.log('faild');
 		}
@@ -904,6 +922,36 @@ const EmployeeDataList = () => {
 			}
 		};
 
+		const clearId = async (e) => {
+			e.preventDefault();
+			const userId = rowData?.id;
+			try {
+				setIsLoadingModal(true);
+				const response = await fetch(
+					`${process.env.REACT_APP_API_URL}/clear-device-id/${userId}`,
+					{
+						method: 'GET',
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					}
+				);
+
+				if (response.ok) {
+					toastCallDeviceIDSuccessfully();
+					setIsLoadingModal(false);
+				} else {
+					toastCallDeviceIDFaild();
+					setIsLoadingModal(false);
+				}
+			} catch (error) {
+				toastCallDeviceIDFaild();
+				setIsLoadingModal(false);
+			}
+		};
+
+		console.log(userData, 'userData');
+
 		return (
 			<>
 				<Button
@@ -1042,6 +1090,65 @@ const EmployeeDataList = () => {
 									_active={'none'}>
 									Appointment Letter
 								</Button>
+								{userData?.data?.device_id ? (
+									<Button
+										disabled={isLoadingModal}
+										isLoading={isLoadingModal}
+										spinner={
+											<BeatLoader
+												size={8}
+												color='white'
+											/>
+										}
+										onClick={clearId}
+										mr='15px'
+										fontSize='1.4rem'
+										padding='20px 10px'
+										background='var(--chakra-colors-claimzMainGeadientColor)'
+										color='white'
+										display='flex'
+										alignItems='center'
+										justifyContent='center'
+										borderRadius='50px'
+										_hover={{
+											background:
+												'var(--chakra-colors-claimzMainGeadientColor)',
+										}}
+										_active={'none'}>
+										<i className='fa-solid fa-ban'></i>
+										<Text
+											fontSize='1.4rem'
+											fontWeight='600'
+											ml='5px'>
+											Clear Device ID
+										</Text>
+									</Button>
+								) : (
+									<Button
+										isDisabled
+										mr='15px'
+										fontSize='1.4rem'
+										padding='20px 10px'
+										background='var(--chakra-colors-claimzMainGeadientColor)'
+										color='white'
+										display='flex'
+										alignItems='center'
+										justifyContent='center'
+										borderRadius='50px'
+										_hover={{
+											background:
+												'var(--chakra-colors-claimzMainGeadientColor)',
+										}}
+										_active={'none'}>
+										<i className='fa-solid fa-ban'></i>
+										<Text
+											fontSize='1.4rem'
+											fontWeight='600'
+											ml='5px'>
+											Device ID Not Exists
+										</Text>
+									</Button>
+								)}
 							</Box>
 							<Box mt='20px'>
 								{fromLoader ? (
@@ -1319,8 +1426,6 @@ const EmployeeDataList = () => {
 	};
 
 	const header = RenderHeader();
-
-	console.log(offerLetter, 'offerLetter');
 
 	return (
 		<CssWrapper>
