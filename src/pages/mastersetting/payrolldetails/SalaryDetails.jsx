@@ -1,3 +1,4 @@
+import { object } from '@amcharts/amcharts5';
 import {
 	Box,
 	Button,
@@ -57,6 +58,7 @@ const SalaryDetails = () => {
 	const [empPfValue, setEmpPfValue] = useState({});
 	const [empEsiValue, setEmpEsiValue] = useState({});
 	const [isLoading, setIsLoading] = useState(false);
+	const [updatedCtc, setUpdatedCtc] = useState();
 
 	function toastCall() {
 		return toast({
@@ -162,6 +164,7 @@ const SalaryDetails = () => {
 		});
 		setDeductionComponents(tempDeduction);
 	};
+
 	const separateThePerquisitsComponents = (data) => {
 		let tempDeduction = {};
 		data.perquisits_components.map((row) => {
@@ -185,7 +188,7 @@ const SalaryDetails = () => {
 	};
 
 	const handleEarningInputChange = (key, e) => {
-		const inputVal = e.target.value;
+		const inputVal = parseFloat(e.target.value);
 		const earningComponentsObj = JSON.parse(
 			JSON.stringify(earningComponents)
 		);
@@ -198,6 +201,12 @@ const SalaryDetails = () => {
 			(inputVal / parentValue) *
 			100
 		).toFixed(2);
+
+		let newCTC = 0;
+		Object.values(earningComponentsObj).forEach((component) => {
+			newCTC += parseFloat(component.input);
+		});
+		setUpdatedCtc(newCTC);
 
 		const findMyChildrenList = (mykey) => {
 			let childrenList = [];
@@ -232,7 +241,6 @@ const SalaryDetails = () => {
 		const earningComponentsObj = JSON.parse(
 			JSON.stringify(earningComponents)
 		);
-		let sum = 0;
 		Object.entries(earningComponentsObj).map(([key, data]) => {
 			let principalAmount = ctc;
 			if (data.percentage_of > 0) {
@@ -551,8 +559,6 @@ const SalaryDetails = () => {
 		)
 	);
 
-	console.log(filterMarkcomponent, 'filterMarkcomponent');
-
 	const handleDeleteObjects = (ruleId) => {
 		const newData = { ...deductionComponents };
 		Object.keys(newData).forEach((key) => {
@@ -562,6 +568,8 @@ const SalaryDetails = () => {
 		});
 		setDeductionComponents(newData);
 	};
+
+	console.log(filterBasicComponent, 'filterBasicComponent');
 
 	return (
 		<Card>
@@ -715,7 +723,6 @@ const SalaryDetails = () => {
 									fontSize='1.8rem !important'
 									fontWeight='600'
 									color='var(--chakra-colors-claimzTextBlueColor)'>
-									{' '}
 									Monthly CTC :
 								</FormLabel>
 								<Input
@@ -726,6 +733,22 @@ const SalaryDetails = () => {
 									onChange={handleCTC}
 								/>
 							</FormControl>
+							{updatedCtc > 1 && (
+								<FormControl>
+									<FormLabel
+										fontSize='1.8rem !important'
+										fontWeight='600'
+										color='var(--chakra-colors-claimzTextBlueColor)'>
+										Updated Monthly CTC :
+									</FormLabel>
+									<Input
+										type='number'
+										className='handleScroll'
+										value={updatedCtc}
+										readOnly
+									/>
+								</FormControl>
+							)}
 							{/* <p>Total: <span>{CTC - totalEarningSum.toFixed(2)}</span></p> */}
 							{Object.keys(filterMarkcomponent).length >= 1 && (
 								<Box
@@ -752,9 +775,11 @@ const SalaryDetails = () => {
 														fontWeight='600'
 														color='claimzTextBlueLightColor'>
 														{
-															filterBasicComponent[2][
-																'input'
-															]
+															filterBasicComponent[
+																Object.keys(
+																	filterBasicComponent
+																)
+															].input
 														}
 													</Text>
 												</Radio>
