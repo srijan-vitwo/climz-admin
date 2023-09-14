@@ -99,7 +99,7 @@ const ReportList = () => {
 					</Link>
 				</GridItem>
 				<GridItem>
-					<Link to='department-wise-salary'>
+					<Link to='department-wise-salary-report'>
 						<ReportListItem
 							icon={DepartmentSalaryIcon}
 							title={'Department Wise Salary'}
