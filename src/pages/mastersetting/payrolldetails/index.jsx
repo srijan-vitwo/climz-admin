@@ -106,6 +106,14 @@ function App() {
 		percentage_of: '0',
 	});
 
+	const [tdsComponent, setTdsComponent] = useState({
+		rule_id: '4',
+		components: '',
+		percentage: 0,
+		type: 'deduction',
+		percentage_of: '0',
+	});
+
 	const [perquisitsComponent, setPerquisitsComponent] = useState({
 		rule_id: '0',
 		components: '',
@@ -152,7 +160,10 @@ function App() {
 					`${process.env.REACT_APP_API_URL}/company-components-write`,
 					{
 						method: 'POST',
-						body: JSON.stringify(esicComponent1),
+						body: JSON.stringify({
+							...esicComponent1,
+							marking: isChecked,
+						}),
 						headers: {
 							Authorization: `Bearer ${token}`,
 							'Content-Type': 'application/json',
@@ -196,7 +207,10 @@ function App() {
 					`${process.env.REACT_APP_API_URL}/company-components-write`,
 					{
 						method: 'POST',
-						body: JSON.stringify(ptaxComponent),
+						body: JSON.stringify({
+							...ptaxComponent,
+							marking: isChecked,
+						}),
 						headers: {
 							Authorization: `Bearer ${token}`,
 							'Content-Type': 'application/json',
@@ -218,7 +232,10 @@ function App() {
 					`${process.env.REACT_APP_API_URL}/company-components-write`,
 					{
 						method: 'POST',
-						body: JSON.stringify(pfComponent1),
+						body: JSON.stringify({
+							...pfComponent1,
+							marking: isChecked,
+						}),
 						headers: {
 							Authorization: `Bearer ${token}`,
 							'Content-Type': 'application/json',
@@ -284,7 +301,35 @@ function App() {
 					`${process.env.REACT_APP_API_URL}/company-components-write`,
 					{
 						method: 'POST',
-						body: JSON.stringify(otherComponent),
+						body: JSON.stringify({
+							...otherComponent,
+							marking: isChecked,
+						}),
+						headers: {
+							Authorization: `Bearer ${token}`,
+							'Content-Type': 'application/json',
+						},
+					}
+				)
+					.then((response) => response.json())
+					.then((data) => {
+						setSucess(!sucess);
+						// Reset form data or show success message
+					})
+					.catch((error) => {
+						console.error('API error:', error);
+						// Show error message
+					});
+			} else if (ruleId === '4') {
+				// Perform API call with formData
+				fetch(
+					`${process.env.REACT_APP_API_URL}/company-components-write`,
+					{
+						method: 'POST',
+						body: JSON.stringify({
+							...tdsComponent,
+							marking: isChecked,
+						}),
 						headers: {
 							Authorization: `Bearer ${token}`,
 							'Content-Type': 'application/json',
@@ -386,8 +431,8 @@ function App() {
 		(a, b) => b.salary_component_id - a.salary_component_id
 	);
 	// percentage list
-	const percentageSelect = sortedItems.map((data) => (
-		<option value={data.salary_component_id}>
+	const percentageSelect = sortedItems.map((data, index) => (
+		<option value={data.salary_component_id} key={index}>
 			{data.salary_component}
 		</option>
 	));
@@ -799,6 +844,17 @@ function App() {
 															<Radio
 																size='lg'
 																mr='10'
+																value='4'>
+																<Text
+																	fontSize='1.4rem'
+																	fontWeight='600'
+																	color='var(--chakra-colors-claimzTextBlueLightColor)'>
+																	TDS
+																</Text>
+															</Radio>
+															<Radio
+																size='lg'
+																mr='10'
 																value='0'>
 																<Text
 																	fontSize='1.4rem'
@@ -1090,7 +1146,7 @@ function App() {
 																	onChange={(
 																		event
 																	) =>
-																		setFormData(
+																		setOtherComponent(
 																			{
 																				...otherComponent,
 																				percentage:
@@ -1136,6 +1192,64 @@ function App() {
 																		CTC
 																	</option>
 																</Select>
+															</FormControl>
+
+															<Button
+																bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
+																boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
+																borderRadius='10px'
+																p='20px 15px'
+																fontSize='1.6rem'
+																color='white'
+																_hover={{
+																	bgGradient:
+																		'linear(180deg, #2267A2 0%, #0D4675 100%)',
+																}}
+																_active={{
+																	bgGradient:
+																		'linear(180deg, #2267A2 0%, #0D4675 100%)',
+																}}
+																_focus={{
+																	bgGradient:
+																		'linear(180deg, #2267A2 0%, #0D4675 100%)',
+																}}
+																mt='15px'
+																type='submit'>
+																Submit
+															</Button>
+														</>
+													)}
+
+													{ruleId === '4' && (
+														<>
+															<FormControl
+																id='components'
+																mb={4}>
+																<FormLabel>
+																	Tax Deducted
+																	at Source
+																	(TDS)
+																</FormLabel>
+																<Input
+																	type='text'
+																	id='components'
+																	value={
+																		tdsComponent.components
+																	}
+																	onChange={(
+																		event
+																	) =>
+																		setTdsComponent(
+																			{
+																				...tdsComponent,
+																				components:
+																					event
+																						.target
+																						.value,
+																			}
+																		)
+																	}
+																/>
 															</FormControl>
 
 															<Button

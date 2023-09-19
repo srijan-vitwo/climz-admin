@@ -51,11 +51,10 @@ const SalaryDetails = () => {
 	const [deductionComponents, setDeductionComponents] = useState([]);
 	const [isChecked, setIsChecked] = useState(false);
 	const [pTaxValue, setPTaxValue] = useState('');
-	const [pfValue, setPfValue] = useState('');
 	const [esicValue, setEsicValue] = useState('');
-	const [rules, setRules] = useState('');
 	const [capping, setCapping] = useState('2');
 	const [empPfValue, setEmpPfValue] = useState({});
+	const [empTdsValue, setEmpTdsValue] = useState({});
 	const [empEsiValue, setEmpEsiValue] = useState({});
 	const [isLoading, setIsLoading] = useState(false);
 	const [updatedCtc, setUpdatedCtc] = useState();
@@ -131,7 +130,6 @@ const SalaryDetails = () => {
 
 				if (response.ok) {
 					const data = await response.json();
-					setRules(data.data);
 				} else {
 					navigate('/login');
 				}
@@ -409,13 +407,24 @@ const SalaryDetails = () => {
 				};
 
 				setEmpPfValue(tempData);
-
-				setPfValue(data);
 			} else {
 				navigate('/login');
 			}
 		} catch (error) {
 			console.error(error);
+		}
+	};
+
+	const handleCheckboxClickTDS = async () => {
+		setIsChecked(!isChecked);
+		if (isChecked) {
+			setEmpTdsValue({
+				value: '',
+			});
+		} else {
+			setEmpTdsValue({
+				value: 0,
+			});
 		}
 	};
 
@@ -528,6 +537,8 @@ const SalaryDetails = () => {
 		}
 	};
 
+	console.log(deductionComponents, 'deductionComponents');
+
 	const filteredEmployeeOther = Object.fromEntries(
 		Object.entries(deductionComponents).filter(
 			([key, value]) => value.rule_id === 0
@@ -546,6 +557,11 @@ const SalaryDetails = () => {
 	const filteredEmployeePf = Object.fromEntries(
 		Object.entries(deductionComponents).filter(
 			([key, value]) => value.rule_id === 3
+		)
+	);
+	const filteredTds = Object.fromEntries(
+		Object.entries(deductionComponents).filter(
+			([key, value]) => value.rule_id === 4
 		)
 	);
 	const filterMarkcomponent = Object.fromEntries(
@@ -568,8 +584,6 @@ const SalaryDetails = () => {
 		});
 		setDeductionComponents(newData);
 	};
-
-	console.log(filterBasicComponent, 'filterBasicComponent');
 
 	return (
 		<Card>
@@ -1016,6 +1030,72 @@ const SalaryDetails = () => {
 																value
 																	?.salary_component
 															]
+														}
+														onChange={
+															handleInputChangeDeduction
+														}
+														readOnly
+													/>
+												</FormControl>
+											</Box>
+										)
+									)}
+								</Box>
+							) : (
+								''
+							)}
+							{Object.keys(filteredTds).length > 0 ? (
+								<Box
+									boxShadow='rgba(0, 0, 0, 0.24) 0px 3px 8px'
+									w='32%'
+									p='15px'
+									borderRadius='5px'>
+									<Box
+										display='flex'
+										gap='10px'
+										alignItems='center'
+										mb='15px'
+										color='#083d6acc !important'>
+										<i className='fa-solid fa-circle-info'></i>
+										<Checkbox
+											size='lg'
+											type='checkbox'
+											checked={isChecked}
+											onChange={handleCheckboxClickTDS}>
+											<Text fontWeight='600'>
+												TDS
+												<Button
+													onClick={() =>
+														handleDeleteObjects(4)
+													}
+													bg='none'
+													_hover={{ bg: 'none' }}
+													_active={{ bg: 'none' }}>
+													<i className='fa-solid fa-trash'></i>
+												</Button>
+											</Text>
+										</Checkbox>
+									</Box>
+
+									{Object.entries(filteredTds).map(
+										([key, value]) => (
+											<Box key={key}>
+												<FormControl mb='15px'>
+													<FormLabel>
+														{
+															value?.salary_component
+														}{' '}
+													</FormLabel>
+													<Input
+														type='number'
+														placeholder={
+															value?.salary_component
+														}
+														name={
+															value?.salary_component
+														}
+														value={
+															empTdsValue.value
 														}
 														onChange={
 															handleInputChangeDeduction
