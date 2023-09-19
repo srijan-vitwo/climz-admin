@@ -108,7 +108,7 @@ function App() {
 
 	const [tdsComponent, setTdsComponent] = useState({
 		rule_id: '4',
-		components: '',
+		components: 'Tax Deducted at Source (TDS)',
 		percentage: 0,
 		type: 'deduction',
 		percentage_of: '0',
@@ -453,6 +453,9 @@ function App() {
 	);
 	const filteredArrayPf = filteredArrayDeduction.filter(
 		(item) => item.rule_id === 3
+	);
+	const filteredArrayTds = filteredArrayDeduction.filter(
+		(item) => item.rule_id === 4
 	);
 
 	return (
@@ -1226,9 +1229,7 @@ function App() {
 																id='components'
 																mb={4}>
 																<FormLabel>
-																	Tax Deducted
-																	at Source
-																	(TDS)
+																	Components
 																</FormLabel>
 																<Input
 																	type='text'
@@ -1252,29 +1253,57 @@ function App() {
 																/>
 															</FormControl>
 
-															<Button
-																bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-																boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-																borderRadius='10px'
-																p='20px 15px'
-																fontSize='1.6rem'
-																color='white'
-																_hover={{
-																	bgGradient:
-																		'linear(180deg, #2267A2 0%, #0D4675 100%)',
-																}}
-																_active={{
-																	bgGradient:
-																		'linear(180deg, #2267A2 0%, #0D4675 100%)',
-																}}
-																_focus={{
-																	bgGradient:
-																		'linear(180deg, #2267A2 0%, #0D4675 100%)',
-																}}
-																mt='15px'
-																type='submit'>
-																Submit
-															</Button>
+															{filteredArrayTds?.length >
+															0 ? (
+																<Button
+																	bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
+																	boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
+																	borderRadius='10px'
+																	p='20px 15px'
+																	fontSize='1.6rem'
+																	color='white'
+																	_hover={{
+																		bgGradient:
+																			'linear(180deg, #2267A2 0%, #0D4675 100%)',
+																	}}
+																	_active={{
+																		bgGradient:
+																			'linear(180deg, #2267A2 0%, #0D4675 100%)',
+																	}}
+																	_focus={{
+																		bgGradient:
+																			'linear(180deg, #2267A2 0%, #0D4675 100%)',
+																	}}
+																	mt='15px'
+																	isDisabled>
+																	Already
+																	Added
+																</Button>
+															) : (
+																<Button
+																	bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
+																	boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
+																	borderRadius='10px'
+																	p='20px 15px'
+																	fontSize='1.6rem'
+																	color='white'
+																	_hover={{
+																		bgGradient:
+																			'linear(180deg, #2267A2 0%, #0D4675 100%)',
+																	}}
+																	_active={{
+																		bgGradient:
+																			'linear(180deg, #2267A2 0%, #0D4675 100%)',
+																	}}
+																	_focus={{
+																		bgGradient:
+																			'linear(180deg, #2267A2 0%, #0D4675 100%)',
+																	}}
+																	mt='15px'
+																	type='submit'>
+																	Submit
+																</Button>
+															)}
 														</>
 													)}
 												</>
