@@ -438,7 +438,7 @@ const HolidayPolicies = () => {
 		const [holiday, setHoliday] = useState();
 		const [holidayDate, setHolidayDate] = useState();
 		const [holidayImage, setHolidayImage] = useState();
-		const [selectedValue, setSelectedValue] = useState();
+		const [selectedValue, setSelectedValue] = useState('common');
 
 		function toastCall() {
 			return toast({
@@ -858,7 +858,7 @@ const HolidayPolicies = () => {
 			<Box>
 				{loader ? (
 					<Box
-						height='393px'
+						height='calc(100vh - 315px)'
 						width='100%'
 						display='flex'
 						justifyContent='center'
