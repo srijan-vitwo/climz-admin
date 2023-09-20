@@ -24,7 +24,7 @@ const CssWrapper = styled.div`
 	.p-datatable-wrapper {
 		padding-right: 9px;
 		overflow-y: scroll;
-		height: calc(100vh - 380px);
+		height: calc(100vh - 550px);
 	}
 	.p-datatable-wrapper::-webkit-scrollbar {
 		width: 6px;

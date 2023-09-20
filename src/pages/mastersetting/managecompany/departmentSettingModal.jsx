@@ -205,10 +205,14 @@ const DepartmentSettingModal = ({ rowData }) => {
 						</Button>
 					</ModalHeader>
 					<ModalCloseButton size='lg' />
-					<ModalBody>
+					<ModalBody overflowY='scroll'>
 						<Box>
 							<form onSubmit={addCostCenter}>
-								<Box display='flex'>
+								<Box
+									display='flex'
+									flexWrap='wrap'
+									justifyContent='end'
+									marginBottom='20px'>
 									{inputs.map((input, index) => (
 										<Box
 											w='100%'
@@ -267,9 +271,8 @@ const DepartmentSettingModal = ({ rowData }) => {
 												bgGradient:
 													'linear(180deg, #2267A2 0%, #0D4675 100%)',
 											}}
-											type='submit'
-											onClick={modalOnClose}>
-											Add
+											type='submit'>
+											Submit
 										</Button>
 									)}
 								</Box>

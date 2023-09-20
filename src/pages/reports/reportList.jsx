@@ -67,7 +67,7 @@ const ReportList = () => {
 					<Link to='regularizaton-list'>
 						<ReportListItem
 							icon={ScheduleIcon}
-							title={'regularizaton-list'}
+							title={'regularisation-list'}
 						/>
 					</Link>
 				</GridItem>

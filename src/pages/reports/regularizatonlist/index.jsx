@@ -31,9 +31,9 @@ const RegularizatonList = () => {
 						bg: 'claimzMainGeadientColor',
 					},
 				}}>
-				<Tab>Pending Regularizaton</Tab>
-				<Tab>Approve Regularizaton</Tab>
-				<Tab>Decline Regularizaton</Tab>
+				<Tab>Pending Regularisaton</Tab>
+				<Tab>Approve Regularisaton</Tab>
+				<Tab>Decline Regularisaton</Tab>
 			</TabList>
 			<TabIndicator
 				mt='-2px'
