@@ -4,15 +4,11 @@ import {
 	CardHeader,
 	Text,
 	Box,
-	Input,
-	FormControl,
-	FormLabel,
 	Tab,
 	TabList,
 	TabPanel,
 	TabPanels,
 	Tabs,
-	Button,
 } from '@chakra-ui/react';
 import EmpGenderWiseDiversityReportGraph from './empGenderWiseDiversityReportGraph';
 import EmpGenderWiseDiversityReportTable from './empGenderWiseDiversityReportTable';
@@ -83,8 +79,7 @@ const EmpGenderWiseDiversityReportView = () => {
 				<Box
 					borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
 					width='650px'
-					pb='5px'
-					ml='15px'>
+					pb='5px'>
 					<Text
 						background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
 						backgroundClip='text'

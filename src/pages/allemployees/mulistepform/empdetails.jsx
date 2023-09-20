@@ -183,7 +183,7 @@ const EmpDetails = ({
 				mb='20px'>
 				<FormControl w='31%'>
 					<FormLabel>
-						Date Of Joining
+						Date of Joining
 						<Box as='span' color='orange'>
 							*
 						</Box>
@@ -201,7 +201,7 @@ const EmpDetails = ({
 				</FormControl>
 
 				<FormControl w='31%'>
-					<FormLabel>Date of leaving</FormLabel>
+					<FormLabel>Date of Leaving</FormLabel>
 					<Input
 						type='date'
 						value={formData.leave_date}
@@ -215,7 +215,7 @@ const EmpDetails = ({
 				</FormControl>
 
 				<FormControl w='31%'>
-					<FormLabel>Place of posting</FormLabel>
+					<FormLabel>Place of Posting</FormLabel>
 					<Select
 						placeholder='Select option'
 						value={formData.place_of_posting}

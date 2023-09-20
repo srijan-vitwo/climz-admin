@@ -88,8 +88,7 @@ const MonthWiseAttritionReportView = () => {
 				<Box
 					borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
 					width='470px'
-					pb='5px'
-					ml='15px'>
+					pb='5px'>
 					<Text
 						background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
 						backgroundClip='text'

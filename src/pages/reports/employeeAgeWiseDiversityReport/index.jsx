@@ -38,9 +38,8 @@ const EmpAgeWiseDiversityReportView = () => {
 				alignItems='center'>
 				<Box
 					borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-					width='650px'
-					pb='5px'
-					ml='15px'>
+					width='600px'
+					pb='5px'>
 					<Text
 						background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
 						backgroundClip='text'

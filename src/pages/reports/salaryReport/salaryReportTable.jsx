@@ -56,6 +56,11 @@ const CssWrapper = styled.div`
 	.p-datatable .p-datatable-tbody > tr > td {
 		text-align: center;
 	}
+	.p-datatable .p-datatable-header {
+		background: transparent;
+		padding: 10px 0px;
+		border: none;
+	}
 `;
 const SalaryReportTable = ({ dataList }) => {
 	const cols = [
@@ -286,128 +291,6 @@ const SalaryReportTable = ({ dataList }) => {
 		);
 	};
 
-	const ActionTemplate = (rowData) => {
-		const { isOpen, onOpen, onClose } = useDisclosure();
-		return (
-			<>
-				<Button
-					onClick={onOpen}
-					bg='none'
-					_hover={{ bg: 'none' }}
-					_active={{ bg: 'none' }}
-					_focus={{ bg: 'none' }}>
-					<i className='fa-solid fa fa-eye fa-2x'></i>
-				</Button>
-
-				<Drawer
-					isOpen={isOpen}
-					placement='right'
-					onClose={onClose}
-					size='xl'>
-					<DrawerOverlay />
-					<DrawerContent
-						maxW='60% !important'
-						bgGradient='linear(180deg, #DCF9FF 0%, #FFFFFF 100%)'>
-						<DrawerCloseButton size='lg' />
-						<DrawerHeader pt='28px'>
-							<Box
-								borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-								width='400px'
-								pb='10px'
-								mb='15px'>
-								<Text
-									background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
-									backgroundClip='text'
-									fontWeight='700'
-									fontSize='28px'
-									lineHeight='36px'>
-									Employee List Details
-								</Text>
-							</Box>
-						</DrawerHeader>
-
-						<DrawerBody>
-							<Box position='fixed'>
-								<Button
-									bg='none'
-									_hover={{ bg: 'none' }}
-									_active={{ bg: 'none' }}
-									_focus={{ bg: 'none' }}
-									border='2px solid var(--chakra-colors-claimzBorderColor)'
-									borderRadius='15px'
-									height='45px'
-									padding='0px 20px'
-									mr='10px'>
-									<Text
-										background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
-										backgroundClip='text'
-										fontSize='1.6rem'
-										fontWeight='700'>
-										Edit
-									</Text>
-								</Button>
-								<Button
-									bg='none'
-									_hover={{ bg: 'none' }}
-									_active={{ bg: 'none' }}
-									_focus={{ bg: 'none' }}
-									border='2px solid var(--chakra-colors-claimzBorderColor)'
-									borderRadius='15px'
-									height='45px'
-									padding='0px 20px'
-									mr='10px'>
-									<Text
-										background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
-										backgroundClip='text'
-										fontSize='1.6rem'
-										fontWeight='700'>
-										Delete
-									</Text>
-								</Button>
-								<Button
-									bg='none'
-									_hover={{ bg: 'none' }}
-									_active={{ bg: 'none' }}
-									_focus={{ bg: 'none' }}
-									border='2px solid var(--chakra-colors-claimzBorderColor)'
-									borderRadius='15px'
-									height='45px'
-									padding='0px 20px'
-									mr='10px'>
-									<Text
-										background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
-										backgroundClip='text'
-										fontSize='1.6rem'
-										fontWeight='700'>
-										Block User
-									</Text>
-								</Button>
-								<Button
-									bg='none'
-									_hover={{ bg: 'none' }}
-									_active={{ bg: 'none' }}
-									_focus={{ bg: 'none' }}
-									border='2px solid var(--chakra-colors-claimzBorderColor)'
-									borderRadius='15px'
-									height='45px'
-									padding='0px 20px'
-									mr='10px'>
-									<Text
-										background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
-										backgroundClip='text'
-										fontSize='1.6rem'
-										fontWeight='700'>
-										Save
-									</Text>
-								</Button>
-							</Box>
-						</DrawerBody>
-					</DrawerContent>
-				</Drawer>
-			</>
-		);
-	};
-
 	const header = renderHeader();
 
 	return (
@@ -426,16 +309,7 @@ const SalaryReportTable = ({ dataList }) => {
 							header={col.header}
 						/>
 					))}
-					<Column
-						header='Action'
-						body={ActionTemplate}
-						bodyStyle={{ textAlign: 'center' }}
-					/>
 				</DataTable>
-				{/* pegination */}
-				{/* <Box display='flex' justifyContent='flex-end' backgroundColor='white'>
-                    <Paginator first={first} rows={rows} totalRecords={120} rowsPerPageOptions={[10, 20, 30]} onPageChange={onPageChange} />
-                </Box> */}
 			</Box>
 		</CssWrapper>
 	);
