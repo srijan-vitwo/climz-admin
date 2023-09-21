@@ -109,8 +109,8 @@ const CostCenterTable = ({ data }) => {
 		const [isLoading, setIsLoading] = useState(false);
 		const [inputList, setInputList] = useState([
 			{
-				budget_amount: ' ',
-				financial_year_start: ' ',
+				budget_amount: '',
+				financial_year_start: '',
 				financial_year_end: '',
 			},
 		]);
@@ -201,7 +201,7 @@ const CostCenterTable = ({ data }) => {
 						</DrawerHeader>
 
 						<DrawerBody>
-							<Box boxShadow='rgba(0, 0, 0, 0.16) 0px 1px 4px'>
+							<Box>
 								<form
 									style={{
 										display: 'flex',

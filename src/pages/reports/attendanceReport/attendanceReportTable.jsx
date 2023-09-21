@@ -173,11 +173,6 @@ const AttendanceReportTable = ({ dataList, loader }) => {
 		});
 	};
 
-	const onPageChange = (event) => {
-		setFirst(event.first);
-		setRows(event.rows);
-	};
-
 	const onGlobalFilterChange = (e) => {
 		const value = e.target.value;
 		let _filters = { ...filters };

@@ -294,7 +294,7 @@ const MultiStepForm = () => {
 	return (
 		<Box
 			width='100%'
-			height='calc(100vh - 115px)'
+			height='calc(100vh - 216px)'
 			display='flex'
 			alignItems='center'
 			justifyContent='center'>
