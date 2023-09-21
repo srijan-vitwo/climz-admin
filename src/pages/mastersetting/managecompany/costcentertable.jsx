@@ -99,7 +99,7 @@ const CostCenterTable = ({ data }) => {
 	function toastCallFaild() {
 		return toast({
 			title: 'Request Faild',
-			status: 'success',
+			status: 'Error',
 			duration: 3000,
 			isClosable: true,
 		});
@@ -107,6 +107,8 @@ const CostCenterTable = ({ data }) => {
 
 	const BudgetBodyTemplate = (rowData) => {
 		const [isLoading, setIsLoading] = useState(false);
+		const [loader, setLoader] = useState(false);
+		const [budget, setBudget] = useState([]);
 		const [inputList, setInputList] = useState([
 			{
 				budget_amount: '',
@@ -133,8 +135,39 @@ const CostCenterTable = ({ data }) => {
 		const handleAddClick = () => {
 			setInputList([
 				...inputList,
-				{ financialYear: '', assignedBudget: '' },
+				{
+					budget_amount: '',
+					financial_year_start: '',
+					financial_year_end: '',
+				},
 			]);
+		};
+
+		const empBudget = async (e) => {
+			e.preventDefault();
+			bugetOnOpen();
+			try {
+				setLoader(true);
+				const response = await fetch(
+					`${process.env.REACT_APP_API_URL}/emp-budget/${rowData.id}`,
+					{
+						method: 'GET',
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					}
+				);
+
+				if (response.ok) {
+					const responseData = await response.json();
+					setBudget(responseData.data.budget);
+					setLoader(false);
+				} else {
+					setLoader(false);
+				}
+			} catch (error) {
+				setLoader(false);
+			}
 		};
 
 		const addBudget = async (e) => {
@@ -168,9 +201,11 @@ const CostCenterTable = ({ data }) => {
 			}
 		};
 
+		console.log(inputList, 'inputList');
+
 		return (
 			<>
-				<Button onClick={bugetOnOpen} fontSize='1.4rem'>
+				<Button onClick={empBudget} fontSize='1.4rem'>
 					<i className='fa-solid fa-chart-simple'></i>
 				</Button>
 				<Drawer
