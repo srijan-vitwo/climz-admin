@@ -14,6 +14,7 @@ import {
 	useToast,
 	FormControl,
 	FormLabel,
+	Select,
 } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import { DataTable } from 'primereact/datatable';
@@ -112,10 +113,87 @@ const CostCenterTable = ({ data }) => {
 		const [inputList, setInputList] = useState([
 			{
 				budget_amount: '',
-				financial_year_start: '',
-				financial_year_end: '',
+				financial_year: '',
 			},
 		]);
+		const availableYears = [
+			{
+				value: '2017-04-01 00:00:00',
+				lebel: 'April, 2017 TO March, 2018',
+			},
+			{
+				value: '2018-04-01 00:00:00',
+				lebel: 'April, 2018 TO March, 2019',
+			},
+			{
+				value: '2019-04-01 00:00:00',
+				lebel: 'April, 2019 TO March, 2020',
+			},
+			{
+				value: '2020-04-01 00:00:00',
+				lebel: 'April, 2020 TO March, 2021',
+			},
+			{
+				value: '2021-04-01 00:00:00',
+				lebel: 'April, 2021 TO March, 2022',
+			},
+			{
+				value: '2022-04-01 00:00:00',
+				lebel: 'April, 2022 TO March, 2023',
+			},
+			{
+				value: '2023-04-01 00:00:00',
+				lebel: 'April, 2023 TO March, 2024',
+			},
+			{
+				value: '2024-04-01 00:00:00',
+				lebel: 'April, 2024 TO March, 2025',
+			},
+			{
+				value: '2025-04-01 00:00:00',
+				lebel: 'April, 2025 TO March, 2026',
+			},
+			{
+				value: '2026-04-01 00:00:00',
+				lebel: 'April, 2026 TO March, 2027',
+			},
+			{
+				value: '2027-04-01 00:00:00',
+				lebel: 'April, 2027 TO March, 2028',
+			},
+			{
+				value: '2028-04-01 00:00:00',
+				lebel: 'April, 2028 TO March, 2029',
+			},
+			{
+				value: '2029-04-01 00:00:00',
+				lebel: 'April, 2029 TO March, 2030',
+			},
+			{
+				value: '2030-04-01 00:00:00',
+				lebel: 'April, 2030 TO March, 2031',
+			},
+			{
+				value: '2031-04-01 00:00:00',
+				lebel: 'April, 2031 TO March, 2032',
+			},
+			{
+				value: '2032-04-01 00:00:00',
+				lebel: 'April, 2032 TO March, 2033',
+			},
+			{
+				value: '2033-04-01 00:00:00',
+				lebel: 'April, 2033 TO March, 2034',
+			},
+			{
+				value: '2034-04-01 00:00:00',
+				lebel: 'April, 2034 TO March, 2035',
+			},
+			{
+				value: '2035-04-01 00:00:00',
+				lebel: 'April, 2035 TO March, 2036',
+			},
+		];
 
 		const {
 			isOpen: bugetIsOpen,
@@ -137,10 +215,15 @@ const CostCenterTable = ({ data }) => {
 				...inputList,
 				{
 					budget_amount: '',
-					financial_year_start: '',
-					financial_year_end: '',
+					financial_year: '',
 				},
 			]);
+		};
+		// Function to handle item deletion
+		const handleDeleteClick = (index) => {
+			const list = [...inputList];
+			list.splice(index, 1);
+			setInputList(list);
 		};
 
 		const empBudget = async (e) => {
@@ -172,8 +255,27 @@ const CostCenterTable = ({ data }) => {
 
 		const addBudget = async (e) => {
 			e.preventDefault();
-			let formData = new FormData();
-			formData.append('budget', JSON.stringify(inputList));
+
+			const formattedBudgetData = inputList.map((item) => {
+				// Assuming item.financial_year is in the format "yyyy-MM-dd"
+				const year = item.financial_year.substring(0, 4); // Extract year
+				const nextYear = String(parseInt(year) + 1); // Calculate next year
+
+				// Format the dates as needed
+				const financial_year_start = `${year}-04-01 00:00:00`;
+				const financial_year_end = `${nextYear}-04-01 00:00:00`;
+
+				return {
+					budget_amount: item.budget_amount,
+					financial_year_start,
+					financial_year_end,
+				};
+			});
+
+			const formData = new FormData();
+			formData.append('budget', JSON.stringify(formattedBudgetData));
+
+			console.log(formattedBudgetData, 'formattedBudgetData');
 
 			try {
 				setIsLoading(true);
@@ -260,36 +362,32 @@ const CostCenterTable = ({ data }) => {
 													justifyContent='space-between'
 													alignItems='center'
 													gap='15px'>
-													<Input
+													<Select
 														bg='white'
-														type='text'
-														name='financial_year_start'
-														placeholder='Financial Year Start'
-														value={
-															x.financial_year_start
-														}
+														name='financial_year'
+														placeholder='Select Financial Year'
+														value={x.financial_year}
 														onChange={(e) =>
 															handleInputChange(
 																e,
 																i
 															)
-														}
-													/>
-													<Input
-														bg='white'
-														type='text'
-														name='financial_year_end'
-														placeholder='Financial Year End'
-														value={
-															x.financial_year_end
-														}
-														onChange={(e) =>
-															handleInputChange(
-																e,
-																i
+														}>
+														{availableYears.map(
+															(year) => (
+																<option
+																	key={
+																		year.lebel
+																	}
+																	value={
+																		year.value
+																	}>
+																	{year.lebel}
+																</option>
 															)
-														}
-													/>
+														)}
+													</Select>
+
 													<Input
 														type='number'
 														bg='white'
@@ -306,7 +404,10 @@ const CostCenterTable = ({ data }) => {
 													/>
 												</Box>
 
-												<Box>
+												<Box
+													display='flex'
+													justifyContent='space-between'
+													gap='10px'>
 													{inputList.length - 1 ===
 														i && (
 														<Button
@@ -330,6 +431,33 @@ const CostCenterTable = ({ data }) => {
 																handleAddClick
 															}>
 															<i className='fa-sharp fa-solid fa-plus'></i>
+														</Button>
+													)}
+													{i > 0 && (
+														<Button
+															p='0px'
+															width='10px'
+															color='white'
+															_hover={{
+																bgGradient:
+																	'linear(180deg, #2267A2 0%, #0D4675 100%)',
+															}}
+															_active={{
+																bgGradient:
+																	'linear(180deg, #2267A2 0%, #0D4675 100%)',
+															}}
+															_focus={{
+																bgGradient:
+																	'linear(180deg, #2267A2 0%, #0D4675 100%)',
+															}}
+															bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
+															onClick={() =>
+																handleDeleteClick(
+																	i
+																)
+															} // Call the delete function with the index
+														>
+															<i className='fa-sharp fa-solid fa-minus'></i>
 														</Button>
 													)}
 												</Box>
