@@ -275,8 +275,6 @@ const CostCenterTable = ({ data }) => {
 			const formData = new FormData();
 			formData.append('budget', JSON.stringify(formattedBudgetData));
 
-			console.log(formattedBudgetData, 'formattedBudgetData');
-
 			try {
 				setIsLoading(true);
 				const response = await fetch(
@@ -303,7 +301,7 @@ const CostCenterTable = ({ data }) => {
 			}
 		};
 
-		console.log(inputList, 'inputList');
+		console.log(budget, 'budget');
 
 		return (
 			<>
