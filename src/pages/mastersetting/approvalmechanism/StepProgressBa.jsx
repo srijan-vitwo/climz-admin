@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import './StepProgressBar.css';
 import { Box, Button } from '@chakra-ui/react';
 
-const StepProgressBar = ({ approval, variants, currentStep }) => {
+const StepProgressBar = ({ approval, variants }) => {
 	return (
 		<Box className='step-progress-bar'>
 			<Box className='steps'>

@@ -258,6 +258,7 @@ const WeekofVariant = () => {
 									}}>
 									<FormLabel>Regular Variant</FormLabel>
 									<MultiSelect
+										disabled={weekDays ? true : false}
 										value={selectedDay}
 										onChange={(e) =>
 											setSelectedDay(e.value)
@@ -271,6 +272,7 @@ const WeekofVariant = () => {
 								<FormControl width='48%'>
 									<FormLabel>Alternative Variant</FormLabel>
 									<Select
+										isDisabled={selectedDay ? true : false}
 										color='#6c757d'
 										placeholder='Select option'
 										onChange={(event) =>
@@ -297,8 +299,9 @@ const WeekofVariant = () => {
 										border: '1px solid var(--chakra-colors-claimzBorderGrayColor)',
 									},
 								}}>
-								<FormLabel>Alternate Week Off</FormLabel>
+								<FormLabel>Alternative Week Off</FormLabel>
 								<MultiSelect
+									disabled={selectedDay ? true : false}
 									value={selectedWeeks}
 									onChange={(e) => setSelectedWeeks(e.value)}
 									options={weeks}
@@ -350,7 +353,7 @@ const WeekofVariant = () => {
 						fontSize='20px'>
 						<i className='fa-solid fa-user'></i>
 						<Box as='span' ml='15px'>
-							Weekoff variant List
+							Weekoff Variant List
 						</Box>
 					</Heading>
 					<Box pr='5px' pb='5px'>

@@ -112,7 +112,7 @@ const EmpAgeWiseAttritionReportView = () => {
 							onChange={handle1stDateChange}
 						/>
 					</FormControl>
-					<FormLabel htmlFor='endDate'>TO</FormLabel>
+					<FormLabel htmlFor='endDate'>To</FormLabel>
 					<FormControl mr={3}>
 						<FormLabel htmlFor='endDate' visibility='hidden'>
 							To

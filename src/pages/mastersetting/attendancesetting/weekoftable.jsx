@@ -323,7 +323,7 @@ const WeekOfTable = ({ Msg }) => {
 											},
 										}}>
 										<FormLabel>
-											Alternate Week Off
+											Alternative Week Off
 										</FormLabel>
 										<MultiSelect
 											value={selectedWeeks}

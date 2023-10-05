@@ -8,7 +8,7 @@ import {
 	Input,
 	useToast,
 } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { BeatLoader } from 'react-spinners';
 
 const AddNewType = () => {
@@ -100,8 +100,33 @@ const AddNewType = () => {
 				bgGradient='linear(180deg, #256DAA 0%, #02335C 100%)'
 				boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
 				color='white'
+				display='flex'
+				justifyContent='space-between'
+				alignItems='center'
 				padding='10px 15px'>
 				<Heading>Add New Type/Category</Heading>
+				<Link to='/master-setting/travel-policies'>
+					<Button
+						bg='white'
+						boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
+						borderRadius='10px'
+						p='20px'
+						fontSize='1.6rem'
+						color='var(--chakra-colors-claimzTextBlueColor)'
+						type='submit'
+						_hover={{
+							bg: 'white',
+						}}
+						_active={{
+							bg: 'white',
+						}}
+						_focus={{
+							bg: 'white',
+						}}>
+						<i className='fa-solid fa-backward'></i>{' '}
+						<Box ml='5px'>Travel Master Setting</Box>
+					</Button>
+				</Link>
 			</Box>
 
 			<Box display='flex' justifyContent='space-between' mt='30px'>
@@ -138,12 +163,14 @@ const AddNewType = () => {
 										alignItems='center'
 										key={index}>
 										<Input
+											bg='white'
 											type='text'
 											mb='10px'
 											value={input.value}
 											onChange={(event) =>
 												handleChange(index, event)
 											}
+											required
 										/>
 										<Button
 											mt='-10px'

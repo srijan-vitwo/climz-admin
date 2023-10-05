@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
 	Box,
 	Button,
@@ -76,8 +76,33 @@ const AddNewRegion = () => {
 				bgGradient='linear(180deg, #256DAA 0%, #02335C 100%)'
 				boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
 				color='white'
-				padding='10px 15px'>
+				padding='10px 15px'
+				display='flex'
+				justifyContent='space-between'
+				alignItems='center'>
 				<Heading>Add New Region</Heading>
+				<Link to='/master-setting/travel-policies'>
+					<Button
+						bg='white'
+						boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
+						borderRadius='10px'
+						p='20px'
+						fontSize='1.6rem'
+						color='var(--chakra-colors-claimzTextBlueColor)'
+						type='submit'
+						_hover={{
+							bg: 'white',
+						}}
+						_active={{
+							bg: 'white',
+						}}
+						_focus={{
+							bg: 'white',
+						}}>
+						<i className='fa-solid fa-backward'></i>{' '}
+						<Box ml='5px'>Travel Master Setting</Box>
+					</Button>
+				</Link>
 			</Box>
 
 			<Box display='flex' justifyContent='space-between' mt='30px'>
@@ -95,6 +120,7 @@ const AddNewRegion = () => {
 							<FormControl mb='10px'>
 								<FormLabel>Add Travel region</FormLabel>
 								<Input
+									bg='white'
 									type='text'
 									onChange={(e) => setRegion(e.target.value)}
 									required

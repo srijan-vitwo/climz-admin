@@ -698,7 +698,7 @@ const BusinessLocationDatatable = () => {
 							bodyStyle={{ textAlign: 'center' }}
 						/>
 						<Column
-							header='Company Lng'
+							header='Company Long'
 							field='company_lng'
 							bodyStyle={{ textAlign: 'center' }}
 						/>

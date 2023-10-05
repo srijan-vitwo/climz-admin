@@ -404,7 +404,7 @@ const DepartmentSettingDataTable = () => {
 										bgGradient:
 											'linear(180deg, #2267A2 0%, #0D4675 100%)',
 									}}>
-									Submit
+									Update
 								</Button>
 							</form>
 						</DrawerBody>

@@ -526,10 +526,10 @@ const LeavePolicies = () => {
 							h='350px'>
 							<Box w='100%' display='flex' gap='15px' mb='15px'>
 								<FormControl w='100%'>
-									<FormLabel>leave Type</FormLabel>
+									<FormLabel>Leave Type</FormLabel>
 									<Input
 										type='text'
-										placeholder='Enter leave Type'
+										placeholder='Enter Leave Type'
 										value={leaveType}
 										onChange={(e) =>
 											setLeaveType(e.target.value)
@@ -706,7 +706,7 @@ const LeavePolicies = () => {
 										mb='15px'>
 										<FormControl w='100%'>
 											<FormLabel>
-												Year Start Date1
+												Year Start Date
 											</FormLabel>
 											<Input
 												type='date'

@@ -78,7 +78,6 @@ const Decline = () => {
 	let token = localStorage.getItem('token');
 	const [first, setFirst] = useState(0);
 	const [rows, setRows] = useState(10);
-	const [sucess, setsucess] = useState();
 	const [empList, setEmpList] = useState();
 	const [loader, setLoader] = useState(false);
 
@@ -108,7 +107,7 @@ const Decline = () => {
 			}
 		};
 		formDataValue();
-	}, [sucess, first, rows]);
+	}, [first, rows]);
 
 	const onPageChange = (event) => {
 		setFirst(event.first);
@@ -196,6 +195,9 @@ const Decline = () => {
 		);
 	};
 
+	console.log(first, 'decline');
+	console.log(rows, 'decline');
+
 	return (
 		<CssWrapper
 			width='100%'
@@ -225,7 +227,7 @@ const Decline = () => {
 								header={Header}
 								filters={filters}
 								onFilter={(e) => setFilters(e.filters)}
-								dataKey='id'>
+								dataKey='emp_code'>
 								<Column
 									style={{ width: '12%' }}
 									header='Name'
@@ -264,12 +266,13 @@ const Decline = () => {
 								<Paginator
 									first={first}
 									rows={rows}
+									onPageChange={onPageChange}
+									template='FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink'
 									totalRecords={empList?.total}
 									rowsPerPageOptions={[
-										5,
+										`${empList?.per_page}`,
 										`${empList?.total}`,
 									]}
-									onPageChange={onPageChange}
 								/>
 							</Box>
 						</Box>

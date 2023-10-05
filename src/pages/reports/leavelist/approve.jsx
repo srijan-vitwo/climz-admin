@@ -77,7 +77,6 @@ const Approve = () => {
 	let token = localStorage.getItem('token');
 	const [first, setFirst] = useState(0);
 	const [rows, setRows] = useState(10);
-	const [sucess, setsucess] = useState();
 	const [empList, setEmpList] = useState();
 	const [loader, setLoader] = useState(false);
 
@@ -107,7 +106,7 @@ const Approve = () => {
 			}
 		};
 		formDataValue();
-	}, [sucess, first, rows]);
+	}, [first, rows]);
 
 	const onPageChange = (event) => {
 		setFirst(event.first);
@@ -224,7 +223,7 @@ const Approve = () => {
 								header={Header}
 								filters={filters}
 								onFilter={(e) => setFilters(e.filters)}
-								dataKey='id'>
+								dataKey='emp_code'>
 								<Column
 									style={{ width: '12%' }}
 									header='Name'
