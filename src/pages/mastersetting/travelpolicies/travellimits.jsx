@@ -155,6 +155,8 @@ const TravelLimits = () => {
 		}
 	};
 
+	console.log(travelMaster, 'travelMaster');
+
 	return (
 		<Box>
 			<Box position='relative'>
@@ -345,11 +347,13 @@ const TravelLimits = () => {
 												(data, index) => {
 													return (
 														<Th
+															textTransform='capitalize'
 															key={index}
 															color='white'
 															p='15px 0px'
 															textAlign='center'
-															fontSize='1.4rem'>
+															fontSize='1.6rem'
+															lineHeight='16px'>
 															{data.name}
 														</Th>
 													);

@@ -344,10 +344,12 @@ const LocalLimits = () => {
 													return (
 														<Th
 															key={index}
+															textTransform='capitalize'
 															color='white'
 															p='15px 0px'
 															textAlign='center'
-															fontSize='1.4rem'>
+															fontSize='1.6rem'
+															lineHeight='16px'>
 															{data.type}
 														</Th>
 													);

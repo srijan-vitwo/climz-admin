@@ -118,7 +118,7 @@ const AddNewRegion = () => {
 							flexDirection='column'
 							alignItems='end'>
 							<FormControl mb='10px'>
-								<FormLabel>Add Travel region</FormLabel>
+								<FormLabel>Add Travel Region</FormLabel>
 								<Input
 									bg='white'
 									type='text'

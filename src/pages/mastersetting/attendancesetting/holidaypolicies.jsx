@@ -34,6 +34,7 @@ import styled from '@emotion/styled';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../../../assets/images/loader.gif';
 import { BeatLoader } from 'react-spinners';
+import UserLogo from '../../../assets/images/no-image.png';
 
 const CssWrapper = styled.div`
 	.p-datatable-wrapper::-webkit-scrollbar {
@@ -408,6 +409,12 @@ const HolidayPolicies = () => {
 	};
 
 	const imageBodyTemplate = (rowData) => {
+		const defaultImageUrl = UserLogo;
+
+		const handleImageError = (event) => {
+			event.target.src = defaultImageUrl;
+		};
+
 		return (
 			<Box
 				display='flex'
@@ -418,7 +425,11 @@ const HolidayPolicies = () => {
 				width='40px'
 				border='4px solid #2d689b'
 				borderRadius='50px'>
-				<Image src={rowData.image} borderRadius='50px' />
+				<Image
+					src={rowData.image}
+					borderRadius='50px'
+					onError={handleImageError}
+				/>
 			</Box>
 		);
 	};
