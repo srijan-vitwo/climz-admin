@@ -239,7 +239,7 @@ const CostCenterTable = ({ data }) => {
 									fontWeight='700'
 									fontSize='28px'
 									lineHeight='36px'>
-									Cost center List Update
+									Cost Center List Update
 								</Text>
 							</Box>
 						</DrawerHeader>
@@ -304,18 +304,18 @@ const CostCenterTable = ({ data }) => {
 					tableStyle={{ minWidth: '100%' }}>
 					<Column
 						field='cost_center_name'
-						header='COST CENTERS'
+						header='Cost Centers'
 						headerStyle={{ textAlign: 'center' }}
 						bodyStyle={{ textAlign: 'center' }}
 						style={{ width: '31%' }}></Column>
 					<Column
-						header='MANAGE BUDGET'
+						header='Manage Budget'
 						headerStyle={{ textAlign: 'center' }}
 						body={BudgetBodyTemplate}
 						bodyStyle={{ textAlign: 'center' }}
 						style={{ width: '31%' }}></Column>
 					<Column
-						header='EDIT COST CENTERS'
+						header='Edit Cost Centers'
 						headerStyle={{ textAlign: 'center' }}
 						body={ActionTemplate}
 						bodyStyle={{ textAlign: 'center' }}

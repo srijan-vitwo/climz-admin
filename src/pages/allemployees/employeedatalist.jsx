@@ -738,7 +738,7 @@ const EmployeeDataList = () => {
 
 		function toastCallDeviceIDFaild() {
 			return toast({
-				title: 'Device ID Clear Faild',
+				title: 'Device ID Clear Failed',
 				status: 'error',
 				duration: 5000,
 				isClosable: true,
@@ -959,7 +959,7 @@ const EmployeeDataList = () => {
 					bg='none'
 					_hover={{ bg: 'none' }}
 					_active={{ bg: 'none' }}>
-					<i className='fa-solid fa fa-eye fa-2x'></i>
+					<i class='fa-solid fa-pen-to-square fa-2x'></i>
 				</Button>
 
 				<Drawer

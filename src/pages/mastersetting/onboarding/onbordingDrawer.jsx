@@ -103,7 +103,7 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser }) => {
 
 	function requestFaild() {
 		return toast({
-			title: 'Request Faild',
+			title: 'Request Failed',
 			status: 'error',
 			duration: 3000,
 			isClosable: true,

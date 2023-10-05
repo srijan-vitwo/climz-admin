@@ -104,7 +104,7 @@ const EmployeeUpdate = ({ details, fromValue, userData, msg, setMsg }) => {
 
 	function toastCallFaild() {
 		return toast({
-			title: 'Employee Update Faild',
+			title: 'Employee Update Failed',
 			status: 'error',
 			duration: 5000,
 			isClosable: true,

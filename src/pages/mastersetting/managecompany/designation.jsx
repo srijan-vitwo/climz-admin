@@ -85,6 +85,8 @@ const Designation = () => {
 			if (response.ok) {
 				setMsg(!msg);
 				toastCall();
+				setDesignationName('');
+				setGradeId('');
 				setIsLoading(false);
 			} else {
 				navigate('/login');
@@ -298,6 +300,8 @@ const Designation = () => {
 								<FormLabel>Add Designation</FormLabel>
 								<Input
 									type='text'
+									value={designationName}
+									placeholder='Enter Designation Name'
 									onChange={(e) =>
 										setDesignationName(e.target.value)
 									}
@@ -307,6 +311,7 @@ const Designation = () => {
 							<FormControl mb='10px'>
 								<FormLabel>Add Grade</FormLabel>
 								<Select
+									value={gradeId}
 									placeholder='Select Grade'
 									required
 									onChange={(e) =>

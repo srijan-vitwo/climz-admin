@@ -54,6 +54,7 @@ const GradeSetting = () => {
 			if (response.ok) {
 				setMsg(!msg);
 				toastCall();
+				setCode('');
 				setIsLoading(false);
 			} else {
 				navigate('/login');
@@ -266,6 +267,8 @@ const GradeSetting = () => {
 								<FormLabel>Add Grade Value</FormLabel>
 								<Input
 									type='text'
+									placeholder='Add Grade Value'
+									value={code}
 									onChange={(e) => setCode(e.target.value)}
 									required
 								/>

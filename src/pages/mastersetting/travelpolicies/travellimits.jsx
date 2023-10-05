@@ -40,7 +40,7 @@ const TravelLimits = () => {
 
 	function toastCallFaild() {
 		return toast({
-			title: 'Travel Limit Updated Faild',
+			title: 'Travel Limit Updated Failed',
 			status: 'error',
 			duration: 3000,
 			isClosable: true,

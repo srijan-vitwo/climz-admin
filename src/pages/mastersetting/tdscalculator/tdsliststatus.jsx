@@ -103,7 +103,7 @@ const TDSListStatus = () => {
 		}
 		function toastCallFaild() {
 			return toast({
-				title: 'Request Faild',
+				title: 'Request Failed',
 				status: 'error',
 				duration: 3000,
 				isClosable: true,

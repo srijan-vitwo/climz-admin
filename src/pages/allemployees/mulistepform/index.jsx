@@ -96,7 +96,7 @@ const MultiStepForm = () => {
 	}
 	function toastCallFaild() {
 		return toast({
-			title: 'Employee Creation Faild',
+			title: 'Employee Creation Failed',
 			status: 'error',
 			duration: 5000,
 			isClosable: true,

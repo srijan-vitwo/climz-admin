@@ -178,7 +178,7 @@ const BusinessLocationDatatable = () => {
 
 		function toastCallFaild() {
 			return toast({
-				title: 'Request Faild',
+				title: 'Request Failed',
 				status: 'error',
 				duration: 3000,
 				isClosable: true,
@@ -210,6 +210,7 @@ const BusinessLocationDatatable = () => {
 
 		const addCompanyLocation = async (e) => {
 			e.preventDefault();
+			onClose();
 			let formData = new FormData();
 			formData.append('state_id', id);
 			formData.append('lat', latitude);
@@ -233,13 +234,11 @@ const BusinessLocationDatatable = () => {
 					toastCall();
 					setsucess(!sucess);
 					setIsLoading(false);
-				} else if (response.status === 400) {
-					toastCallFaild();
 				} else {
-					toastCallFaild();
+					setIsLoading(false);
 				}
-			} catch (error) {
-				navigate('/login');
+			} catch {
+				setIsLoading(false);
 			}
 		};
 
@@ -481,7 +480,7 @@ const BusinessLocationDatatable = () => {
 
 		function toastCallFaild() {
 			return toast({
-				title: 'Request Faild',
+				title: 'Request Failed',
 				status: 'error',
 				duration: 3000,
 				isClosable: true,
@@ -514,13 +513,12 @@ const BusinessLocationDatatable = () => {
 					toastCall();
 					setsucess(!sucess);
 					setIsLoading(false);
-				} else if (response.status === 400) {
-					toastCallFaild();
 				} else {
 					toastCallFaild();
+					setIsLoading(false);
 				}
-			} catch (error) {
-				navigate('/login');
+			} catch {
+				setIsLoading(false);
 			}
 		};
 

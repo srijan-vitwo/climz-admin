@@ -178,7 +178,7 @@ const TierMaster = () => {
 					bg='none'
 					_hover={{ bg: 'none' }}
 					_active={{ bg: 'none' }}>
-					<i className='fa-solid fa fa-eye fa-2x'></i>
+					<i class='fa-solid fa-pen-to-square fa-2x'></i>
 				</Button>
 
 				<Drawer

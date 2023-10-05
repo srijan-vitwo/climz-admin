@@ -30,7 +30,7 @@ const AddNewRegion = () => {
 
 	function toastCallFaild() {
 		return toast({
-			title: 'Request Faild',
+			title: 'Request Failed',
 			status: 'error',
 			duration: 5000,
 			isClosable: true,

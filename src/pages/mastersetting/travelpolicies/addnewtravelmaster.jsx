@@ -23,7 +23,7 @@ const AddNewTravelMaster = () => {
 
 	function toastCall() {
 		return toast({
-			title: 'Travel Master List Create Sucessfully',
+			title: 'Travel Master List Created Sucessfully',
 			status: 'success',
 			duration: 3000,
 			isClosable: true,
@@ -32,7 +32,7 @@ const AddNewTravelMaster = () => {
 
 	function toastCallFaild() {
 		return toast({
-			title: 'Request Faild',
+			title: 'Request Failed',
 			status: 'error',
 			duration: 5000,
 			isClosable: true,

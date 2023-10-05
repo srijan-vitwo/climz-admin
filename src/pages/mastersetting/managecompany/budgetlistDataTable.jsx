@@ -109,8 +109,6 @@ const BudgetlistDataTable = () => {
 		budgetlist();
 	}, []);
 
-	console.log(products, 'ccc');
-
 	const onRowEditComplete = (e) => {
 		let _products = [...products];
 		let { newData, index } = e;
