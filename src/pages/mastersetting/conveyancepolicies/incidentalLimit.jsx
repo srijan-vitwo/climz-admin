@@ -147,15 +147,17 @@ const IncidentalLimit = () => {
 									<Th
 										color='white'
 										p='15px 0px'
+										textTransform='capitalize'
 										textAlign='center'
-										fontSize='1.4rem'>
+										fontSize='1.6rem'>
 										Grades
 									</Th>
 									<Th
 										color='white'
 										p='15px 0px'
+										textTransform='capitalize'
 										textAlign='center'
-										fontSize='1.4rem'>
+										fontSize='1.6rem'>
 										Limits
 									</Th>
 								</Tr>

@@ -198,7 +198,7 @@ const LeavepolicyDataTable = ({ leaveList, Loader, msg, setMsg }) => {
 											mb='15px'>
 											<FormControl w='100%'>
 												<FormLabel>
-													leave Type
+													Leave Type
 												</FormLabel>
 												<Input
 													type='text'
@@ -279,7 +279,6 @@ const LeavepolicyDataTable = ({ leaveList, Loader, msg, setMsg }) => {
 										fontSize='1.6rem'
 										color='white'
 										mt='30px'
-										onClick={onClose}
 										_hover={{
 											bgGradient:
 												'linear(180deg, #2267A2 0%, #0D4675 100%)',

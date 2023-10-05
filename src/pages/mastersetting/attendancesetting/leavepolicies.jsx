@@ -167,13 +167,16 @@ const LeavePolicies = () => {
 			if (response.ok) {
 				setMsg(!msg);
 				toastCall();
-				setLeaveType(' ');
-				setTotalLeave(' ');
-				setCarryForword(' ');
-				setEncashment(' ');
+				setLeaveType('');
+				setTotalLeave('');
+				setCarryForword('');
+				setEncashment('');
 				setIsLoading(false);
 			} else {
-				navigate('/login');
+				setLeaveType('');
+				setTotalLeave('');
+				setCarryForword('');
+				setEncashment('');
 			}
 		} catch (error) {
 			navigate('/login');

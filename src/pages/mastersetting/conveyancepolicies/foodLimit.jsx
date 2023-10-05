@@ -158,17 +158,19 @@ const FoodLimit = () => {
 									padding='10px 15px'>
 									<Tr>
 										<Th
+											textTransform='capitalize'
 											color='white'
 											p='15px 0px'
 											textAlign='center'
-											fontSize='1.4rem'>
+											fontSize='1.6rem'>
 											Grades
 										</Th>
 										<Th
+											textTransform='capitalize'
 											color='white'
 											p='15px 0px'
 											textAlign='center'
-											fontSize='1.4rem'>
+											fontSize='1.6rem'>
 											Limits
 										</Th>
 									</Tr>

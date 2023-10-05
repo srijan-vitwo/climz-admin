@@ -146,11 +146,9 @@ const TravelMaster = () => {
 
 	const RenderHeader = () => {
 		const { isOpen, onOpen, onClose } = useDisclosure();
-		let tokens = localStorage.getItem('token');
 		const toast = useToast();
 		const [componentName, setComponentName] = useState();
 		const [type, setType] = useState();
-		const [sucess, setsucess] = useState();
 		const [msg, setMsg] = useState();
 		const value = filters['global'] ? filters['global'].value : '';
 
@@ -185,9 +183,12 @@ const TravelMaster = () => {
 				if (response.ok) {
 					toastCall();
 					setMsg(!msg);
+					setComponentName('');
+					setType('');
 					setIsLoading(false);
 				} else {
-					navigate('/login');
+					setComponentName('');
+					setType('');
 				}
 			} catch (error) {
 				navigate('/login');
@@ -236,7 +237,7 @@ const TravelMaster = () => {
 						}}
 						// onClick={() => navigate("/master-setting/add-tarvel-mode")}
 						onClick={onOpen}>
-						ADD TRAVEL MODE
+						Add Travel Mode
 					</Button>
 
 					<Modal onClose={onClose} isOpen={isOpen} isCentered>
@@ -292,6 +293,8 @@ const TravelMaster = () => {
 												</FormLabel>
 												<Input
 													type='text'
+													placeholder='Enter Mode Of Travel'
+													value={componentName}
 													onChange={(e) =>
 														setComponentName(
 															e.target.value
@@ -311,6 +314,8 @@ const TravelMaster = () => {
 												</FormLabel>
 												<Input
 													type='text'
+													placeholder='Enter Mode Of Type'
+													value={type}
 													onChange={(e) =>
 														setType(e.target.value)
 													}
@@ -516,7 +521,7 @@ const TravelMaster = () => {
 										bgGradient:
 											'linear(180deg, #2267A2 0%, #0D4675 100%)',
 									}}>
-									Submit
+									Update
 								</Button>
 							</form>
 						</DrawerBody>
