@@ -215,8 +215,6 @@ const ApprovalModal = ({ approval, matchedData, rowData }) => {
 		}
 	};
 
-	console.log(variants, 'variants');
-
 	return (
 		<>
 			<Tooltip hasArrow label='Add New Approval veriant' fontSize='1rem'>

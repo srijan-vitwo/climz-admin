@@ -87,8 +87,6 @@ const AllPayrollReportView = () => {
 		}
 	};
 
-	console.log(listValue, 'setListValue');
-
 	return (
 		<Card>
 			<CardHeader

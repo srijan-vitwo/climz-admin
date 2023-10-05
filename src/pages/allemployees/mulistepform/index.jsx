@@ -194,7 +194,7 @@ const MultiStepForm = () => {
 			};
 			formDataValue();
 		} else {
-			console.log('empcode');
+			console.log('error');
 		}
 	}, [formData?.employee_code_prefix]);
 

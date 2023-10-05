@@ -277,8 +277,6 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser }) => {
 		}
 	};
 
-	console.log(userData, 'userData');
-
 	return (
 		<>
 			<Button

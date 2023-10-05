@@ -125,7 +125,6 @@ const TravelLimits = () => {
 				limit: value,
 			});
 		});
-		console.log(formObj);
 
 		let formData = new FormData();
 		formData.append('array', JSON.stringify(formObj));

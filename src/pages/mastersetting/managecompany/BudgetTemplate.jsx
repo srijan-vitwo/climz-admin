@@ -220,8 +220,6 @@ const BudgetTemplate = ({ rowData, modifiedData, loader }) => {
 		}
 	};
 
-	console.log(modifiedData, 'modifiedData');
-
 	return (
 		<Box>
 			{loader ? (

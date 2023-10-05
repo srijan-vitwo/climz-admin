@@ -746,7 +746,12 @@ const EmployeeDataList = () => {
 		}
 
 		function toastCallFaild() {
-			console.log('faild');
+			return toast({
+				title: 'Request Failed',
+				status: 'error',
+				duration: 5000,
+				isClosable: true,
+			});
 		}
 
 		const empBlock = async (e) => {
@@ -949,8 +954,6 @@ const EmployeeDataList = () => {
 				setIsLoadingModal(false);
 			}
 		};
-
-		console.log(userData, 'userData');
 
 		return (
 			<>

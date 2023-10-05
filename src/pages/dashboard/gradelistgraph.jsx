@@ -10,8 +10,6 @@ import {
 } from 'recharts';
 
 const GradeListGraph = ({ Grade, Loader }) => {
-	console.log(Grade, 'Grade');
-
 	return (
 		<div style={{ width: '100%', height: 400 }}>
 			<ResponsiveContainer>

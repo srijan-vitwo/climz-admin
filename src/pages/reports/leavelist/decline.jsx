@@ -195,9 +195,6 @@ const Decline = () => {
 		);
 	};
 
-	console.log(first, 'decline');
-	console.log(rows, 'decline');
-
 	return (
 		<CssWrapper
 			width='100%'

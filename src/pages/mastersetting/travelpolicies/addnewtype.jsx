@@ -57,8 +57,6 @@ const AddNewType = () => {
 		setInputs(values);
 	}
 
-	// console.log(inputs, 'ggg')
-
 	const addTiremaster = async (e) => {
 		e.preventDefault();
 

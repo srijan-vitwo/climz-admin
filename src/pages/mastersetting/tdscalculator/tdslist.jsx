@@ -374,8 +374,6 @@ const TdsList = () => {
 			}
 		};
 
-		console.log(earningComponents, 'list');
-
 		return (
 			<>
 				<Button

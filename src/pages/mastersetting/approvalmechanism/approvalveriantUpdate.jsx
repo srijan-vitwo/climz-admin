@@ -25,8 +25,6 @@ const ApprovalVeriantUpdate = ({ approval, rowData }) => {
 
 	const newArray = [matchedData?.[matchedData?.length - 1]];
 
-	console.log(matchedData, 'matchedData');
-
 	return (
 		<Box>
 			<Box

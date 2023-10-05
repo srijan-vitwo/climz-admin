@@ -145,8 +145,6 @@ const TravelLimit = () => {
 		}
 	};
 
-	console.log(travelMaster, 'travelMaster');
-
 	return (
 		<Box>
 			<Box bg='white' borderRadius='15px' mb='30px'>

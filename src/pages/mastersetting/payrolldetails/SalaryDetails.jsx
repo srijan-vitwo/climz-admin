@@ -1,4 +1,3 @@
-import { object } from '@amcharts/amcharts5';
 import {
 	Box,
 	Button,
@@ -142,7 +141,7 @@ const SalaryDetails = () => {
 
 	const separateTheComponents = (data) => {
 		let tempEarning = {};
-		console.log(data, 'data');
+
 		data.earning_components.map((row) => {
 			tempEarning[row.salary_component_id] = row;
 			tempEarning[row.salary_component_id]['input'] = 0;

@@ -397,7 +397,12 @@ const NoticePeriodEmployee = () => {
 		}
 
 		function toastCallFaild() {
-			console.log('faild');
+			return toast({
+				title: 'Request Failed',
+				status: 'error',
+				duration: 3000,
+				isClosable: true,
+			});
 		}
 
 		const empBlock = async (e) => {
@@ -679,7 +684,6 @@ const NoticePeriodEmployee = () => {
 				toastCallApproveResignationFaild();
 			}
 		};
-		console.log(rowData, 'rowData');
 		return (
 			<Box>
 				{rowData.resign_aproval == '0' && <Button>Not Applied</Button>}

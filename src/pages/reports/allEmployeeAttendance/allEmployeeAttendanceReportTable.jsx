@@ -568,8 +568,6 @@ const AllEmployeeAttendanceReportTable = ({
 		});
 	});
 
-	console.log(attendanceListArr, 'attendanceListArr');
-
 	return (
 		<CssWrapper>
 			<Box className='card'>

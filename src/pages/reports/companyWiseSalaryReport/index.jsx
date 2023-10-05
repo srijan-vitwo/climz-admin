@@ -61,7 +61,6 @@ const AttendanceReportView = () => {
 		)
 			.then((response) => response.json())
 			.then((data) => {
-				console.log(data.data);
 				setListValue(data.data);
 			})
 			.catch((error) => console.error(error));

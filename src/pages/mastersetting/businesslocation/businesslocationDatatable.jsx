@@ -467,8 +467,6 @@ const BusinessLocationDatatable = () => {
 		);
 		const { isOpen, onOpen, onClose } = useDisclosure();
 
-		console.log(companyAddressId, 'demo');
-
 		function toastCall() {
 			return toast({
 				title: 'Business Location Updated Sucessfully',
@@ -654,13 +652,10 @@ const BusinessLocationDatatable = () => {
 	const LocationTemplate = (rowData) => {
 		const [location, setLocation] = useState(empList?.state);
 		const object = location.find((obj) => obj.id === rowData.state_id);
-		console.log(object, 'object');
 
 		return <Box>{object.name}</Box>;
 	};
 	const Header = RenderHeader();
-
-	console.log(empList?.state, 'empList');
 
 	return (
 		<CssWrapper

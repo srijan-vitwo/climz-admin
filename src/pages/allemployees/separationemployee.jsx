@@ -397,7 +397,12 @@ const SeparationEmployee = () => {
 		}
 
 		function toastCallFaild() {
-			console.log('faild');
+			return toast({
+				title: 'Request Failed',
+				status: 'error',
+				duration: 3000,
+				isClosable: true,
+			});
 		}
 
 		const empBlock = async (e) => {

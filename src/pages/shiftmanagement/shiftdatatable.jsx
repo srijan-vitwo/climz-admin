@@ -190,8 +190,6 @@ const ShiftDataTable = () => {
 			setShiftData(data.data);
 		};
 
-		console.log(shiftData, 'shiftData');
-
 		return (
 			<Box>
 				<Button

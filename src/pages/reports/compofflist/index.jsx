@@ -172,8 +172,6 @@ const Compofflist = () => {
 		const [compopDetails, setCompopDetails] = useState();
 		const [id, setId] = useState(rowData?.user_id);
 
-		console.log(id, 'id');
-
 		const departmentList = async () => {
 			onOpen();
 			try {
