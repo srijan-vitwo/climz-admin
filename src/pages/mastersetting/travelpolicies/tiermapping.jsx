@@ -432,7 +432,7 @@ const TierMapping = () => {
 						tableStyle={{ minWidth: '50rem' }}>
 						<Column
 							field='city_id'
-							header='id'
+							header='Id'
 							sortable
 							bodyStyle={{ textAlign: 'center' }}
 							style={{ width: '25%' }}></Column>

@@ -112,12 +112,6 @@ const HolidayPolicies = () => {
 		},
 	});
 
-	const {
-		isOpen: modalIsOpen,
-		onOpen: modalOnOpen,
-		onClose: modalOnClose,
-	} = useDisclosure();
-
 	useEffect(() => {
 		let token = localStorage.getItem('token');
 		const holidayPolicy = async () => {
@@ -203,6 +197,9 @@ const HolidayPolicies = () => {
 			}
 		};
 
+		console.log(selectedValue, 'selectedValue');
+		console.log(rowData, 'rowData');
+
 		return (
 			<>
 				<Button
@@ -211,7 +208,7 @@ const HolidayPolicies = () => {
 					_hover={{ bg: 'none' }}
 					_active={{ bg: 'none' }}
 					_focus={{ bg: 'none' }}>
-					<i class='fa-solid fa-pen-to-square fa-2x'></i>
+					<i className='fa-solid fa-pen-to-square fa-2x'></i>
 				</Button>
 
 				<Drawer
@@ -450,6 +447,11 @@ const HolidayPolicies = () => {
 		const [holidayDate, setHolidayDate] = useState();
 		const [holidayImage, setHolidayImage] = useState();
 		const [selectedValue, setSelectedValue] = useState('common');
+		const {
+			isOpen: modalIsOpen,
+			onOpen: modalOnOpen,
+			onClose: modalOnClose,
+		} = useDisclosure();
 
 		function toastCall() {
 			return toast({
@@ -489,6 +491,7 @@ const HolidayPolicies = () => {
 					toastCall();
 					setMsg(!msg);
 					setIsLoading(false);
+					modalOnClose();
 				} else {
 					navigate('/login');
 				}
@@ -544,7 +547,7 @@ const HolidayPolicies = () => {
 
 				<Modal isOpen={modalIsOpen} onClose={modalOnClose} isCentered>
 					<ModalOverlay bg='rgba(0,0,0,0.2)' />
-					<ModalContent minW='50%' h='50vh'>
+					<ModalContent minW='50%' h='40vh'>
 						<ModalHeader
 							pt='24px'
 							pb='15px'
@@ -553,7 +556,7 @@ const HolidayPolicies = () => {
 							alignItems='center'>
 							<Box
 								borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-								width='300px'
+								width='265px'
 								pb='5px'>
 								<Text
 									background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
@@ -561,7 +564,7 @@ const HolidayPolicies = () => {
 									fontWeight='700'
 									fontSize='28px'
 									lineHeight='36px'>
-									Holiday List Add
+									Add Holiday List
 								</Text>
 							</Box>
 						</ModalHeader>
@@ -700,10 +703,9 @@ const HolidayPolicies = () => {
 										}
 										type='submit'
 										bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-										border='4px solid #FFFFFF'
 										boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-										borderRadius='15px'
-										p='15px 20px'
+										borderRadius='10px'
+										p='20px 20px'
 										fontSize='1.6rem'
 										color='white'
 										mt='30px'
@@ -718,8 +720,7 @@ const HolidayPolicies = () => {
 										_focus={{
 											bgGradient:
 												'linear(180deg, #2267A2 0%, #0D4675 100%)',
-										}}
-										onClick={modalOnClose}>
+										}}>
 										Add Holiday
 									</Button>
 								</form>

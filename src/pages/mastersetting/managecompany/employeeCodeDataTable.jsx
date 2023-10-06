@@ -180,7 +180,7 @@ const EmployeeCodeDataTable = ({ Msg }) => {
 					bg='none'
 					_hover={{ bg: 'none' }}
 					_active={{ bg: 'none' }}>
-					<i class='fa-solid fa-pen-to-square fa-2x'></i>
+					<i className='fa-solid fa-pen-to-square fa-2x'></i>
 				</Button>
 
 				<Drawer

@@ -360,6 +360,8 @@ const LeavePolicies = () => {
 		}
 	};
 
+	console.log(isSelectedSandwitch, 'isSelectedSandwitch');
+
 	return (
 		<Box>
 			<Box>
@@ -555,10 +557,10 @@ const LeavePolicies = () => {
 							</Box>
 							<Box w='100%' display='flex' gap='15px'>
 								<FormControl w='100%'>
-									<FormLabel>Carry Forword</FormLabel>
+									<FormLabel>Carry Forward</FormLabel>
 									<Input
 										type='text'
-										placeholder='Enter Carry Forword'
+										placeholder='Enter Carry Forward'
 										value={carryForword}
 										onChange={(e) =>
 											setCarryForword(e.target.value)
@@ -840,7 +842,7 @@ const LeavePolicies = () => {
 					<Box>
 						<Box
 							borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-							width='200px'
+							width='180px'
 							pb='5px'
 							mt='24px'>
 							<Text
@@ -1091,7 +1093,7 @@ const LeavePolicies = () => {
 					<Box>
 						<Box
 							borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-							width='340px'
+							width='150px'
 							pb='5px'
 							mt='24px'>
 							<Text
@@ -1112,13 +1114,17 @@ const LeavePolicies = () => {
 							<form
 								onSubmit={ruleTypeSandwitch}
 								value={isSelectedSandwitch}>
-								<RadioGroup onChange={setIsSelectedSandwitch}>
+								<RadioGroup
+									onChange={setIsSelectedSandwitch}
+									defaultValue={isSelectedSandwitch}>
 									<Stack direction='row' gap='20px'>
 										<Radio
 											value='1'
 											size='lg'
 											onChange={handleSelectionSandwitch}
-											defaultChecked>
+											isChecked={
+												isSelectedSandwitch === true
+											}>
 											<Box
 												fontSize='1.4rem'
 												fontWeight='700'
@@ -1130,6 +1136,9 @@ const LeavePolicies = () => {
 										<Radio
 											value='0'
 											size='lg'
+											isChecked={
+												isSelectedSandwitch === false
+											}
 											onChange={
 												handleSelectionSkipSandwitch
 											}>

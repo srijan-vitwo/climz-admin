@@ -31,7 +31,7 @@ const AccomodationLimits = () => {
 
 	function toastCall() {
 		return toast({
-			title: 'Accomodation Limit Updated Sucessfully',
+			title: 'Accommodation Limit Updated Sucessfully',
 			status: 'success',
 			duration: 3000,
 			isClosable: true,
@@ -216,7 +216,7 @@ const AccomodationLimits = () => {
 						color='claimzTextBlackColor'
 						fontWeight='600'
 						fontSize='1.5rem'>
-						Accomodation Limits
+						Accommodation Limits
 					</Box>
 				</Box>
 
@@ -305,7 +305,7 @@ const AccomodationLimits = () => {
 			<Box bg='white' borderRadius='15px' mb='30px'>
 				<Heading mb='15px' color='claimzTextBlueColor'>
 					{' '}
-					List of all Accomodation Limits
+					List of all Accommodation Limits
 				</Heading>
 				{loader ? (
 					<Box

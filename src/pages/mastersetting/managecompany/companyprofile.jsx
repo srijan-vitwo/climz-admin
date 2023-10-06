@@ -434,7 +434,7 @@ const CompanyProfile = ({ companyData }) => {
 							<Input
 								className={editable ? 'editable' : 'disabled'}
 								type='text'
-								placeholder='Company PNR Number'
+								placeholder='Company PAN Number'
 								value={companyPan}
 								onChange={(e) => setCompanyPan(e.target.value)}
 							/>

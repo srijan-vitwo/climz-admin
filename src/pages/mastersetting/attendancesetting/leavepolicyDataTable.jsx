@@ -147,7 +147,7 @@ const LeavepolicyDataTable = ({ leaveList, Loader, msg, setMsg }) => {
 					_hover={{ bg: 'none' }}
 					_active={{ bg: 'none' }}
 					_focus={{ bg: 'none' }}>
-					<i class='fa-solid fa-pen-to-square fa-2x'></i>
+					<i className='fa-solid fa-pen-to-square fa-2x'></i>
 				</Button>
 
 				<Drawer
@@ -230,11 +230,11 @@ const LeavepolicyDataTable = ({ leaveList, Loader, msg, setMsg }) => {
 										<Box w='100%' display='flex' gap='15px'>
 											<FormControl w='100%'>
 												<FormLabel>
-													Carry Forword
+													Carry Forward
 												</FormLabel>
 												<Input
 													type='text'
-													placeholder='Enter Carry Forword'
+													placeholder='Enter Carry Forward'
 													value={carry}
 													onChange={(e) =>
 														setCarry(e.target.value)

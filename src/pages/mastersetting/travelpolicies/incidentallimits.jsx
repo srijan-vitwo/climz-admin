@@ -31,7 +31,7 @@ const IncidentalLimits = () => {
 
 	function toastCall() {
 		return toast({
-			title: 'Local Limit Updated Sucessfully',
+			title: 'Incidental Limit Updated Sucessfully',
 			status: 'success',
 			duration: 3000,
 			isClosable: true,

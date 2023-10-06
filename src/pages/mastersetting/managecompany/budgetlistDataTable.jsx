@@ -58,7 +58,6 @@ const BudgetlistDataTable = () => {
 	const navigate = useNavigate();
 	const [products, setProducts] = useState();
 	const [loader, setLoader] = useState(false);
-	const [updatedValue, setUpdatedValue] = useState();
 	const [filters, setFilters] = useState({
 		global: { value: null, matchMode: FilterMatchMode.CONTAINS },
 		name: {
@@ -67,12 +66,7 @@ const BudgetlistDataTable = () => {
 				{ value: null, matchMode: FilterMatchMode.STARTS_WITH },
 			],
 		},
-		'country.name': {
-			operator: FilterOperator.AND,
-			constraints: [
-				{ value: null, matchMode: FilterMatchMode.STARTS_WITH },
-			],
-		},
+
 		representative: { value: null, matchMode: FilterMatchMode.IN },
 		status: {
 			operator: FilterOperator.OR,
@@ -108,15 +102,6 @@ const BudgetlistDataTable = () => {
 		};
 		budgetlist();
 	}, []);
-
-	const onRowEditComplete = (e) => {
-		let _products = [...products];
-		let { newData, index } = e;
-
-		_products[index] = newData;
-
-		setUpdatedValue(_products);
-	};
 
 	const onGlobalFilterChange = (event) => {
 		const value = event.target.value;
@@ -156,6 +141,8 @@ const BudgetlistDataTable = () => {
 
 	const header = renderHeader();
 
+	console.log(filters, 'filters');
+
 	return (
 		<CssWrapper>
 			{loader ? (
@@ -176,7 +163,6 @@ const BudgetlistDataTable = () => {
 						onFilter={(e) => setFilters(e.filters)}
 						editMode='row'
 						dataKey='id'
-						onRowEditComplete={onRowEditComplete}
 						tableStyle={{ minWidth: '50rem' }}>
 						<Column
 							field='department_name'

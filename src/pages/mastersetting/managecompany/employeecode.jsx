@@ -284,7 +284,7 @@ const EmployeeCode = () => {
 							</FormControl>
 							<FormControl mb='10px'>
 								<FormLabel>
-									Your Employee Code will be looks like
+									Your Employee Code Preview :
 								</FormLabel>
 								<Text
 									fontWeight='600'

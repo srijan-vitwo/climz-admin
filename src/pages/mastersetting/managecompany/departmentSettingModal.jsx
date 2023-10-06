@@ -12,6 +12,7 @@ import {
 	ModalCloseButton,
 	useDisclosure,
 	useToast,
+	FormLabel,
 } from '@chakra-ui/react';
 import styled from '@emotion/styled';
 import CostCenterTable from './costcentertable';
@@ -217,16 +218,25 @@ const DepartmentSettingModal = ({ rowData }) => {
 										<Box
 											w='100%'
 											display='flex'
+											placeholder='Add Cost Center'
 											alignItems='center'
 											key={index}>
-											<Input
-												type='text'
-												mb='10px'
-												value={input.value}
-												onChange={(event) =>
-													handleChange(index, event)
-												}
-											/>
+											<Box w='100%'>
+												<FormLabel>
+													Add Cost Center Name
+												</FormLabel>
+												<Input
+													type='text'
+													mb='10px'
+													value={input.value}
+													onChange={(event) =>
+														handleChange(
+															index,
+															event
+														)
+													}
+												/>
+											</Box>
 											<Button
 												mt='-10px'
 												color='var(--chakra-colors-claimzTextBlueLightColor)'
