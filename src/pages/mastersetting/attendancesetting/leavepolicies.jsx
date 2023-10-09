@@ -1007,6 +1007,7 @@ const LeavePolicies = () => {
 																)
 															}
 															placeholder='Enter Increment Balance'
+															required
 														/>
 													</FormControl>
 													<FormControl w='100%'>
