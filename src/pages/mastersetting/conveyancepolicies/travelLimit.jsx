@@ -147,14 +147,14 @@ const TravelLimit = () => {
 
 	return (
 		<Box>
-			<Box bg='white' borderRadius='15px' mb='30px'>
+			<Box bg='white' borderRadius='15px'>
 				<Heading mb='15px' color='claimzTextBlueColor'>
 					{' '}
 					List of all Travel Limits
 				</Heading>
 				{loader ? (
 					<Box
-						height='calc(100vh - 252px)'
+						height='calc(100vh - 220px)'
 						display='flex'
 						alignItems='center'
 						justifyContent='center'>
@@ -169,7 +169,7 @@ const TravelLimit = () => {
 							<Box
 								w='100%'
 								overflowY='auto'
-								height='calc(100vh - 320px)'>
+								height='calc(100vh - 290px)'>
 								<Table
 									className='reportsTable'
 									variant='striped'>
@@ -281,7 +281,7 @@ const TravelLimit = () => {
 										'linear(180deg, #2267A2 0%, #0D4675 100%)',
 								}}
 								type='submit'>
-								Submit
+								Save Changes
 							</Button>
 						</Box>
 					</form>

@@ -179,7 +179,7 @@ const ApprovalVariantList = ({ approval }) => {
 					bg='none'
 					_hover={{ bg: 'none' }}
 					_active={{ bg: 'none' }}>
-					<i className='fa-solid fa-eye fa-2x'></i>
+					<i className='fa-solid fa-pen-to-square fa-2x'></i>
 				</Button>
 
 				<Drawer

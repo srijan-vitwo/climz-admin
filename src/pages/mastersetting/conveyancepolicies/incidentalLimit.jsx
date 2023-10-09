@@ -135,7 +135,7 @@ const IncidentalLimit = () => {
 						w='100%'
 						pr='10px'
 						overflowY='auto'
-						height='calc(100vh - 335px)'>
+						height='calc(100vh - 290px)'>
 						<Table className='reportsTable' variant='striped'>
 							<Thead
 								margin='75px auto 0'
@@ -209,7 +209,6 @@ const IncidentalLimit = () => {
 						p='20px 20px'
 						fontSize='1.6rem'
 						color='white'
-						margin=' 28px 15px 15px'
 						_hover={{
 							bgGradient:
 								'linear(180deg, #2267A2 0%, #0D4675 100%)',
@@ -223,7 +222,7 @@ const IncidentalLimit = () => {
 								'linear(180deg, #2267A2 0%, #0D4675 100%)',
 						}}
 						type='submit'>
-						Submit
+						Save Changes
 					</Button>
 				</Box>
 			</form>

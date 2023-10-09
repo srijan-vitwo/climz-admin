@@ -63,6 +63,7 @@ const CssWrapper = styled.div`
 	.p-datatable .p-datatable-header {
 		border: none;
 		padding-bottom: 20px;
+		background: white;
 	}
 	.p-datatable .p-column-header-content {
 		display: flex;

@@ -131,7 +131,7 @@ const FoodLimit = () => {
 			</Box>
 			{loader ? (
 				<Box
-					height='calc(100vh - 252px)'
+					height='calc(100vh - 220px)'
 					display='flex'
 					alignItems='center'
 					justifyContent='center'>
@@ -236,7 +236,7 @@ const FoodLimit = () => {
 									'linear(180deg, #2267A2 0%, #0D4675 100%)',
 							}}
 							type='submit'>
-							Submit
+							Save Changes
 						</Button>
 					</Box>
 				</form>

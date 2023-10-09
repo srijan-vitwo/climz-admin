@@ -316,7 +316,7 @@ const EmployeeCode = () => {
 									bgGradient:
 										'linear(180deg, #2267A2 0%, #0D4675 100%)',
 								}}>
-								Submit
+								Save Changes
 							</Button>
 						</Box>
 					</form>

@@ -305,7 +305,7 @@ const TravelLimits = () => {
 				</Box>
 			</Box>
 
-			<Box bg='white' borderRadius='15px' mb='30px'>
+			<Box bg='white' borderRadius='15px'>
 				<Heading mb='15px' color='claimzTextBlueColor'>
 					List of all Travel Limits
 				</Heading>
@@ -436,7 +436,7 @@ const TravelLimits = () => {
 										'linear(180deg, #2267A2 0%, #0D4675 100%)',
 								}}
 								type='submit'>
-								Submit
+								Save Changes
 							</Button>
 						</Box>
 					</form>

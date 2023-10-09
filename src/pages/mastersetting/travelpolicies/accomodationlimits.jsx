@@ -434,7 +434,7 @@ const AccomodationLimits = () => {
 										'linear(180deg, #2267A2 0%, #0D4675 100%)',
 								}}
 								type='submit'>
-								Submit
+								Save Changes
 							</Button>
 						</Box>
 					</form>

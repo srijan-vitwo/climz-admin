@@ -135,7 +135,7 @@ const StageList = ({ products, setProducts, sucess, setSucess }) => {
 					bg='none'
 					_hover={{ bg: 'none' }}
 					_active={{ bg: 'none' }}>
-					<i className='fa-solid fa fa-pen'></i>
+					<i className='fa-solid fa-pen-to-square fa-2x'></i>
 				</Button>
 				<Modal
 					isCentered
