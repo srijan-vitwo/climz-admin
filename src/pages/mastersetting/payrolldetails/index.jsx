@@ -23,6 +23,7 @@ import PtaxSlab from './PtaxSlab';
 import EmployeeList from './EmployeeList';
 import ComponentList from './componentlist';
 import { useNavigate } from 'react-router-dom';
+import { BeatLoader } from 'react-spinners';
 
 function App() {
 	const token = localStorage.getItem('token');
@@ -33,6 +34,7 @@ function App() {
 	const [ruleId, setRuleId] = useState('');
 	const [isChecked, setIsChecked] = useState(0);
 	const [sucess, setSucess] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 
 	function toastCall() {
 		return toast({
@@ -148,6 +150,10 @@ function App() {
 				.then((data) => {
 					toastCall();
 					setSucess(!sucess);
+					setFormData({
+						...formData,
+						components: '',
+					});
 				})
 				.catch((error) => {
 					console.error('API error:', error);
@@ -155,6 +161,7 @@ function App() {
 				});
 		} else if (type === 'deduction') {
 			if (ruleId === '1') {
+				setIsLoading(true);
 				// Perform API call with formData
 				fetch(
 					`${process.env.REACT_APP_API_URL}/company-components-write`,
@@ -173,14 +180,17 @@ function App() {
 					.then((response) => response.json())
 					.then((data) => {
 						setSucess(!sucess);
+						setIsLoading(false);
 						// Reset form data or show success message
 					})
 					.catch((error) => {
+						setIsLoading(false);
 						console.error('API error:', error);
 						// Show error message
 					});
 
 				// Perform API call with formData
+				setIsLoading(true);
 				fetch(
 					`${process.env.REACT_APP_API_URL}/company-components-write`,
 					{
@@ -195,14 +205,17 @@ function App() {
 					.then((response2) => response2.json())
 					.then((data) => {
 						setSucess(!sucess);
+						setIsLoading(false);
 						// Reset form data or show success message
 					})
 					.catch((error) => {
 						console.error('API error:', error);
+						setIsLoading(false);
 						// Show error message
 					});
 			} else if (ruleId === '2') {
 				// Perform API call with formData
+				setIsLoading(true);
 				fetch(
 					`${process.env.REACT_APP_API_URL}/company-components-write`,
 					{
@@ -221,13 +234,16 @@ function App() {
 					.then((data) => {
 						setSucess(!sucess);
 						// Reset form data or show success message
+						setIsLoading(false);
 					})
 					.catch((error) => {
 						console.error('API error:', error);
 						// Show error message
+						setIsLoading(false);
 					});
 			} else if (ruleId === '3') {
 				// Perform API call with formData
+				setIsLoading(true);
 				fetch(
 					`${process.env.REACT_APP_API_URL}/company-components-write`,
 					{
@@ -245,10 +261,12 @@ function App() {
 					.then((response) => response.json())
 					.then((data) => {
 						setSucess(!sucess);
+						setIsLoading(false);
 						// Reset form data or show success message
 					})
 					.catch((error) => {
 						console.error('API error:', error);
+						setIsLoading(false);
 						// Show error message
 					});
 
@@ -297,6 +315,7 @@ function App() {
 					});
 			} else if (ruleId === '0') {
 				// Perform API call with formData
+				setIsLoading(true);
 				fetch(
 					`${process.env.REACT_APP_API_URL}/company-components-write`,
 					{
@@ -314,14 +333,17 @@ function App() {
 					.then((response) => response.json())
 					.then((data) => {
 						setSucess(!sucess);
+						setIsLoading(false);
 						// Reset form data or show success message
 					})
 					.catch((error) => {
 						console.error('API error:', error);
+						setIsLoading(false);
 						// Show error message
 					});
 			} else if (ruleId === '4') {
 				// Perform API call with formData
+				setIsLoading(true);
 				fetch(
 					`${process.env.REACT_APP_API_URL}/company-components-write`,
 					{
@@ -339,15 +361,18 @@ function App() {
 					.then((response) => response.json())
 					.then((data) => {
 						setSucess(!sucess);
+						setIsLoading(false);
 						// Reset form data or show success message
 					})
 					.catch((error) => {
 						console.error('API error:', error);
+						setIsLoading(false);
 						// Show error message
 					});
 			}
 		} else if (type === 'perquisits') {
 			// Perform API call with formData
+			setIsLoading(true);
 			fetch(`${process.env.REACT_APP_API_URL}/company-components-write`, {
 				method: 'POST',
 				body: JSON.stringify({
@@ -363,13 +388,16 @@ function App() {
 				.then((data) => {
 					toastCall();
 					setSucess(!sucess);
+					setIsLoading(false);
 				})
 				.catch((error) => {
 					console.error('API error:', error);
+					setIsLoading(false);
 					// Show error message
 				});
 		} else if (type === 'profit') {
 			// Perform API call with formData
+			setIsLoading(true);
 			fetch(`${process.env.REACT_APP_API_URL}/company-components-write`, {
 				method: 'POST',
 				body: JSON.stringify({
@@ -385,9 +413,11 @@ function App() {
 				.then((data) => {
 					toastCall();
 					setSucess(!sucess);
+					setIsLoading(false);
 				})
 				.catch((error) => {
 					console.error('API error:', error);
+					setIsLoading(false);
 					// Show error message
 				});
 		}
@@ -605,7 +635,7 @@ function App() {
 														id='components'
 														mb={4}>
 														<FormLabel>
-															Components
+															Component
 														</FormLabel>
 														<Input
 															type='text'
@@ -877,7 +907,7 @@ function App() {
 																id='components'
 																mb={4}>
 																<FormLabel>
-																	Components
+																	Component
 																</FormLabel>
 																<Input
 																	type='text'
@@ -899,6 +929,20 @@ function App() {
 															{filteredArrayEsic?.length >
 															0 ? (
 																<Button
+																	disabled={
+																		isLoading
+																	}
+																	isLoading={
+																		isLoading
+																	}
+																	spinner={
+																		<BeatLoader
+																			size={
+																				8
+																			}
+																			color='white'
+																		/>
+																	}
 																	bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
 																	boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
 																	borderRadius='10px'
@@ -924,6 +968,20 @@ function App() {
 																</Button>
 															) : (
 																<Button
+																	disabled={
+																		isLoading
+																	}
+																	isLoading={
+																		isLoading
+																	}
+																	spinner={
+																		<BeatLoader
+																			size={
+																				8
+																			}
+																			color='white'
+																		/>
+																	}
 																	bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
 																	boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
 																	borderRadius='10px'
@@ -956,7 +1014,7 @@ function App() {
 																id='components'
 																mb={4}>
 																<FormLabel fontSize='1.4rem'>
-																	Components
+																	Component
 																</FormLabel>
 																<Input
 																	type='text'
@@ -985,6 +1043,20 @@ function App() {
 															{filteredArrayPf?.length >
 															0 ? (
 																<Button
+																	disabled={
+																		isLoading
+																	}
+																	isLoading={
+																		isLoading
+																	}
+																	spinner={
+																		<BeatLoader
+																			size={
+																				8
+																			}
+																			color='white'
+																		/>
+																	}
 																	bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
 																	boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
 																	borderRadius='10px'
@@ -1010,6 +1082,20 @@ function App() {
 																</Button>
 															) : (
 																<Button
+																	disabled={
+																		isLoading
+																	}
+																	isLoading={
+																		isLoading
+																	}
+																	spinner={
+																		<BeatLoader
+																			size={
+																				8
+																			}
+																			color='white'
+																		/>
+																	}
 																	bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
 																	boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
 																	borderRadius='10px'
@@ -1042,7 +1128,7 @@ function App() {
 																id='components'
 																mb={4}>
 																<FormLabel>
-																	Components
+																	Component
 																</FormLabel>
 																<Input
 																	type='text'
@@ -1055,6 +1141,20 @@ function App() {
 															{filteredArrayPtax?.length >
 															0 ? (
 																<Button
+																	disabled={
+																		isLoading
+																	}
+																	isLoading={
+																		isLoading
+																	}
+																	spinner={
+																		<BeatLoader
+																			size={
+																				8
+																			}
+																			color='white'
+																		/>
+																	}
 																	bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
 																	boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
 																	borderRadius='10px'
@@ -1080,6 +1180,20 @@ function App() {
 																</Button>
 															) : (
 																<Button
+																	disabled={
+																		isLoading
+																	}
+																	isLoading={
+																		isLoading
+																	}
+																	spinner={
+																		<BeatLoader
+																			size={
+																				8
+																			}
+																			color='white'
+																		/>
+																	}
 																	bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
 																	boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
 																	borderRadius='10px'
@@ -1112,11 +1226,12 @@ function App() {
 																id='components'
 																mb={4}>
 																<FormLabel>
-																	Components
+																	Component
 																</FormLabel>
 																<Input
 																	type='text'
 																	id='components'
+																	required
 																	value={
 																		otherComponent.components
 																	}
@@ -1163,7 +1278,6 @@ function App() {
 																	}
 																/>
 															</FormControl>
-
 															<FormControl
 																id='percentage_of'
 																mb={4}>
@@ -1200,6 +1314,18 @@ function App() {
 															</FormControl>
 
 															<Button
+																disabled={
+																	isLoading
+																}
+																isLoading={
+																	isLoading
+																}
+																spinner={
+																	<BeatLoader
+																		size={8}
+																		color='white'
+																	/>
+																}
 																bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
 																boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
 																borderRadius='10px'
@@ -1231,7 +1357,7 @@ function App() {
 																id='components'
 																mb={4}>
 																<FormLabel>
-																	Components
+																	Component
 																</FormLabel>
 																<Input
 																	type='text'
@@ -1258,6 +1384,20 @@ function App() {
 															{filteredArrayTds?.length >
 															0 ? (
 																<Button
+																	disabled={
+																		isLoading
+																	}
+																	isLoading={
+																		isLoading
+																	}
+																	spinner={
+																		<BeatLoader
+																			size={
+																				8
+																			}
+																			color='white'
+																		/>
+																	}
 																	bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
 																	boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
 																	borderRadius='10px'
@@ -1283,6 +1423,20 @@ function App() {
 																</Button>
 															) : (
 																<Button
+																	disabled={
+																		isLoading
+																	}
+																	isLoading={
+																		isLoading
+																	}
+																	spinner={
+																		<BeatLoader
+																			size={
+																				8
+																			}
+																			color='white'
+																		/>
+																	}
 																	bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
 																	boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
 																	borderRadius='10px'
@@ -1317,7 +1471,7 @@ function App() {
 														id='components'
 														mb={4}>
 														<FormLabel>
-															Components
+															Component
 														</FormLabel>
 														{/* Input or component input field for components */}
 														<Input
@@ -1343,6 +1497,16 @@ function App() {
 													{filteredArray.type ===
 													'perquisits' ? (
 														<Button
+															disabled={isLoading}
+															isLoading={
+																isLoading
+															}
+															spinner={
+																<BeatLoader
+																	size={8}
+																	color='white'
+																/>
+															}
 															bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
 															boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
 															borderRadius='10px'
@@ -1367,6 +1531,16 @@ function App() {
 														</Button>
 													) : (
 														<Button
+															disabled={isLoading}
+															isLoading={
+																isLoading
+															}
+															spinner={
+																<BeatLoader
+																	size={8}
+																	color='white'
+																/>
+															}
 															bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
 															boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
 															borderRadius='10px'
@@ -1399,7 +1573,7 @@ function App() {
 														id='components'
 														mb={4}>
 														<FormLabel>
-															Components
+															Component
 														</FormLabel>
 														{/* Input or component input field for components */}
 														<Input
@@ -1425,6 +1599,16 @@ function App() {
 													{filteredArrayProfit.type ===
 													'"profit"' ? (
 														<Button
+															disabled={isLoading}
+															isLoading={
+																isLoading
+															}
+															spinner={
+																<BeatLoader
+																	size={8}
+																	color='white'
+																/>
+															}
 															bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
 															boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
 															borderRadius='10px'
@@ -1449,6 +1633,16 @@ function App() {
 														</Button>
 													) : (
 														<Button
+															disabled={isLoading}
+															isLoading={
+																isLoading
+															}
+															spinner={
+																<BeatLoader
+																	size={8}
+																	color='white'
+																/>
+															}
 															bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
 															boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
 															borderRadius='10px'

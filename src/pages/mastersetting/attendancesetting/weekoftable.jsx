@@ -131,7 +131,11 @@ const WeekOfTable = ({ Msg }) => {
 		const toast = useToast();
 		const { isOpen, onOpen, onClose } = useDisclosure();
 		const [variantName, setVariantName] = useState(rowData.variant_name);
-		const [selectedDay, setSelectedDay] = useState('');
+		// const [selectedDay, setSelectedDay] = useState('');
+		const [selectedDay, setSelectedDay] = useState(
+			rowData.selected_regular_days
+		); // Replace 'rowData.selected_regular_days' with the actual property that holds the selected regular days in your 'rowData' object.
+
 		const [selectedWeeks, setSelectedWeeks] = useState('');
 		const [weekDays, setWeekDays] = useState();
 		const [variantId, setVariantId] = useState(rowData.variant_id);
@@ -179,6 +183,9 @@ const WeekOfTable = ({ Msg }) => {
 				navigate('/login');
 			}
 		};
+
+		console.log(rowData, 'rowData');
+		console.log(selectedDay, 'selectedDay');
 
 		return (
 			<>
