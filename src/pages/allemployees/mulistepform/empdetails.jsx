@@ -26,7 +26,7 @@ const EmpDetails = ({
 		const formDataValue = async () => {
 			try {
 				const response1 = await fetch(
-					`${process.env.REACT_APP_API_URL}/state-master`,
+					`${process.env.REACT_APP_API_URL}/state-master-employee`,
 					{
 						method: 'GET',
 						headers: {
@@ -47,7 +47,7 @@ const EmpDetails = ({
 				if (response1.ok && response2.ok) {
 					const data1 = await response1.json();
 					const data2 = await response2.json();
-					setPlace(data1.data.state);
+					setPlace(data1.data);
 					setEmpList(data2.data);
 				}
 			} catch (error) {
@@ -56,6 +56,8 @@ const EmpDetails = ({
 		};
 		formDataValue();
 	}, []);
+
+	console.log(place, 'setPlace');
 
 	return (
 		<>

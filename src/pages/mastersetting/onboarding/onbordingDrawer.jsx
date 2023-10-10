@@ -172,7 +172,7 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser }) => {
 	const stateMaster = async () => {
 		try {
 			const response1 = await fetch(
-				`${process.env.REACT_APP_API_URL}/state-master`,
+				`${process.env.REACT_APP_API_URL}/state-master-employee`,
 				{
 					method: 'GET',
 					headers: {
@@ -183,7 +183,7 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser }) => {
 
 			if (response1.ok) {
 				const data1 = await response1.json();
-				setPlace(data1.data.state);
+				setPlace(data1.data);
 			}
 		} catch (error) {
 			navigate('/login');

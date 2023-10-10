@@ -19,7 +19,6 @@ import {
 	Table,
 	Thead,
 	Tbody,
-	Tfoot,
 	Tr,
 	Th,
 	Td,
@@ -32,7 +31,6 @@ import { useNavigate } from 'react-router-dom';
 import Loader from '../../../assets/images/loader.gif';
 import { useParams } from 'react-router-dom';
 import { BeatLoader } from 'react-spinners';
-import PaySlipLogo from '../../../assets/images/payslip_logo.png';
 
 const CssWrapper = styled.div`
 	.p-datatable-wrapper::-webkit-scrollbar {
@@ -67,6 +65,7 @@ const CssWrapper = styled.div`
 	.p-datatable .p-datatable-header {
 		border-top: none;
 		padding-bottom: 10px;
+		background: none;
 	}
 	.p-datatable .p-column-header-content {
 		display: flex;
@@ -89,7 +88,6 @@ const PayslipList = () => {
 	const [sucess, setSucess] = useState();
 	const [products, setProducts] = useState();
 	const [empCode, setEmpCode] = useState();
-	const [updatedValue, setUpdatedValue] = useState();
 	const [isLoading, setIsLoading] = useState(false);
 	const [payslipData, setPayslipData] = useState(false);
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -171,8 +169,6 @@ const PayslipList = () => {
 		let { newData, index } = e;
 
 		_products[index] = newData;
-
-		setUpdatedValue(_products);
 	};
 
 	const onGlobalFilterChange = (event) => {
@@ -237,7 +233,7 @@ const PayslipList = () => {
 						value={value || ''}
 						onChange={(e) => onGlobalFilterChange(e)}
 						placeholder='Global Search'
-						w='100%'
+						w='30%'
 					/>
 				</Box>
 				<Box>
@@ -271,8 +267,16 @@ const PayslipList = () => {
 						motionPreset='slideInBottom'>
 						<ModalOverlay />
 						<ModalContent minW='400px'>
-							<ModalHeader>Generate Payslip</ModalHeader>
-							<ModalCloseButton />
+							<ModalHeader fontSize='1.6rem' p='0px'>
+								<Box
+									bgGradient='linear(180deg, #256DAA 0%, #02335C 100%)'
+									boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
+									color='white'
+									padding='10px 15px'>
+									<Heading>Generate Payslip</Heading>
+								</Box>
+							</ModalHeader>
+							<ModalCloseButton mt='10px' color='white' />
 							<ModalBody>
 								<form
 									onSubmit={generatePaySlip}
@@ -281,8 +285,8 @@ const PayslipList = () => {
 										flexDirection: 'column',
 										alignItems: 'flex-end',
 									}}>
-									<FormControl>
-										<FormLabel>Email address</FormLabel>
+									<FormControl mt='15px'>
+										<FormLabel>Select Date</FormLabel>
 										<Input
 											type='date'
 											onChange={(e) =>
@@ -319,7 +323,7 @@ const PayslipList = () => {
 												'linear(180deg, #2267A2 0%, #0D4675 100%)',
 										}}
 										type='submit'>
-										submit
+										Submit
 									</Button>
 								</form>
 							</ModalBody>

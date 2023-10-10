@@ -118,7 +118,7 @@ const ComponentList = ({ CompanyComponents }) => {
 					mb='5px'
 					fontSize='1.4rem'
 					color='var(--chakra-colors-claimzTextBlueColor)'>
-					Search Name
+					Search Component Name
 				</Heading>
 				<Box
 					as='span'
@@ -176,7 +176,7 @@ const ComponentList = ({ CompanyComponents }) => {
 						style={{ width: '20%' }}></Column>
 					<Column
 						field='percentage_of'
-						header='percentage Of '
+						header='Percentage Of '
 						editor={(options) => textEditor(options)}
 						sortable
 						bodyStyle={{ textAlign: 'center' }}

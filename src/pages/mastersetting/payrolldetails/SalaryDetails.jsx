@@ -18,7 +18,7 @@ import {
 	RadioGroup,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { BeatLoader } from 'react-spinners';
 
@@ -536,8 +536,6 @@ const SalaryDetails = () => {
 		}
 	};
 
-	console.log(deductionComponents, 'deductionComponents');
-
 	const filteredEmployeeOther = Object.fromEntries(
 		Object.entries(deductionComponents).filter(
 			([key, value]) => value.rule_id === 0
@@ -573,7 +571,6 @@ const SalaryDetails = () => {
 			([key, value]) => value.fixed_component_marking === 1
 		)
 	);
-
 	const handleDeleteObjects = (ruleId) => {
 		const newData = { ...deductionComponents };
 		Object.keys(newData).forEach((key) => {
@@ -591,12 +588,37 @@ const SalaryDetails = () => {
 					<Box>
 						<Box
 							width='100%'
+							display='flex'
+							alignItems='center'
+							justifyContent='space-between'
 							bgGradient='linear(180deg, #256DAA 0%, #02335C 100%)'
 							boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
 							color='white'
 							padding='10px 15px'
 							mb='20px'>
 							<Heading>Add Salary Details :</Heading>
+							<Link to='/master-setting/payroll-details'>
+								<Button
+									bg='white'
+									boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
+									borderRadius='10px'
+									p='20px'
+									fontSize='1.6rem'
+									color='var(--chakra-colors-claimzTextBlueColor)'
+									type='submit'
+									_hover={{
+										bg: 'white',
+									}}
+									_active={{
+										bg: 'white',
+									}}
+									_focus={{
+										bg: 'white',
+									}}>
+									<i className='fa-solid fa-backward'></i>{' '}
+									<Box ml='5px'>Payroll Details</Box>
+								</Button>
+							</Link>
 						</Box>
 						<Grid templateColumns='repeat(3, 1fr)' gap={6}>
 							<FormControl>
@@ -1166,7 +1188,7 @@ const SalaryDetails = () => {
 							color='white'
 							padding='10px 15px'
 							my='30px'>
-							<Heading> perquisite :</Heading>
+							<Heading> Perquisite :</Heading>
 						</Box>
 						<Grid templateColumns='repeat(3, 1fr)' gap={6}>
 							{empDetails?.perquisits_components?.map(

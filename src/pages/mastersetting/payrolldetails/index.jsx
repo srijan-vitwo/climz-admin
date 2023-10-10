@@ -520,7 +520,7 @@ function App() {
 									fontSize='1.4rem'
 									borderRadius='5px'
 									fontWeight='600'>
-									Component List
+									Components List
 								</Tab>
 							</TabList>
 
@@ -610,6 +610,7 @@ function App() {
 														<Input
 															type='text'
 															id='components'
+															required
 															value={
 																formData.components
 															}
@@ -635,6 +636,7 @@ function App() {
 															type='number'
 															step='0.01'
 															id='percentage'
+															required
 															value={
 																formData.percentage
 															}
