@@ -63,7 +63,6 @@ const PtaxSlab = () => {
 	const token = localStorage.getItem('token');
 	const [loader, setLoader] = useState(false);
 	const [ptaxSlab, setPtaxSlab] = useState('');
-	const [updatedValue, setUpdatedValue] = useState();
 	const [filters, setFilters] = useState({
 		global: { value: null, matchMode: FilterMatchMode.CONTAINS },
 		name: {
@@ -117,8 +116,6 @@ const PtaxSlab = () => {
 		let { newData, index } = e;
 
 		_ptaxSlab[index] = newData;
-
-		setUpdatedValue(_ptaxSlab);
 	};
 
 	const textEditor = (options) => {
@@ -153,7 +150,7 @@ const PtaxSlab = () => {
 					mb='5px'
 					fontSize='1.4rem'
 					color='var(--chakra-colors-claimzTextBlueColor)'>
-					Search Name
+					Search P-Tax Slab Name
 				</Heading>
 				<Box
 					as='span'
@@ -213,7 +210,7 @@ const PtaxSlab = () => {
 							style={{ width: '25%' }}></Column>
 						<Column
 							field='variant_id'
-							header='Variant ID'
+							header='Variant Id'
 							editor={(options) => textEditor(options)}
 							sortable
 							bodyStyle={{ textAlign: 'center' }}

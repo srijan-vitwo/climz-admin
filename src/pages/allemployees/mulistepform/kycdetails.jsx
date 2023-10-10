@@ -81,10 +81,15 @@ const KycDetails = ({ formData, setFormData }) => {
 				justifyContent='space-between'
 				mb='20px'>
 				<FormControl w='31%'>
-					<FormLabel>Mail ID</FormLabel>
+					<FormLabel>
+						Mail Id{' '}
+						<Box as='span' color='orange'>
+							*
+						</Box>
+					</FormLabel>
 					<Input
 						type='email'
-						placeholder='Mail ID'
+						placeholder='Mail Id'
 						value={formData.mail_id}
 						onChange={(event) =>
 							setFormData({
@@ -96,7 +101,12 @@ const KycDetails = ({ formData, setFormData }) => {
 				</FormControl>
 
 				<FormControl w='31%'>
-					<FormLabel>Emergency Cont No</FormLabel>
+					<FormLabel>
+						Emergency Cont No{' '}
+						<Box as='span' color='orange'>
+							*
+						</Box>
+					</FormLabel>
 					<Input
 						type='Text'
 						placeholder='Emergency Cont No'

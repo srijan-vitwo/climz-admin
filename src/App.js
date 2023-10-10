@@ -21,10 +21,8 @@ import EmployeeCode from './pages/mastersetting/managecompany/employeecode';
 import GradeSetting from './pages/mastersetting/managecompany/gradeSetting';
 import Designation from './pages/mastersetting/managecompany/designation';
 import AddDepartment from './pages/mastersetting/managecompany/addDepartment';
-import './App.css';
 import Privetroute from './privetroute';
 import MultiStepForm from './pages/allemployees/mulistepform';
-import Formsubmited from './pages/allemployees/mulistepform/formsubmited';
 import AttendanceReportView from './pages/reports/attendanceReport';
 import WeekofVariant from './pages/mastersetting/attendancesetting/weekofvariant';
 import LeavePolicies from './pages/mastersetting/attendancesetting/leavepolicies';
@@ -70,6 +68,7 @@ import Compofflist from './pages/reports/compofflist';
 import RegularizatonList from './pages/reports/regularizatonlist';
 import LeaveList from './pages/reports/leavelist';
 import DutyRoster from './pages/mastersetting/dutyroster';
+import './App.css';
 
 function App() {
 	return (
@@ -153,8 +152,6 @@ function App() {
 							path='add-new-region'
 							element={<AddNewRegion />}
 						/>
-
-						<Route path='submited' element={<Formsubmited />} />
 						<Route
 							path='payroll-details'
 							element={<PayrollDetails />}

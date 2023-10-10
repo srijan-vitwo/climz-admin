@@ -145,7 +145,7 @@ const EmpDetails = ({
 							},
 						}}>
 						<Select
-							placeholder='Select option'
+							placeholder='Select Employee Code'
 							value={formData.employee_code_prefix}
 							onChange={(event) =>
 								setFormData({
@@ -217,7 +217,7 @@ const EmpDetails = ({
 				<FormControl w='31%'>
 					<FormLabel>Place of Posting</FormLabel>
 					<Select
-						placeholder='Select option'
+						placeholder='Select Place of Posting'
 						value={formData.place_of_posting}
 						onChange={(event) =>
 							setFormData({
@@ -243,9 +243,14 @@ const EmpDetails = ({
 				justifyContent='space-between'
 				mb='20px'>
 				<FormControl w='31%'>
-					<FormLabel>Department</FormLabel>
+					<FormLabel>
+						Department{' '}
+						<Box as='span' color='orange'>
+							*
+						</Box>
+					</FormLabel>
 					<Select
-						placeholder='Select option'
+						placeholder='Select Department'
 						value={formData.department}
 						onChange={(event) =>
 							setFormData({
@@ -285,9 +290,14 @@ const EmpDetails = ({
 				</FormControl>
 
 				<FormControl w='31%'>
-					<FormLabel>Primary Reporting</FormLabel>
+					<FormLabel>
+						Primary Reporting{' '}
+						<Box as='span' color='orange'>
+							*
+						</Box>
+					</FormLabel>
 					<Select
-						placeholder='Select option'
+						placeholder='Select Primary Reporting'
 						value={formData.primary_reporting}
 						onChange={(event) =>
 							setFormData({
@@ -312,9 +322,14 @@ const EmpDetails = ({
 				justifyContent='space-between'
 				mb='20px'>
 				<FormControl w='31%'>
-					<FormLabel>Secondary Reporting</FormLabel>
+					<FormLabel>
+						Secondary Reporting{' '}
+						<Box as='span' color='orange'>
+							*
+						</Box>
+					</FormLabel>
 					<Select
-						placeholder='Select option'
+						placeholder='Select Secondary Reporting'
 						value={formData.secondary_reporting}
 						onChange={(event) =>
 							setFormData({
@@ -333,9 +348,14 @@ const EmpDetails = ({
 				</FormControl>
 
 				<FormControl w='31%'>
-					<FormLabel>Week-off Variant</FormLabel>
+					<FormLabel>
+						Week-off Variant{' '}
+						<Box as='span' color='orange'>
+							*
+						</Box>
+					</FormLabel>
 					<Select
-						placeholder='Select option'
+						placeholder='Select Week-off Variant'
 						value={formData.weekoff}
 						onChange={(event) =>
 							setFormData({
@@ -356,7 +376,7 @@ const EmpDetails = ({
 				<FormControl w='31%'>
 					<FormLabel>Approval-Variant</FormLabel>
 					<Select
-						placeholder='Select option'
+						placeholder='Select Approval-Variant'
 						value={formData.approver}
 						onChange={(event) =>
 							setFormData({
@@ -383,7 +403,7 @@ const EmpDetails = ({
 				<FormControl w='31%'>
 					<FormLabel>P-tax Variant</FormLabel>
 					<Select
-						placeholder='Select option'
+						placeholder='Select P-tax Variant'
 						value={formData.ptax_variant}
 						onChange={(event) =>
 							setFormData({
@@ -402,9 +422,14 @@ const EmpDetails = ({
 				</FormControl>
 
 				<FormControl w='31%'>
-					<FormLabel>Shift Variant</FormLabel>
+					<FormLabel>
+						Shift Variant{' '}
+						<Box as='span' color='orange'>
+							*
+						</Box>
+					</FormLabel>
 					<Select
-						placeholder='Select option'
+						placeholder='Select Shift Variant'
 						value={formData.shift_variant}
 						onChange={(event) =>
 							setFormData({
