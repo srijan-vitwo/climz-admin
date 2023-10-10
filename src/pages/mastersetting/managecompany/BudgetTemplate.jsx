@@ -294,29 +294,8 @@ const BudgetTemplate = ({ rowData, modifiedData, loader }) => {
 								<Box
 									display='flex'
 									justifyContent='space-between'
-									gap='10px'>
-									{inputList.length - 1 === i && (
-										<Button
-											p='0px'
-											width='10px'
-											color='white'
-											_hover={{
-												bgGradient:
-													'linear(180deg, #2267A2 0%, #0D4675 100%)',
-											}}
-											_active={{
-												bgGradient:
-													'linear(180deg, #2267A2 0%, #0D4675 100%)',
-											}}
-											_focus={{
-												bgGradient:
-													'linear(180deg, #2267A2 0%, #0D4675 100%)',
-											}}
-											bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-											onClick={handleAddClick}>
-											<i className='fa-sharp fa-solid fa-plus'></i>
-										</Button>
-									)}
+									gap='10px'
+									minW='53px'>
 									{i > 0 && (
 										<Button
 											p='0px'
@@ -338,6 +317,28 @@ const BudgetTemplate = ({ rowData, modifiedData, loader }) => {
 											onClick={() => handleDeleteClick(i)} // Call the delete function with the index
 										>
 											<i className='fa-sharp fa-solid fa-minus'></i>
+										</Button>
+									)}
+									{inputList.length - 1 === i && (
+										<Button
+											p='0px'
+											width='10px'
+											color='white'
+											_hover={{
+												bgGradient:
+													'linear(180deg, #2267A2 0%, #0D4675 100%)',
+											}}
+											_active={{
+												bgGradient:
+													'linear(180deg, #2267A2 0%, #0D4675 100%)',
+											}}
+											_focus={{
+												bgGradient:
+													'linear(180deg, #2267A2 0%, #0D4675 100%)',
+											}}
+											bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
+											onClick={handleAddClick}>
+											<i className='fa-sharp fa-solid fa-plus'></i>
 										</Button>
 									)}
 								</Box>

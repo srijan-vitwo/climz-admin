@@ -108,7 +108,9 @@ const DepartmentSettingModal = ({ rowData }) => {
 		const values = [...inputs];
 		values.splice(index, 1);
 		setInputs(values);
-		setFlag(false);
+		if (values.length === 0) {
+			setFlag(false);
+		}
 	}
 
 	const addCostCenter = async (e) => {
