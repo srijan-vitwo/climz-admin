@@ -208,7 +208,7 @@ const ApprovalVariantList = ({ approval }) => {
 									fontWeight='700'
 									fontSize='28px'
 									lineHeight='36px'>
-									Employee Approvers List
+									Employee Approval List
 								</Text>
 							</Box>
 						</DrawerHeader>

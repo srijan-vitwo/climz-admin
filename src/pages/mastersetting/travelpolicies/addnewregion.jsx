@@ -12,7 +12,6 @@ import {
 import { BeatLoader } from 'react-spinners';
 
 const AddNewRegion = () => {
-	const navigate = useNavigate();
 	const token = localStorage.getItem('token');
 	const toast = useToast();
 	const [msg, setMsg] = useState();

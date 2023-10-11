@@ -37,7 +37,7 @@ const TravelMasterSetting = () => {
       </div> */}
 			<Box className='form-container' h='100%'>
 				<Box className='body'>{PageDisplay()}</Box>
-				<Box w='100%' display='flex' justifyContent='space-between'>
+				<Box w='100%' display='flex' justifyContent='flex-end'>
 					{page === 0 ? (
 						''
 					) : (

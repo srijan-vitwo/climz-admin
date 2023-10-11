@@ -1,8 +1,8 @@
 // src/components/StepProgressBar.js
 
-import React, { useState } from 'react';
+import React from 'react';
 import './StepProgressBar.css';
-import { Box, Button } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 
 const StepProgressBar = ({ approval, variants }) => {
 	return (

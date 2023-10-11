@@ -1579,6 +1579,7 @@ function App() {
 														<Input
 															type='text'
 															id='components'
+															required
 															value={
 																profitComponent.components
 															}

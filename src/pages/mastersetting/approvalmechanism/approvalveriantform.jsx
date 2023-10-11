@@ -20,7 +20,7 @@ import { useNavigate } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { BeatLoader } from 'react-spinners';
 import StepProgressBar from './StepProgressBa.jsx';
-import userLogo from '../../../assets/images/user.png';
+import userLogo from '../../../assets/images/user.jpg';
 
 const ApprovalVeriantform = ({ approval }) => {
 	const token = localStorage.getItem('token');
@@ -39,6 +39,12 @@ const ApprovalVeriantform = ({ approval }) => {
 	const [variants, setVariants] = useState({
 		variants: [],
 	});
+
+	const defaultImageUrl = userLogo;
+
+	const handleImageError = (event) => {
+		event.target.src = defaultImageUrl;
+	};
 
 	function toastCall() {
 		return toast({
@@ -253,16 +259,17 @@ const ApprovalVeriantform = ({ approval }) => {
 									justifyContent='space-between'
 									mt='20px'>
 									<Box
-										width='32%'
+										width='42%'
 										display='flex'
-										alignItems='center'
+										alignItems='flex-start'
 										flexDirection='column'>
 										{selectBoxes.map((_, index) => (
 											<Box
 												key={index}
 												display='flex'
-												alignItems='flex-startr'
-												height='120px'>
+												alignItems='flex-start'
+												height='120px'
+												width='90%'>
 												<FormControl>
 													<FormLabel>
 														Select Approval
@@ -343,17 +350,12 @@ const ApprovalVeriantform = ({ approval }) => {
 														key={key}>
 														<Box className='timeline__event__icon'>
 															<Image
-																src={
-																	value?.img ==
-																	null
-																		? userLogo
-																		: value?.img
-																}
-																alt={
-																	value?.name
+																src={userLogo}
+																onError={
+																	handleImageError
 																}
 																h='50px'
-																w='50'
+																w='50px'
 																mr='10px'
 															/>
 														</Box>

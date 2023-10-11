@@ -210,7 +210,6 @@ const BusinessLocationDatatable = () => {
 
 		const addCompanyLocation = async (e) => {
 			e.preventDefault();
-			onClose();
 			let formData = new FormData();
 			formData.append('state_id', id);
 			formData.append('lat', latitude);
@@ -234,8 +233,16 @@ const BusinessLocationDatatable = () => {
 					toastCall();
 					setsucess(!sucess);
 					setIsLoading(false);
+					setLatitude('');
+					setLongitude('');
+					setRadius('');
+					setId('');
 				} else {
 					setIsLoading(false);
+					setLatitude('');
+					setLongitude('');
+					setRadius('');
+					setId('');
 				}
 			} catch {
 				setIsLoading(false);

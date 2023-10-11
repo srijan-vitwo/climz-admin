@@ -60,7 +60,7 @@ const SalaryDetails = () => {
 
 	function toastCall() {
 		return toast({
-			title: 'Salary details submited Sucessfully',
+			title: 'Salary details submited sucessfully',
 			status: 'success',
 			duration: 3000,
 			isClosable: true,

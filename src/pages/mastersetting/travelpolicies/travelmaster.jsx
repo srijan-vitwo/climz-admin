@@ -199,7 +199,7 @@ const TravelMaster = () => {
 						<DrawerHeader pt='28px'>
 							<Box
 								borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-								width='400px'
+								width='350px'
 								pb='10px'
 								mb='15px'>
 								<Text

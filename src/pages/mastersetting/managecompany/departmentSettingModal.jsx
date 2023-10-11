@@ -165,7 +165,7 @@ const DepartmentSettingModal = ({ rowData }) => {
 						alignItems='center'>
 						<Box
 							borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-							width='300px'
+							width='260px'
 							pb='5px'>
 							<Text
 								background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
@@ -229,6 +229,7 @@ const DepartmentSettingModal = ({ rowData }) => {
 												</FormLabel>
 												<Input
 													type='text'
+													required
 													mb='10px'
 													value={input.value}
 													onChange={(event) =>
@@ -240,7 +241,7 @@ const DepartmentSettingModal = ({ rowData }) => {
 												/>
 											</Box>
 											<Button
-												mt='-10px'
+												mt='15px'
 												color='var(--chakra-colors-claimzTextBlueLightColor)'
 												bg='none'
 												_hover={{ bg: 'none' }}

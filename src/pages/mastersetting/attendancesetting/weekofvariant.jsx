@@ -28,6 +28,7 @@ const WeekofVariant = () => {
 	const [selectedWeeks, setSelectedWeeks] = useState('');
 	const [weekDays, setWeekDays] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
+	const [variantNameError, setVariantNameError] = useState(''); // State for variant name error message
 
 	const day = [
 		'sunday',
@@ -52,11 +53,23 @@ const WeekofVariant = () => {
 
 	const variantAdd = async (e) => {
 		e.preventDefault();
+		if (!variantName) {
+			// Display an error message for missing variant name
+			toast({
+				title: 'Variant Name is required',
+				status: 'error',
+				duration: 3000,
+				isClosable: true,
+			});
+			return;
+		}
+
 		let formData = new FormData();
 		formData.append('variant_name', variantName);
 		formData.append('weekoff', `${JSON.stringify(selectedDay)}`);
 		formData.append('alt', `${JSON.stringify(selectedWeeks)}`);
 		formData.append('week', weekDays);
+
 		try {
 			setIsLoading(true);
 			const response = await fetch(
@@ -232,12 +245,12 @@ const WeekofVariant = () => {
 							<FormControl mb='10px'>
 								<FormLabel>Enter Variant Name</FormLabel>
 								<Input
+									bg='white'
 									type='text'
 									placeholder='Enter Variant Name'
 									onChange={(e) =>
 										setVariantName(e.target.value)
 									}
-									required
 								/>
 							</FormControl>
 							<Box
@@ -251,7 +264,7 @@ const WeekofVariant = () => {
 									sx={{
 										'& .p-multiselect': {
 											width: '100%',
-											bg: 'none',
+											bg: 'white',
 											fontSize: '1.4rem',
 											border: '1px solid var(--chakra-colors-claimzBorderGrayColor)',
 										},
@@ -272,6 +285,7 @@ const WeekofVariant = () => {
 								<FormControl width='48%'>
 									<FormLabel>Alternative Variant</FormLabel>
 									<Select
+										bg='white'
 										isDisabled={selectedDay ? true : false}
 										color='#6c757d'
 										placeholder='Select option'
@@ -294,7 +308,7 @@ const WeekofVariant = () => {
 								sx={{
 									'& .p-multiselect': {
 										width: '100%',
-										bg: 'none',
+										bg: 'white',
 										fontSize: '1.4rem',
 										border: '1px solid var(--chakra-colors-claimzBorderGrayColor)',
 									},
