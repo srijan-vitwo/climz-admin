@@ -86,7 +86,7 @@ const CssWrapper = styled.div`
 	}
 	.p-datatable > .p-datatable-wrapper {
 		overflow: auto;
-		height: calc(100vh - 240px);
+		height: calc(100vh - 241px);
 		padding-right: 5px;
 		margin-right: 5px;
 	}
@@ -356,9 +356,6 @@ const OnboardingCandidate = () => {
 								<Box
 									display='-webkit-inline-box'
 									borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-									pb='10px'
-									mb='15px'
-									width='300px'
 									pb='10px'
 									mb='15px'>
 									<Text

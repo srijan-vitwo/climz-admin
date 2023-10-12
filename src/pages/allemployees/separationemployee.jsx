@@ -86,6 +86,12 @@ const CssWrapper = styled.div`
 		border-top: none;
 		background: white;
 	}
+	.p-datatable > .p-datatable-wrapper {
+		overflow: auto;
+		height: calc(100vh - 360px);
+		padding-right: 5px;
+		margin-right: 5px;
+	}
 `;
 const SeparationEmployee = () => {
 	const navigate = useNavigate();
@@ -650,7 +656,7 @@ const SeparationEmployee = () => {
 		<CssWrapper>
 			{loader ? (
 				<Box
-					height='calc(100vh - 240px)'
+					height='calc(100vh - 216px)'
 					display='flex'
 					alignItems='center'
 					justifyContent='center'>

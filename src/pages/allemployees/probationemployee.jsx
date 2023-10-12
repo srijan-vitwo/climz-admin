@@ -96,7 +96,7 @@ const CssWrapper = styled.div`
 	}
 	.p-datatable > .p-datatable-wrapper {
 		overflow: auto;
-		height: calc(100vh - 295px);
+		height: calc(100vh - 297px);
 	}
 `;
 const ProbationEmployee = () => {
@@ -787,7 +787,7 @@ const ProbationEmployee = () => {
 		<CssWrapper>
 			{loader ? (
 				<Box
-					height='calc(100vh - 215px)'
+					height='calc(100vh - 217px)'
 					display='flex'
 					alignItems='center'
 					justifyContent='center'>
