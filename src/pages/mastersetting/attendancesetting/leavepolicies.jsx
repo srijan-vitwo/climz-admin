@@ -497,7 +497,10 @@ const LeavePolicies = () => {
 					<Heading>Leave Policies</Heading>
 				</Box>
 				<Box
+					display='-webkit-inline-box'
 					borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
+					pb='10px'
+					mb='15px'
 					width='200px'
 					pb='5px'
 					mt='24px'>
@@ -635,7 +638,10 @@ const LeavePolicies = () => {
 					{/* calender type Start */}
 					<Box>
 						<Box
+							display='-webkit-inline-box'
 							borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
+							pb='10px'
+							mb='15px'
 							width='250px'
 							pb='5px'
 							mt='24px'>
@@ -841,7 +847,10 @@ const LeavePolicies = () => {
 					{/* Rule type Start */}
 					<Box>
 						<Box
+							display='-webkit-inline-box'
 							borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
+							pb='10px'
+							mb='15px'
 							width='180px'
 							pb='5px'
 							mt='24px'>
@@ -1093,7 +1102,10 @@ const LeavePolicies = () => {
 					{/* Rule type Start */}
 					<Box>
 						<Box
+							display='-webkit-inline-box'
 							borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
+							pb='10px'
+							mb='15px'
 							width='150px'
 							pb='5px'
 							mt='24px'>

@@ -288,8 +288,8 @@ const TDSListStatus = () => {
 						<DrawerCloseButton size='lg' />
 						<DrawerHeader pt='28px'>
 							<Box
+								display='-webkit-inline-box'
 								borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-								width='400px'
 								pb='10px'
 								mb='15px'>
 								<Text

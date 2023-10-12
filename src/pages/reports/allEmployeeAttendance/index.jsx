@@ -113,7 +113,10 @@ const AllEmployeeAttendanceReportView = () => {
 				alignItems='center'
 				p='0px 10px'>
 				<Box
+					display='-webkit-inline-box'
 					borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
+					pb='10px'
+					mb='15px'
 					width='450px'
 					pb='5px'>
 					<Text

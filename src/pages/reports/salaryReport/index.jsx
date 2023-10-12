@@ -112,7 +112,10 @@ const SalaryReportView = () => {
 				justifyContent='space-between'
 				alignItems='center'>
 				<Box
+					display='-webkit-inline-box'
 					borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
+					pb='10px'
+					mb='15px'
 					width='270px'
 					pb='5px'
 					ml='15px'>

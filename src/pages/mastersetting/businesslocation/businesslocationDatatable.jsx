@@ -260,9 +260,10 @@ const BusinessLocationDatatable = () => {
 					justifyContent='space-between'
 					alignItems='center'>
 					<Box
+						display='-webkit-inline-box'
 						borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-						width='310px !important'
-						pb='10px'>
+						pb='10px'
+						mb='15px'>
 						<Text
 							background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
 							backgroundClip='text'
@@ -335,8 +336,8 @@ const BusinessLocationDatatable = () => {
 							<DrawerCloseButton size='lg' />
 							<DrawerHeader pt='28px'>
 								<Box
+									display='-webkit-inline-box'
 									borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-									width='400px'
 									pb='10px'
 									mb='15px'>
 									<Text
@@ -549,8 +550,8 @@ const BusinessLocationDatatable = () => {
 						<DrawerCloseButton size='lg' />
 						<DrawerHeader pt='28px'>
 							<Box
+								display='-webkit-inline-box'
 								borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-								width='550px'
 								pb='10px'
 								mb='15px'>
 								<Text

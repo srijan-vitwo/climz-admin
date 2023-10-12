@@ -32,7 +32,10 @@ const MasterSetting = () => {
 				<CssWrapper>
 					<Box>
 						<Box
+							display='-webkit-inline-box'
 							borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
+							pb='10px'
+							mb='15px'
 							width='300px'
 							pb='5px'>
 							<Text
@@ -381,7 +384,10 @@ const MasterSetting = () => {
 						</Box>
 
 						<Box
+							display='-webkit-inline-box'
 							borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
+							pb='10px'
+							mb='15px'
 							width='300px'
 							pb='5px'
 							display='flex'

@@ -98,7 +98,7 @@ const Login = () => {
 				/>
 			</Box>
 			<Box className='main-page' width='50%' overflowY='none'>
-				<Box className='form'>
+				<Box className='form_login'>
 					<Box
 						display='flex'
 						alignItems='center'

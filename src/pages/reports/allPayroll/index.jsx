@@ -97,7 +97,10 @@ const AllPayrollReportView = () => {
 				p='0px 10px'
 				mb='15px'>
 				<Box
+					display='-webkit-inline-box'
 					borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
+					pb='10px'
+					mb='15px'
 					width='350px'
 					pb='5px'>
 					<Text

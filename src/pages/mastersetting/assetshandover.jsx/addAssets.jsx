@@ -248,9 +248,10 @@ const AssetsAdd = () => {
 			padding='20px'>
 			<Box width='100%' maxWidth='100%' minH='100%' m='0px auto'>
 				<Box
+					display='-webkit-inline-box'
 					borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-					width='250px'
-					pb='5px'>
+					pb='10px'
+					mb='15px'>
 					<Text
 						background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
 						backgroundClip='text'
@@ -288,13 +289,13 @@ const AssetsAdd = () => {
 										padding='10px 15px'
 										borderWidth='1px'
 										rounded='lg'>
-										<Heading>Assect type</Heading>
+										<Heading>Assets type</Heading>
 									</Box>
 									<Box p='20px 15px'>
 										<Box pb='15px'>
 											<FormLabel>
 												{' '}
-												Choose what types of asset you
+												Choose what types of assets you
 												want ?{' '}
 												<Button onClick={onOpen}>
 													+
@@ -328,7 +329,7 @@ const AssetsAdd = () => {
 											<Box pb='15px'>
 												<FormLabel>
 													{' '}
-													Choose what types of asset
+													Choose what types of assets
 													you want ?{' '}
 													<Button
 														onClick={
@@ -694,7 +695,7 @@ const AssetsAdd = () => {
 						padding='10px 15px'
 						borderWidth='1px'
 						rounded='lg'>
-						<Heading>Assets Create</Heading>
+						<Heading>Create Asset</Heading>
 					</Box>
 					<ModalCloseButton mt='10px' color='white' />
 					<ModalBody p='20px 15px'>

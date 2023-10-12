@@ -6,7 +6,10 @@ const ManageEmployee = () => {
 	return (
 		<Box width='100%' bg='rgba(230, 237, 239, 1)'>
 			<Box
+				display='-webkit-inline-box'
 				borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
+				pb='10px'
+				mb='15px'
 				width='300px'
 				pb='10px'
 				mb='20px'>

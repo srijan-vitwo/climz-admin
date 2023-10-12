@@ -277,6 +277,8 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser }) => {
 		}
 	};
 
+	const document = userData?.documents;
+
 	return (
 		<>
 			<Button
@@ -314,8 +316,8 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser }) => {
 					<DrawerCloseButton size='lg' />
 					<DrawerHeader pt='28px'>
 						<Box
+							display='-webkit-inline-box'
 							borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-							width='500px'
 							pb='10px'
 							mb='15px'>
 							<Text
@@ -472,231 +474,33 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser }) => {
 							<Box
 								p='10px'
 								mb='10px'
-								maxH='200px'
+								height='calc(100vh - 540px)'
 								overflowY='auto'>
-								<Text
-									mb='10px'
-									fontSize='1.6rem'
-									fontWeight='600'
-									color='claimzTextBlueColor'
-									bg='gray.300'
-									p='10px'
-									borderRadius='5px'
-									onClick={modalOnOpen}
-									cursor='pointer'>
-									<i className='fa-solid fa-image'></i> -{' '}
-									<Box as='span' color='claimzTextBlackColor'>
-										{userData?.documents?.aadhar_front}
-									</Box>
-								</Text>
-								<Text
-									mb='10px'
-									fontSize='1.6rem'
-									fontWeight='600'
-									color='claimzTextBlueColor'
-									bg='gray.300'
-									p='10px'
-									borderRadius='5px'>
-									<i className='fa-solid fa-image'></i> -{' '}
-									<Box as='span' color='claimzTextBlackColor'>
-										{userData?.documents?.aadhar_back}
-									</Box>
-								</Text>
-								<Text
-									mb='10px'
-									fontSize='1.6rem'
-									fontWeight='600'
-									color='claimzTextBlueColor'
-									bg='gray.300'
-									p='10px'
-									borderRadius='5px'>
-									<i className='fa-solid fa-image'></i> -{' '}
-									<Box as='span' color='claimzTextBlackColor'>
-										{userData?.documents?.voter_front}
-									</Box>
-								</Text>
-								<Text
-									mb='10px'
-									fontSize='1.6rem'
-									fontWeight='600'
-									color='claimzTextBlueColor'
-									bg='gray.300'
-									p='10px'
-									borderRadius='5px'>
-									<i className='fa-solid fa-image'></i> -{' '}
-									<Box as='span' color='claimzTextBlackColor'>
-										{userData?.documents?.voter_back}
-									</Box>
-								</Text>
-								<Text
-									mb='10px'
-									fontSize='1.6rem'
-									fontWeight='600'
-									color='claimzTextBlueColor'
-									bg='gray.300'
-									p='10px'
-									borderRadius='5px'>
-									<i className='fa-solid fa-image'></i> -{' '}
-									<Box as='span' color='claimzTextBlackColor'>
-										{userData?.documents?.pan_front}
-									</Box>
-								</Text>
-								<Text
-									mb='10px'
-									fontSize='1.6rem'
-									fontWeight='600'
-									color='claimzTextBlueColor'
-									bg='gray.300'
-									p='10px'
-									borderRadius='5px'>
-									<i className='fa-solid fa-image'></i> -{' '}
-									<Box as='span' color='claimzTextBlackColor'>
-										{userData?.documents?.pan_back}
-									</Box>
-								</Text>
-								<Text
-									mb='10px'
-									fontSize='1.6rem'
-									fontWeight='600'
-									color='claimzTextBlueColor'
-									bg='gray.300'
-									p='10px'
-									borderRadius='5px'>
-									<i className='fa-solid fa-image'></i> -{' '}
-									<Box as='span' color='claimzTextBlackColor'>
-										{userData?.documents?.passport_front}
-									</Box>
-								</Text>
-								<Text
-									mb='10px'
-									fontSize='1.6rem'
-									fontWeight='600'
-									color='claimzTextBlueColor'
-									bg='gray.300'
-									p='10px'
-									borderRadius='5px'>
-									<i className='fa-solid fa-image'></i> -{' '}
-									<Box as='span' color='claimzTextBlackColor'>
-										{userData?.documents?.passport_back}
-									</Box>
-								</Text>
-								<Text
-									mb='10px'
-									fontSize='1.6rem'
-									fontWeight='600'
-									color='claimzTextBlueColor'
-									bg='gray.300'
-									p='10px'
-									borderRadius='5px'>
-									<i className='fa-solid fa-image'></i> -{' '}
-									<Box as='span' color='claimzTextBlackColor'>
-										{userData?.documents?.ten}
-									</Box>
-								</Text>
-								<Text
-									mb='10px'
-									fontSize='1.6rem'
-									fontWeight='600'
-									color='claimzTextBlueColor'
-									bg='gray.300'
-									p='10px'
-									borderRadius='5px'>
-									<i className='fa-solid fa-image'></i> -{' '}
-									<Box as='span' color='claimzTextBlackColor'>
-										{userData?.documents?.twelve}
-									</Box>
-								</Text>
-								<Text
-									mb='10px'
-									fontSize='1.6rem'
-									fontWeight='600'
-									color='claimzTextBlueColor'
-									bg='gray.300'
-									p='10px'
-									borderRadius='5px'>
-									<i className='fa-solid fa-image'></i> -{' '}
-									<Box as='span' color='claimzTextBlackColor'>
-										{userData?.documents?.graduation}
-									</Box>
-								</Text>
-								<Text
-									mb='10px'
-									fontSize='1.6rem'
-									fontWeight='600'
-									color='claimzTextBlueColor'
-									bg='gray.300'
-									p='10px'
-									borderRadius='5px'>
-									<i className='fa-solid fa-image'></i> -{' '}
-									<Box as='span' color='claimzTextBlackColor'>
-										{userData?.documents?.post_graduation}
-									</Box>
-								</Text>
-								<Text
-									mb='10px'
-									fontSize='1.6rem'
-									fontWeight='600'
-									color='claimzTextBlueColor'
-									bg='gray.300'
-									p='10px'
-									borderRadius='5px'>
-									<i className='fa-solid fa-image'></i> -{' '}
-									<Box as='span' color='claimzTextBlackColor'>
-										{userData?.documents?.passbook}
-									</Box>
-								</Text>
-								<Text
-									mb='10px'
-									fontSize='1.6rem'
-									fontWeight='600'
-									color='claimzTextBlueColor'
-									bg='gray.300'
-									p='10px'
-									borderRadius='5px'>
-									<i className='fa-solid fa-image'></i> -{' '}
-									<Box as='span' color='claimzTextBlackColor'>
-										{userData?.documents?.pre_offer}
-									</Box>
-								</Text>
-								<Text
-									mb='10px'
-									fontSize='1.6rem'
-									fontWeight='600'
-									color='claimzTextBlueColor'
-									bg='gray.300'
-									p='10px'
-									borderRadius='5px'>
-									<i className='fa-solid fa-image'></i> -{' '}
-									<Box as='span' color='claimzTextBlackColor'>
-										{userData?.documents?.pre_resignation}
-									</Box>
-								</Text>
-								<Text
-									mb='10px'
-									fontSize='1.6rem'
-									fontWeight='600'
-									color='claimzTextBlueColor'
-									bg='gray.300'
-									p='10px'
-									borderRadius='5px'>
-									<i className='fa-solid fa-image'></i> -{' '}
-									<Box as='span' color='claimzTextBlackColor'>
-										{userData?.documents?.pre_appointment}
-									</Box>
-								</Text>
-								<Text
-									mb='10px'
-									fontSize='1.6rem'
-									fontWeight='600'
-									color='claimzTextBlueColor'
-									bg='gray.300'
-									p='10px'
-									borderRadius='5px'>
-									<i className='fa-solid fa-image'></i> -{' '}
-									<Box as='span' color='claimzTextBlackColor'>
-										{userData?.documents?.pre_payslip}
-									</Box>
-								</Text>
+								{document &&
+									typeof document === 'object' &&
+									Object.keys(document).map((key, index) => (
+										<Text
+											key={index}
+											mb='10px'
+											fontSize='1.6rem'
+											fontWeight='600'
+											color='claimzTextBlueColor'
+											bg='gray.300'
+											p='10px'
+											borderRadius='5px'
+											onClick={() =>
+												modalOnOpen(document[key])
+											}
+											cursor='pointer'>
+											<i className='fa-solid fa-image'></i>{' '}
+											-{' '}
+											<Box
+												as='span'
+												color='claimzTextBlackColor'>
+												{key} - {document[key]}
+											</Box>
+										</Text>
+									))}
 							</Box>
 						</Box>
 
@@ -737,8 +541,8 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser }) => {
 					<form onSubmit={offerSend}>
 						<ModalHeader pt='28px'>
 							<Box
+								display='-webkit-inline-box'
 								borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-								width='400px'
 								pb='10px'
 								mb='15px'>
 								<Text
