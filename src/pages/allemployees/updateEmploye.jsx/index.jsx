@@ -86,7 +86,7 @@ const EmployeeUpdate = ({ details, fromValue, userData, msg, setMsg }) => {
 
 	function toastCall() {
 		return toast({
-			title: 'Employee Details Update Sucessfully',
+			title: 'Employee Details Updated Sucessfully',
 			status: 'success',
 			duration: 3000,
 			isClosable: true,
@@ -104,7 +104,7 @@ const EmployeeUpdate = ({ details, fromValue, userData, msg, setMsg }) => {
 
 	function toastCallFaild() {
 		return toast({
-			title: 'Employee Update Failed',
+			title: 'Employee Updated Failed',
 			status: 'error',
 			duration: 5000,
 			isClosable: true,
@@ -262,7 +262,7 @@ const EmployeeUpdate = ({ details, fromValue, userData, msg, setMsg }) => {
 	};
 
 	return (
-		<Box className='form'>
+		<Box className='form_update'>
 			<Box className='progressbar' mb='0px'>
 				<Box
 					style={{
@@ -288,6 +288,7 @@ const EmployeeUpdate = ({ details, fromValue, userData, msg, setMsg }) => {
 				<Box className='body'>{PageDisplay()}</Box>
 				<Box className='footer'>
 					<Button
+						isDisabled={page === 0 ? true : false}
 						mr='20px'
 						bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
 						border='4px solid #FFFFFF'
@@ -345,7 +346,7 @@ const EmployeeUpdate = ({ details, fromValue, userData, msg, setMsg }) => {
 								setPage((currPage) => currPage + 1);
 							}
 						}}>
-						{page === FormTitles.length - 1 ? 'Submit' : 'Next'}
+						{page === FormTitles.length - 1 ? 'Update' : 'Next'}
 					</Button>
 				</Box>
 			</Box>

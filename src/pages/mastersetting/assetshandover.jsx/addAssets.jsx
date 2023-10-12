@@ -249,7 +249,7 @@ const AssetsAdd = () => {
 			<Box width='100%' maxWidth='100%' minH='100%' m='0px auto'>
 				<Box
 					borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-					width='300px'
+					width='250px'
 					pb='5px'>
 					<Text
 						background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
@@ -288,7 +288,7 @@ const AssetsAdd = () => {
 										padding='10px 15px'
 										borderWidth='1px'
 										rounded='lg'>
-										<Heading>Assets type</Heading>
+										<Heading>Assect type</Heading>
 									</Box>
 									<Box p='20px 15px'>
 										<Box pb='15px'>
@@ -561,7 +561,7 @@ const AssetsAdd = () => {
 								</Box>
 
 								<Box p='0px 15px 15px'>
-									<FormLabel>Base UOM?</FormLabel>
+									<FormLabel>Base UOM</FormLabel>
 									<Select
 										placeholder='Select option'
 										onChange={(e) =>

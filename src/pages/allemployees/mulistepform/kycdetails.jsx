@@ -124,7 +124,7 @@ const KycDetails = ({ formData, setFormData }) => {
 					<FormLabel>Passport No</FormLabel>
 					<Input
 						type='Text'
-						placeholder='Passport NO'
+						placeholder='Passport No'
 						value={formData.passport_no}
 						onChange={(event) =>
 							setFormData({

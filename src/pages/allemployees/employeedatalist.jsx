@@ -709,9 +709,18 @@ const EmployeeDataList = () => {
 			onClose: appointmentOnClose,
 		} = useDisclosure();
 
+		function toastCall(data) {
+			return toast({
+				title: `${data.data}`,
+				status: `${data.request_status}`,
+				duration: 3000,
+				isClosable: true,
+			});
+		}
+
 		function toastCallBlock() {
 			return toast({
-				title: 'Block User Sucessfully',
+				title: 'User Blocked Successfully',
 				status: 'success',
 				duration: 3000,
 				isClosable: true,
@@ -720,7 +729,7 @@ const EmployeeDataList = () => {
 
 		function toastCallUnblock() {
 			return toast({
-				title: 'Unblock User Sucessfully',
+				title: 'User Unblocked Successfully',
 				status: 'success',
 				duration: 3000,
 				isClosable: true,
@@ -729,7 +738,7 @@ const EmployeeDataList = () => {
 
 		function toastCallDeviceIDSuccessfully() {
 			return toast({
-				title: 'Device ID Clear Successfully',
+				title: 'Device ID Cleared Successfully',
 				status: 'success',
 				duration: 5000,
 				isClosable: true,
@@ -738,7 +747,7 @@ const EmployeeDataList = () => {
 
 		function toastCallDeviceIDFaild() {
 			return toast({
-				title: 'Device ID Clear Failed',
+				title: 'Device ID Cleared Failed',
 				status: 'error',
 				duration: 5000,
 				isClosable: true,
@@ -862,12 +871,15 @@ const EmployeeDataList = () => {
 				);
 
 				if (response.ok) {
+					const responseData = await response.json();
 					setIsLoadingModal(false);
+					toastCall(responseData);
 				} else {
-					navigate('/login');
+					const responseData = await response.json();
+					toastCall(responseData);
 				}
 			} catch (error) {
-				navigate('/login');
+				console.log(error);
 			}
 		};
 
@@ -890,12 +902,15 @@ const EmployeeDataList = () => {
 				);
 
 				if (response.ok) {
+					const responseData = await response.json();
 					setIsLoadingModal(false);
+					toastCall(responseData);
 				} else {
-					navigate('/login');
+					const responseData = await response.json();
+					toastCall(responseData);
 				}
 			} catch (error) {
-				navigate('/login');
+				console.log(error);
 			}
 		};
 
@@ -918,12 +933,15 @@ const EmployeeDataList = () => {
 				);
 
 				if (response.ok) {
+					const responseData = await response.json();
 					setIsLoadingModal(false);
+					toastCall(responseData);
 				} else {
-					navigate('/login');
+					const responseData = await response.json();
+					toastCall(responseData);
 				}
 			} catch (error) {
-				navigate('/login');
+				console.log(error);
 			}
 		};
 
@@ -978,7 +996,7 @@ const EmployeeDataList = () => {
 						<DrawerHeader pt='28px'>
 							<Box
 								borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-								width='500px'
+								width='300px'
 								pb='10px'
 								mb='15px'>
 								<Text
@@ -993,11 +1011,10 @@ const EmployeeDataList = () => {
 						</DrawerHeader>
 
 						<DrawerBody>
-							<Box display='flex'>
+							<Box display='flex' flexWrap='wrap' gap='15px'>
 								{rowData.is_active == true ? (
 									<Button
 										onClick={empBlock}
-										mr='15px'
 										fontSize='1.4rem'
 										padding='20px 10px'
 										background='var(--chakra-colors-claimzMainGeadientColor)'
@@ -1019,7 +1036,6 @@ const EmployeeDataList = () => {
 								) : (
 									<Button
 										onClick={empUnBlock}
-										mr='15px'
 										fontSize='1.4rem'
 										padding='20px 10px'
 										background='var(--chakra-colors-claimzMainGeadientColor)'
@@ -1041,7 +1057,6 @@ const EmployeeDataList = () => {
 								)}
 								<Button
 									onClick={WarningOnOpen}
-									mr='15px'
 									fontSize='1.4rem'
 									padding='20px 10px'
 									background='var(--chakra-colors-claimzMainGeadientColor)'
@@ -1059,7 +1074,6 @@ const EmployeeDataList = () => {
 								</Button>
 								<Button
 									onClick={LetterOnOpen}
-									mr='15px'
 									fontSize='1.4rem'
 									padding='20px 10px'
 									background='var(--chakra-colors-claimzMainGeadientColor)'
@@ -1077,7 +1091,6 @@ const EmployeeDataList = () => {
 								</Button>
 								<Button
 									onClick={appointmentOnOpen}
-									mr='15px'
 									fontSize='1.4rem'
 									padding='20px 10px'
 									background='var(--chakra-colors-claimzMainGeadientColor)'
@@ -1104,7 +1117,6 @@ const EmployeeDataList = () => {
 											/>
 										}
 										onClick={clearId}
-										mr='15px'
 										fontSize='1.4rem'
 										padding='20px 10px'
 										background='var(--chakra-colors-claimzMainGeadientColor)'
@@ -1129,7 +1141,6 @@ const EmployeeDataList = () => {
 								) : (
 									<Button
 										isDisabled
-										mr='15px'
 										fontSize='1.4rem'
 										padding='20px 10px'
 										background='var(--chakra-colors-claimzMainGeadientColor)'
@@ -1187,7 +1198,7 @@ const EmployeeDataList = () => {
 							<ModalHeader pt='28px'>
 								<Box
 									borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-									width='400px'
+									width='300px'
 									pb='10px'
 									mb='15px'>
 									<Text
@@ -1196,7 +1207,7 @@ const EmployeeDataList = () => {
 										fontWeight='700'
 										fontSize='28px'
 										lineHeight='36px'>
-										Letter Config Template
+										Termination Letter
 									</Text>
 								</Box>
 							</ModalHeader>
@@ -1240,7 +1251,7 @@ const EmployeeDataList = () => {
 											'linear(180deg, #2267A2 0%, #0D4675 100%)',
 									}}
 									onClick={onClose}>
-									Submit
+									Send
 								</Button>
 							</ModalFooter>
 						</form>
@@ -1258,7 +1269,7 @@ const EmployeeDataList = () => {
 							<ModalHeader pt='28px'>
 								<Box
 									borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-									width='400px'
+									width='275px'
 									pb='10px'
 									mb='15px'>
 									<Text
@@ -1267,7 +1278,7 @@ const EmployeeDataList = () => {
 										fontWeight='700'
 										fontSize='28px'
 										lineHeight='36px'>
-										Letter Config Template
+										Warning Letter
 									</Text>
 								</Box>
 							</ModalHeader>
@@ -1311,7 +1322,7 @@ const EmployeeDataList = () => {
 											'linear(180deg, #2267A2 0%, #0D4675 100%)',
 									}}
 									onClick={onClose}>
-									Submit
+									Send
 								</Button>
 							</ModalFooter>
 						</form>
@@ -1329,7 +1340,7 @@ const EmployeeDataList = () => {
 							<ModalHeader pt='28px'>
 								<Box
 									borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-									width='400px'
+									width='325px'
 									pb='10px'
 									mb='15px'>
 									<Text
@@ -1338,7 +1349,7 @@ const EmployeeDataList = () => {
 										fontWeight='700'
 										fontSize='28px'
 										lineHeight='36px'>
-										Letter Config Template
+										Appointment Letter
 									</Text>
 								</Box>
 							</ModalHeader>
@@ -1382,7 +1393,7 @@ const EmployeeDataList = () => {
 											'linear(180deg, #2267A2 0%, #0D4675 100%)',
 									}}
 									onClick={onClose}>
-									Submit
+									Send
 								</Button>
 							</ModalFooter>
 						</form>

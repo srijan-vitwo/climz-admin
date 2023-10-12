@@ -104,6 +104,10 @@ const Emplist = () => {
 		{ field: 'emp_name', header: 'Emp Name' },
 	];
 
+	function capitalizeFirstLetter(str) {
+		return str[0]?.toUpperCase() + str?.slice(1);
+	}
+
 	useEffect(() => {
 		let token = localStorage.getItem('token');
 		const formDataValue = async () => {
@@ -269,7 +273,8 @@ const Emplist = () => {
 								fontWeight='700'
 								fontSize='28px'
 								lineHeight='36px'>
-								{rowData.emp_name} Monthly Duty Roster :
+								{capitalizeFirstLetter(rowData?.emp_name)}{' '}
+								Monthly Duty Roster :
 							</Heading>
 							<Table>
 								<Thead>
@@ -282,7 +287,8 @@ const Emplist = () => {
 											p='15px'
 											fontSize='1.5rem'
 											fontWeight='600'
-											color='white'>
+											color='white'
+											textTransform='capitalize'>
 											Day
 										</Th>
 										<Th
@@ -290,7 +296,8 @@ const Emplist = () => {
 											fontSize='1.5rem'
 											fontWeight='600'
 											color='white'
-											textAlign='center'>
+											textAlign='center'
+											textTransform='capitalize'>
 											In Time
 										</Th>
 										<Th
@@ -298,7 +305,8 @@ const Emplist = () => {
 											fontSize='1.5rem'
 											fontWeight='600'
 											color='white'
-											textAlign='center'>
+											textAlign='center'
+											textTransform='capitalize'>
 											Out Time
 										</Th>
 										<Th
@@ -306,7 +314,8 @@ const Emplist = () => {
 											fontSize='1.5rem'
 											fontWeight='600'
 											color='white'
-											textAlign='right'>
+											textAlign='right'
+											textTransform='capitalize'>
 											Grace Time
 										</Th>
 									</Tr>

@@ -327,6 +327,7 @@ const MultiStepForm = () => {
 						</Box>
 						<Box className='footer'>
 							<Button
+								isDisabled={page === 0 ? true : false}
 								mr='20px'
 								bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
 								border='4px solid #FFFFFF'

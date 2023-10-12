@@ -106,7 +106,7 @@ const Personal = ({ formData, setFormData, fromValue }) => {
 				justifyContent='space-between'
 				mb='20px'>
 				<FormControl w='31%'>
-					<FormLabel>Name of Father's</FormLabel>
+					<FormLabel>Father's Name</FormLabel>
 					<Input
 						type='text'
 						placeholder="Enter Your Father's Name"
@@ -136,7 +136,7 @@ const Personal = ({ formData, setFormData, fromValue }) => {
 				</FormControl>
 
 				<FormControl w='33%'>
-					<FormLabel display='flex' gap='10px'>
+					<FormLabel display='flex' gap='5px'>
 						<Checkbox
 							colorScheme='red'
 							size='lg'

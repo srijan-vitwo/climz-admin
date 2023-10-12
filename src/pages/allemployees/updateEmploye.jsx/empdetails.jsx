@@ -315,7 +315,7 @@ const EmpDetails = ({ formData, setFormData, fromValue, costCenter }) => {
 
 				<FormControl w='31%'>
 					<FormLabel>
-						Week-off Variant{' '}
+						Week Off Variant{' '}
 						<Box as='span' color='orange'>
 							*
 						</Box>

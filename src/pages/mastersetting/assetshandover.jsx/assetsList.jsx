@@ -12,7 +12,6 @@ import {
 	DrawerCloseButton,
 	Text,
 	Image,
-	Heading,
 	Select,
 	useToast,
 	FormControl,
@@ -104,6 +103,7 @@ const AssetsList = () => {
 			constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }],
 		},
 	});
+	const [specificationError, setSpecificationError] = useState(false);
 
 	useEffect(() => {
 		const departmentList = async () => {
@@ -210,7 +210,7 @@ const AssetsList = () => {
 								'linear(180deg, #2267A2 0%, #0D4675 100%)',
 						}}
 						onClick={() => navigate('/master-setting/assets-add')}>
-						Add Assects
+						Add Asset
 					</Button>
 				</Box>
 			</Box>
@@ -265,35 +265,57 @@ const AssetsList = () => {
 
 		const updateAssect = async (e) => {
 			e.preventDefault();
-			let formData = new FormData();
-			formData.append('id', rowData.asset_id);
-			formData.append('group_id', rowData.asset_group_id);
-			formData.append('name', assetName);
-			formData.append('description', description);
-			formData.append('uom', uomId);
-			formData.append('specification', `${JSON.stringify(inputList)}`);
-			try {
-				setIsLoading(true);
-				const response = await fetch(
-					`${process.env.REACT_APP_API_URL}/asset-update`,
-					{
-						method: 'POST',
-						body: formData,
-						headers: {
-							Authorization: `Bearer ${token}`,
-						},
-					}
-				);
 
-				if (response.ok) {
-					setSucess(!sucess);
-					setIsLoading(false);
-					toastCall();
-				} else {
+			// Check if any specification fields are empty
+			const hasEmptySpecification = inputList.some(
+				(item) =>
+					item.specification === '' ||
+					item.specification_details === ''
+			);
+
+			if (hasEmptySpecification) {
+				// Display an error toast
+				toast({
+					title: 'Error',
+					description:
+						'Please fill in all specification fields before updating.',
+					status: 'error',
+					duration: 5000, // Set the duration of the toast message
+					isClosable: true,
+				});
+			} else {
+				// No empty specification fields, proceed with the update
+				let formData = new FormData();
+				formData.append('id', rowData.asset_id);
+				formData.append('group_id', rowData.asset_group_id);
+				formData.append('name', assetName);
+				formData.append('description', description);
+				formData.append('uom', uomId);
+				formData.append('specification', JSON.stringify(inputList));
+
+				try {
+					setIsLoading(true);
+					const response = await fetch(
+						`${process.env.REACT_APP_API_URL}/asset-update`,
+						{
+							method: 'POST',
+							body: formData,
+							headers: {
+								Authorization: `Bearer ${token}`,
+							},
+						}
+					);
+
+					if (response.ok) {
+						setSucess(!sucess);
+						setIsLoading(false);
+						toastCall();
+					} else {
+						navigate('/login');
+					}
+				} catch (error) {
 					navigate('/login');
 				}
-			} catch (error) {
-				navigate('/login');
 			}
 		};
 
@@ -406,6 +428,7 @@ const AssetsList = () => {
 														value={
 															input.specification
 														}
+														required
 														onChange={(event) =>
 															handleInputChange(
 																index,
@@ -434,9 +457,23 @@ const AssetsList = () => {
 														}
 													/>
 												</FormControl>
-												{inputList.length <= 1 ? (
-													''
-												) : (
+												{index ===
+													inputList.length - 1 && ( // Add the button only for the last item
+													<Button
+														color='var(--chakra-colors-claimzTextBlueLightColor)'
+														mt='30px'
+														bg='none'
+														_hover={{ bg: 'none' }}
+														_active={{ bg: 'none' }}
+														_focus={{ bg: 'none' }}
+														onClick={
+															handleAddClick
+														}>
+														<i className='fa-sharp fa-solid fa-plus'></i>
+													</Button>
+												)}
+												{index !==
+													inputList.length - 1 && ( // Keep the Delete button for all items except the last one
 													<Button
 														color='var(--chakra-colors-claimzTextBlueLightColor)'
 														mt='30px'
@@ -452,19 +489,6 @@ const AssetsList = () => {
 														<i className='fa-solid fa-trash'></i>
 													</Button>
 												)}
-												<Button
-													mt='30px'
-													color='var(--chakra-colors-claimzTextBlueLightColor)'
-													w='20%'
-													p='0px'
-													width='10px'
-													bg='none'
-													_hover={{ bg: 'none' }}
-													_active={{ bg: 'none' }}
-													_focus={{ bg: 'none' }}
-													onClick={handleAddClick}>
-													<i className='fa-sharp fa-solid fa-plus'></i>
-												</Button>
 											</Box>
 										))}
 									</Box>
@@ -583,7 +607,7 @@ const AssetsList = () => {
 									fontWeight='700'
 									fontSize='28px'
 									lineHeight='36px'>
-									Asset Assign to Employee
+									Assign Asset to Employee
 								</Text>
 							</Box>
 						</DrawerHeader>
@@ -598,9 +622,9 @@ const AssetsList = () => {
 											color='claimzTextBlueColor'
 											fontWeight='700'>
 											{' '}
-											Assect Assigned{' '}
+											Asset Assigned{' '}
 										</Text>
-										<Text>{rowData.user.emp_name}</Text>
+										<Text>{rowData?.user?.emp_name}</Text>
 									</Box>
 
 									<Box>
@@ -646,7 +670,7 @@ const AssetsList = () => {
 									mb='15px'>
 									<FormControl>
 										<FormLabel>
-											Assign Assets to Employee
+											Assign Asset to Employee
 										</FormLabel>
 										<Select
 											placeholder='Select option'
@@ -659,7 +683,7 @@ const AssetsList = () => {
 													<option
 														value={data.id}
 														key={data.id}>
-														{data.emp_name}
+														{data?.emp_name}
 													</option>
 												);
 											})}
@@ -710,11 +734,7 @@ const AssetsList = () => {
 
 							{rowData?.specifications[0]?.specification.length >
 							0 ? (
-								<Box
-									height='500px'
-									display='flex'
-									alignItems='center'
-									justifyContent='center'>
+								<Box height='500px'>
 									{rowData?.specifications?.map(
 										(data, index) => {
 											return (
@@ -756,8 +776,6 @@ const AssetsList = () => {
 			</>
 		);
 	};
-
-	console.log(products?.data);
 
 	return (
 		<CssWrapper>

@@ -75,7 +75,7 @@ const BankDetails = ({ formData, setFormData }) => {
 				</FormControl>
 
 				<FormControl w='24%'>
-					<FormLabel>IFSC code</FormLabel>
+					<FormLabel>IFSC Code</FormLabel>
 					<Input
 						type='text'
 						placeholder='IFSC code'

@@ -277,7 +277,7 @@ const NoticePeriodEmployee = () => {
 								backgroundClip='text'
 								fontSize='1.6rem'
 								fontWeight='700'>
-								Show
+								Show More
 							</Text>
 						</MenuButton>
 						<MenuList

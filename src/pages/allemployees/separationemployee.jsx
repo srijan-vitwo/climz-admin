@@ -277,7 +277,7 @@ const SeparationEmployee = () => {
 								backgroundClip='text'
 								fontSize='1.6rem'
 								fontWeight='700'>
-								Show
+								Show More
 							</Text>
 						</MenuButton>
 						<MenuList
@@ -520,7 +520,7 @@ const SeparationEmployee = () => {
 						<DrawerHeader pt='28px'>
 							<Box
 								borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-								width='400px'
+								width='565px'
 								pb='10px'
 								mb='15px'>
 								<Text

@@ -121,10 +121,10 @@ const KycDetails = ({ formData, setFormData }) => {
 				</FormControl>
 
 				<FormControl w='31%'>
-					<FormLabel>Passport NO</FormLabel>
+					<FormLabel>Passport No</FormLabel>
 					<Input
 						type='Text'
-						placeholder='Passport NO'
+						placeholder='Passport No'
 						value={formData.passport_no}
 						onChange={(event) =>
 							setFormData({
