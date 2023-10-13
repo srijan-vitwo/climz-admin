@@ -12,7 +12,7 @@ import BudgetlistDataTable from './budgetlistDataTable';
 
 const BudgetList = () => {
 	const navigate = useNavigate();
-	const [progress, setProgress] = useState(60);
+	const [progress, setProgress] = useState(58);
 
 	return (
 		<Box>

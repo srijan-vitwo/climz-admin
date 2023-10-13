@@ -167,9 +167,7 @@ const DepartmentSettingModal = ({ rowData }) => {
 							display='-webkit-inline-box'
 							borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
 							pb='10px'
-							mb='15px'
-							width='260px'
-							pb='5px'>
+							mb='15px'>
 							<Text
 								background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
 								backgroundClip='text'

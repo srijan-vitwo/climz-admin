@@ -18,7 +18,7 @@ import { BeatLoader } from 'react-spinners';
 const GradeSetting = () => {
 	const navigate = useNavigate();
 	const toast = useToast();
-	const [progress, setProgress] = useState(75);
+	const [progress, setProgress] = useState(73);
 	const [msg, setMsg] = useState();
 	const [code, setCode] = useState();
 	const [isLoading, setIsLoading] = useState(false);

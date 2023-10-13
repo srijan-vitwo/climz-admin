@@ -39,6 +39,7 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser }) => {
 	const [costCenter, setCostCenter] = useState();
 	const [empCode, setEmpCode] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
+	const [modalImageSrc, setModalImageSrc] = useState('');
 	const {
 		isOpen: OnboardingIsOpen,
 		onOpen: OnboardingOnOpen,
@@ -82,6 +83,11 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser }) => {
 		deadline: '',
 		paid_time: '',
 	});
+
+	const updateModalImageSrc = (imageSrc) => {
+		setModalImageSrc(imageSrc);
+		modalOnOpen(); // Open the modal
+	};
 
 	function toastCall() {
 		return toast({
@@ -470,38 +476,31 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser }) => {
 								Document Progress
 							</Heading>
 						</Box>
-						<Box>
-							<Box
-								p='10px'
-								mb='10px'
-								height='calc(100vh - 540px)'
-								overflowY='auto'>
-								{document &&
-									typeof document === 'object' &&
-									Object.keys(document).map((key, index) => (
-										<Text
-											key={index}
-											mb='10px'
-											fontSize='1.6rem'
-											fontWeight='600'
-											color='claimzTextBlueColor'
-											bg='gray.300'
-											p='10px'
-											borderRadius='5px'
-											onClick={() =>
-												modalOnOpen(document[key])
-											}
-											cursor='pointer'>
-											<i className='fa-solid fa-image'></i>{' '}
-											-{' '}
-											<Box
-												as='span'
-												color='claimzTextBlackColor'>
-												{key} - {document[key]}
-											</Box>
-										</Text>
-									))}
-							</Box>
+						<Box
+							p='10px'
+							mb='10px'
+							height='calc(100vh - 540px)'
+							overflowY='auto'>
+							{document &&
+								typeof document === 'object' &&
+								Object.keys(document).map((key, index) => (
+									<Text
+										key={index}
+										mb='10px'
+										fontSize='1.6rem'
+										fontWeight='600'
+										color='claimzTextBlueColor'
+										bg='gray.300'
+										p='10px'
+										borderRadius='5px'
+										onClick={() =>
+											updateModalImageSrc(document[key])
+										} // Pass document[key] as image source
+										cursor='pointer'>
+										<i className='fa-solid fa-image'></i> -{' '}
+										{key} - {document[key]}
+									</Text>
+								))}
 						</Box>
 
 						<Modal
@@ -509,16 +508,19 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser }) => {
 							isOpen={modalIsOpen}
 							isCentered>
 							<ModalOverlay />
-							<ModalContent>
-								<ModalHeader>Modal Title</ModalHeader>
+							<ModalContent minW='70%' h='70vh'>
+								<ModalHeader>Document Show</ModalHeader>
 								<ModalCloseButton />
 								<ModalBody>
-									<Box boxSize='sm' m='0 auto'>
+									<Box
+										width='100%'
+										height='59vh'
+										overflowY='scroll'>
 										<Image
-											src='https://bit.ly/dan-abramov'
-											alt='Dan Abramov'
+											src={modalImageSrc} // Set the image source from modalImageSrc
+											alt='Modal Image'
 											width='100%'
-											height='auto'
+											loading='lazy'
 										/>
 									</Box>
 								</ModalBody>

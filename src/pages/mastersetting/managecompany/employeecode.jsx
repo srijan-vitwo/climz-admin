@@ -21,7 +21,7 @@ const EmployeeCode = () => {
 	const toast = useToast();
 	const [msg, setMsg] = useState();
 	const token = localStorage.getItem('token');
-	const [progress, setProgress] = useState(25);
+	const [progress, setProgress] = useState(24);
 	const [code, setCode] = useState();
 	const [startNumber, setStartNumber] = useState();
 	const [isLoading, setIsLoading] = useState(false);

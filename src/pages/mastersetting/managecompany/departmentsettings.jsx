@@ -12,7 +12,7 @@ import DepartmentSettingDataTable from './departmentSettingDataTable';
 
 const DepartmentSettings = ({ companyData }) => {
 	const navigate = useNavigate();
-	const [progress, setProgress] = useState(42);
+	const [progress, setProgress] = useState(41);
 
 	return (
 		<>
