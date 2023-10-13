@@ -139,8 +139,6 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser, setRequestStatus }) => {
 				}
 			};
 			formDataValue();
-		} else {
-			console.log('Error');
 		}
 	}, [formData.department]);
 
@@ -170,8 +168,6 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser, setRequestStatus }) => {
 				}
 			};
 			formDataValue();
-		} else {
-			console.log('empcode');
 		}
 	}, [formData?.employee_code_prefix]);
 
@@ -223,7 +219,6 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser, setRequestStatus }) => {
 
 		try {
 			setIsLoading(true);
-
 			const response = await fetch(
 				`${process.env.REACT_APP_API_URL}/send-offerletter`,
 				{
@@ -234,7 +229,7 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser, setRequestStatus }) => {
 					},
 				}
 			);
-			const data = await response.json();
+
 			if (response.status === 200) {
 				toastCall();
 				setIsLoading(false);
@@ -243,7 +238,7 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser, setRequestStatus }) => {
 				setIsLoading(false);
 			}
 		} catch (error) {
-			navigate('/login');
+			requestFaild();
 			setIsLoading(false);
 		}
 	};
@@ -508,13 +503,21 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser, setRequestStatus }) => {
 							isOpen={modalIsOpen}
 							isCentered>
 							<ModalOverlay />
-							<ModalContent minW='70%' h='70vh'>
-								<ModalHeader>Document Show</ModalHeader>
-								<ModalCloseButton />
+							<ModalContent minW='70%' h='70vh' p='0px'>
+								<ModalHeader p='0px'>
+									<Box
+										bgGradient='linear(180deg, #256DAA 0%, #02335C 100%)'
+										boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
+										color='white'
+										padding='10px 15px'>
+										<Heading>Document Preview</Heading>
+									</Box>
+								</ModalHeader>
+								<ModalCloseButton color='white' mt='10px' />
 								<ModalBody>
 									<Box
 										width='100%'
-										height='59vh'
+										height='60vh'
 										overflowY='scroll'>
 										<Image
 											src={modalImageSrc} // Set the image source from modalImageSrc
@@ -524,11 +527,6 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser, setRequestStatus }) => {
 										/>
 									</Box>
 								</ModalBody>
-								<ModalFooter>
-									<Button onClick={modalOnClose}>
-										Close
-									</Button>
-								</ModalFooter>
 							</ModalContent>
 						</Modal>
 					</DrawerBody>
@@ -553,7 +551,7 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser, setRequestStatus }) => {
 									fontWeight='700'
 									fontSize='28px'
 									lineHeight='36px'>
-									Letter Config Template
+									Offer Letter Config Template
 								</Text>
 							</Box>
 						</ModalHeader>
@@ -628,7 +626,12 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser, setRequestStatus }) => {
 									</Select>
 								</FormControl>
 								<FormControl w='31%'>
-									<FormLabel>Place of posting</FormLabel>
+									<FormLabel>
+										Place of Posting{' '}
+										<Box as='span' color='orange'>
+											*
+										</Box>
+									</FormLabel>
 									<Select
 										placeholder='Select option'
 										value={offerLetterForm.location}
@@ -656,7 +659,12 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser, setRequestStatus }) => {
 								justifyContent='space-between'
 								alignItems='center'>
 								<FormControl w='31%'>
-									<FormLabel>Add Salary</FormLabel>
+									<FormLabel>
+										Add Salary{' '}
+										<Box as='span' color='orange'>
+											*
+										</Box>
+									</FormLabel>
 									<Input
 										type='number'
 										placeholder='Enter Salary'
@@ -670,7 +678,12 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser, setRequestStatus }) => {
 									/>
 								</FormControl>
 								<FormControl w='31%'>
-									<FormLabel>Add Paid Time</FormLabel>
+									<FormLabel>
+										Add Paid Time{' '}
+										<Box as='span' color='orange'>
+											*
+										</Box>
+									</FormLabel>
 									<Select
 										placeholder='Select option'
 										value={offerLetterForm.paid_time}
@@ -685,7 +698,12 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser, setRequestStatus }) => {
 									</Select>
 								</FormControl>
 								<FormControl w='31%'>
-									<FormLabel>Add deadline</FormLabel>
+									<FormLabel>
+										Add Deadline{' '}
+										<Box as='span' color='orange'>
+											*
+										</Box>
+									</FormLabel>
 									<Input
 										type='date'
 										placeholder='Enter deadline'

@@ -365,8 +365,7 @@ const OnboardingCandidate = () => {
 										fontWeight='700'
 										fontSize='28px'
 										lineHeight='36px'>
-										Onboarding
-										<br /> Process Request
+										Onboarding Process Request
 									</Text>
 								</Box>
 							</DrawerHeader>
@@ -381,13 +380,14 @@ const OnboardingCandidate = () => {
 									onSubmit={addCandidate}>
 									<FormControl w='100%' mb='15px'>
 										<FormLabel>
-											Enter Full Name{' '}
+											Full Name{' '}
 											<Box as='span' color='orange'>
 												*
 											</Box>
 										</FormLabel>
 										<Input
 											type='text'
+											placeholder='Enter full name'
 											onChange={(e) =>
 												setName(e.target.value)
 											}
@@ -396,13 +396,14 @@ const OnboardingCandidate = () => {
 									</FormControl>
 									<FormControl w='100%' mb='15px'>
 										<FormLabel>
-											Enter Mobile Number{' '}
+											Mobile Number{' '}
 											<Box as='span' color='orange'>
 												*
 											</Box>
 										</FormLabel>
 										<Input
 											type='number'
+											placeholder='Enter mobile number'
 											onChange={(e) =>
 												setNumber(e.target.value)
 											}
@@ -418,6 +419,7 @@ const OnboardingCandidate = () => {
 										</FormLabel>
 										<Input
 											type='email'
+											placeholder='Enter mail id'
 											onChange={(e) =>
 												setMail(e.target.value)
 											}
@@ -433,6 +435,7 @@ const OnboardingCandidate = () => {
 										</FormLabel>
 										<Input
 											type='date'
+											placeholder='Enter expected joining date'
 											onChange={(e) =>
 												setDate(e.target.value)
 											}
@@ -467,8 +470,7 @@ const OnboardingCandidate = () => {
 											bgGradient:
 												'linear(180deg, #2267A2 0%, #0D4675 100%)',
 										}}
-										type='submit'
-										onClick={onClose}>
+										type='submit'>
 										Submit
 									</Button>
 								</form>
@@ -499,7 +501,8 @@ const OnboardingCandidate = () => {
 						hasArrow
 						fontSize='12px'
 						p='5px'
-						label='Candidate Seen The Invition'>
+						textAlign='center'
+						label='Candidate saw the invitation'>
 						<Box color='statusActiveColor'>
 							<i className='fa-solid fa-check fa-2x'></i>
 						</Box>
@@ -508,8 +511,9 @@ const OnboardingCandidate = () => {
 					<Tooltip
 						fontSize='12px'
 						p='5px'
+						textAlign='center'
 						hasArrow
-						label="Candidate did't Seen The Invition">
+						label="The candidate didn't seen the invitation">
 						<Box color='claimzTextGrayColor'>
 							<i className='fa-solid fa-hourglass-end fa-2x'></i>
 						</Box>
