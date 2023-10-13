@@ -295,16 +295,19 @@ const MultiStepForm = () => {
 	return (
 		<Box
 			width='100%'
-			height='calc(100vh - 216px)'
 			display='flex'
 			alignItems='center'
 			justifyContent='center'>
 			{loader ? (
-				<Box>
+				<Box
+					display='flex'
+					alignItems='center'
+					justifyContent='center'
+					height='calc(100vh - 216px)'>
 					<Image src={Loader} alt='Loader' />
 				</Box>
 			) : (
-				<Box className='form'>
+				<Box className='form_create_new_employee'>
 					<Box className='progressbar'>
 						<Box
 							style={{
