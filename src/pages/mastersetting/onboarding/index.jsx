@@ -103,6 +103,7 @@ const OnboardingCandidate = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [isLoading, setIsLoading] = useState(false);
 	const [loader, setLoader] = useState(false);
+	const [requestStatus, setRequestStatus] = useState(false);
 
 	const cols = [
 		{ field: 'emp_name', header: 'Employee' },
@@ -177,7 +178,7 @@ const OnboardingCandidate = () => {
 			}
 		};
 		formDataValue();
-	}, [sucess, first, rows]);
+	}, [sucess, first, rows, requestStatus]);
 
 	const onPageChange = (event) => {
 		setFirst(event.first);
@@ -485,6 +486,7 @@ const OnboardingCandidate = () => {
 				rowData={rowData}
 				fromValue={fromValue}
 				empUser={empUser}
+				setRequestStatus={setRequestStatus}
 			/>
 		);
 	};

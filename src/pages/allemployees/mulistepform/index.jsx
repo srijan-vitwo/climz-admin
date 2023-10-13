@@ -288,6 +288,7 @@ const MultiStepForm = () => {
 			}
 		} catch (error) {
 			toastCallFaild();
+			setIsLoading(false);
 		}
 	};
 

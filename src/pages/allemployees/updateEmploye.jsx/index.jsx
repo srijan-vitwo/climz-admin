@@ -258,6 +258,7 @@ const EmployeeUpdate = ({ details, fromValue, userData, msg, setMsg }) => {
 			}
 		} catch (error) {
 			toastCallFaild();
+			setIsLoading(false);
 		}
 	};
 

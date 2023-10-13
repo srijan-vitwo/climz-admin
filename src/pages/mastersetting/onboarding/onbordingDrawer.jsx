@@ -28,7 +28,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { BeatLoader } from 'react-spinners';
 
-const OnbordingDrawer = ({ rowData, fromValue, empUser }) => {
+const OnbordingDrawer = ({ rowData, fromValue, empUser, setRequestStatus }) => {
 	const navigate = useNavigate();
 	const toast = useToast();
 	let token = localStorage.getItem('token');
@@ -269,10 +269,10 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser }) => {
 					},
 				}
 			);
-			const data = await response.json();
 			if (response.status === 200) {
 				toastCallConvert();
 				setIsLoading(false);
+				setRequestStatus(true);
 			} else {
 				requestFaild();
 				setIsLoading(false);
@@ -599,7 +599,12 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser }) => {
 									</Select>
 								</FormControl>
 								<FormControl w='31%'>
-									<FormLabel>Department</FormLabel>
+									<FormLabel>
+										Department{' '}
+										<Box as='span' color='orange'>
+											*
+										</Box>
+									</FormLabel>
 									<Select
 										placeholder='Select option'
 										value={offerLetterForm.department}
@@ -742,7 +747,7 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser }) => {
 							alignItems: 'flex-end',
 							padding: '0px 20px 20px',
 						}}>
-						<Box p='20px' w='100%'>
+						<Box p='20px 0px' w='100%'>
 							<Heading
 								w='100%'
 								fontWeight='600'
@@ -886,7 +891,12 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser }) => {
 								justifyContent='space-between'
 								mb='20px'>
 								<FormControl w='31%'>
-									<FormLabel>Department</FormLabel>
+									<FormLabel>
+										Department
+										<Box as='span' color='orange'>
+											*
+										</Box>
+									</FormLabel>
 									<Select
 										placeholder='Select option'
 										value={formData.department}
@@ -914,7 +924,7 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser }) => {
 								<FormControl w='31%'>
 									<FormLabel>Cost Center</FormLabel>
 									<Select
-										placeholder='select cost center'
+										placeholder='Select cost center'
 										value={formData?.cost_center_id}
 										onChange={(event) =>
 											setFormData({
@@ -936,7 +946,12 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser }) => {
 								</FormControl>
 
 								<FormControl w='31%'>
-									<FormLabel>Primary Reporting</FormLabel>
+									<FormLabel>
+										Primary Reporting{' '}
+										<Box as='span' color='orange'>
+											*
+										</Box>
+									</FormLabel>
 									<Select
 										placeholder='Select option'
 										value={formData.primary_reporting}
@@ -967,7 +982,12 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser }) => {
 								justifyContent='space-between'
 								mb='20px'>
 								<FormControl w='31%'>
-									<FormLabel>Secondary Reporting</FormLabel>
+									<FormLabel>
+										Secondary Reporting{' '}
+										<Box as='span' color='orange'>
+											*
+										</Box>
+									</FormLabel>
 									<Select
 										placeholder='Select option'
 										value={formData.secondary_reporting}
@@ -992,7 +1012,7 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser }) => {
 								</FormControl>
 
 								<FormControl w='31%'>
-									<FormLabel>Place of posting</FormLabel>
+									<FormLabel>Place of Posting</FormLabel>
 									<Select
 										placeholder='Select option'
 										value={formData.place_of_posting}
@@ -1017,7 +1037,12 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser }) => {
 								</FormControl>
 
 								<FormControl w='31%'>
-									<FormLabel>Week-off Variant</FormLabel>
+									<FormLabel>
+										Week Off Variant{' '}
+										<Box as='span' color='orange'>
+											*
+										</Box>
+									</FormLabel>
 									<Select
 										placeholder='Select option'
 										value={formData.weekoff}
@@ -1075,7 +1100,12 @@ const OnbordingDrawer = ({ rowData, fromValue, empUser }) => {
 								</FormControl>
 
 								<FormControl w='31%'>
-									<FormLabel>Shift Variant</FormLabel>
+									<FormLabel>
+										Shift Variant{' '}
+										<Box as='span' color='orange'>
+											*
+										</Box>
+									</FormLabel>
 									<Select
 										placeholder='Select option'
 										value={formData.shift_variant}
