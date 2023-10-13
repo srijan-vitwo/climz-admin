@@ -593,7 +593,8 @@ const SeparationEmployee = () => {
 								height='100%'
 								display='flex'
 								alignItems='center'
-								justifyContent='center'>
+								justifyContent='center'
+								marginTop='65px'>
 								{fromLoader ? (
 									<Box>
 										<Image src={Loader} alt='Loader' />

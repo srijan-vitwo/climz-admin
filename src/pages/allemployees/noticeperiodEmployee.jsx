@@ -88,7 +88,7 @@ const CssWrapper = styled.div`
 	}
 	.p-datatable > .p-datatable-wrapper {
 		overflow: auto;
-		height: calc(100vh - 360px);
+		height: calc(100vh - 296px);
 		padding-right: 5px;
 		margin-right: 5px;
 	}
@@ -592,7 +592,7 @@ const NoticePeriodEmployee = () => {
 								width='100%'
 								height='100%'
 								display='flex'
-								alignItems='center'
+								alignItems='flex-start'
 								justifyContent='center'>
 								{fromLoader ? (
 									<Box>
@@ -748,23 +748,25 @@ const NoticePeriodEmployee = () => {
 						/>
 					</DataTable>
 					{/* pegination */}
-					<Box
-						display='flex'
-						justifyContent='flex-end'
-						backgroundColor='white'>
-						<Paginator
-							first={first}
-							rows={rows}
-							totalRecords={empList?.total}
-							rowsPerPageOptions={[
-								30,
-								50,
-								100,
-								`${empList?.total}`,
-							]}
-							onPageChange={onPageChange}
-						/>
-					</Box>
+					{empList && empList.data && empList.data.length > 0 && (
+						<Box
+							display='flex'
+							justifyContent='flex-end'
+							backgroundColor='white'>
+							<Paginator
+								first={first}
+								rows={rows}
+								totalRecords={empList?.total}
+								rowsPerPageOptions={[
+									30,
+									50,
+									100,
+									`${empList?.total}`,
+								]}
+								onPageChange={onPageChange}
+							/>
+						</Box>
+					)}
 				</Box>
 			)}
 		</CssWrapper>

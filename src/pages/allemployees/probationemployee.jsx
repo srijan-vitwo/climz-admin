@@ -447,7 +447,7 @@ const ProbationEmployee = () => {
 
 		function toastCall() {
 			return toast({
-				title: 'Employee Converted sucessfully',
+				title: 'Employee converted sucessfully',
 				status: 'success',
 				duration: 3000,
 				isClosable: true,
