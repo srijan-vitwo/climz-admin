@@ -258,9 +258,7 @@ const HolidayPolicies = () => {
 										justifyContent='space-between'
 										alignItems='center'>
 										<FormControl width='48%'>
-											<FormLabel>
-												Enter Holiday Name
-											</FormLabel>
+											<FormLabel>Holiday Name</FormLabel>
 											<Input
 												type='text'
 												value={holiday}
@@ -461,6 +459,14 @@ const HolidayPolicies = () => {
 				isClosable: true,
 			});
 		}
+		function toastCallError() {
+			return toast({
+				title: 'Holiday Add Request Failed',
+				status: 'error',
+				duration: 5000,
+				isClosable: true,
+			});
+		}
 
 		const handleSelectChange = (event) => {
 			setSelectedValue(event.target.value);
@@ -493,10 +499,10 @@ const HolidayPolicies = () => {
 					setIsLoading(false);
 					modalOnClose();
 				} else {
-					navigate('/login');
+					toastCallError();
 				}
 			} catch (error) {
-				navigate('/login');
+				toastCallError();
 			}
 		};
 
@@ -557,8 +563,7 @@ const HolidayPolicies = () => {
 							<Box
 								display='-webkit-inline-box'
 								borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-								pb='10px'
-								mb='15px'>
+								pb='10px'>
 								<Text
 									background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
 									backgroundClip='text'
@@ -571,7 +576,7 @@ const HolidayPolicies = () => {
 						</ModalHeader>
 						<ModalCloseButton size='lg' />
 						<ModalBody>
-							<Box p='20px 0px'>
+							<Box p='0px 0px 20px'>
 								<form
 									style={{
 										width: '100%',
@@ -587,9 +592,7 @@ const HolidayPolicies = () => {
 										justifyContent='space-between'
 										alignItems='center'>
 										<FormControl width='48%'>
-											<FormLabel>
-												Enter Holiday Name
-											</FormLabel>
+											<FormLabel>Holiday Name</FormLabel>
 											<Input
 												type='text'
 												value={holiday}
@@ -709,7 +712,7 @@ const HolidayPolicies = () => {
 										p='20px 20px'
 										fontSize='1.6rem'
 										color='white'
-										mt='30px'
+										mt='20px'
 										_hover={{
 											bgGradient:
 												'linear(180deg, #2267A2 0%, #0D4675 100%)',
