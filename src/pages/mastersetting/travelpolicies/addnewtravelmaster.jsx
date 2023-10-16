@@ -134,7 +134,8 @@ const AddNewTravelMaster = () => {
 								<Select
 									bg='white'
 									placeholder='Select option'
-									onChange={(e) => setType(e.target.value)}>
+									onChange={(e) => setType(e.target.value)}
+									required>
 									<option value='train'>Train</option>
 									<option value='flight'>Flight</option>
 									<option value='others'>Others</option>
@@ -145,10 +146,9 @@ const AddNewTravelMaster = () => {
 								isLoading={isLoading}
 								spinner={<BeatLoader size={8} color='white' />}
 								bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-								border='4px solid #FFFFFF'
 								boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-								borderRadius='15px'
-								p='15px 20px'
+								borderRadius='10px'
+								p='20px 20px'
 								fontSize='1.6rem'
 								color='white'
 								mt='20px'

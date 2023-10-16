@@ -571,7 +571,7 @@ const ProbationEmployee = () => {
 										ml='5px'
 										fontSize='1.4rem'
 										fontWeight='600'>
-										confirmationletter
+										Confirmation Letter
 									</Text>
 								</Button>
 								<Button
@@ -594,7 +594,7 @@ const ProbationEmployee = () => {
 										ml='5px'
 										fontSize='1.4rem'
 										fontWeight='600'>
-										Convert{' '}
+										Convert
 									</Text>
 								</Button>
 							</Box>

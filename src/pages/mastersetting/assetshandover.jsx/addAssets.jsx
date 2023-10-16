@@ -35,6 +35,8 @@ const AssetsAdd = () => {
 	const [thirdChildId, setThirdChildId] = useState('');
 	const [fouthChildId, setFouthChildId] = useState('');
 	const [fifthChildId, setfifthChildId] = useState('');
+	const [isFormValid, setIsFormValid] = useState(true);
+	const [errorMessage, setErrorMessage] = useState('');
 	const [uom, setUom] = useState();
 	const [assetName, setAssetName] = useState();
 	const [description, setDescription] = useState();
@@ -100,10 +102,8 @@ const AssetsAdd = () => {
 	};
 
 	const handleChange = (e) => {
-		setFormData((prevState) => ({
-			...prevState,
-			[e.target.name]: e.target.value,
-		}));
+		const { name, value } = e.target;
+		setFormData({ ...formData, [name]: value });
 	};
 
 	useEffect(() => {
@@ -147,28 +147,45 @@ const AssetsAdd = () => {
 		e.preventDefault();
 		let formValues = new FormData();
 		formValues.append('datas', `[${JSON.stringify(formData)}]`);
-		try {
-			setIsLoadingModal(true);
-			const response = await fetch(
-				`${process.env.REACT_APP_API_URL}/asset-group-post`,
-				{
-					method: 'POST',
-					body: formValues,
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-				}
-			);
+		// Check if any of the fields are empty
+		if (formData.name === '' || formData.group_description === '') {
+			setIsFormValid(false);
+			setErrorMessage('Please fill in all required fields.');
+		} else {
+			// Handle form submission logic here
+			// If the form is valid, reset any previous error message
+			setIsFormValid(true);
+			setErrorMessage('');
 
-			if (response.ok) {
-				setSucess(!sucess);
-				setIsLoadingModal(false);
-				toastCall();
-			} else {
+			try {
+				setIsLoadingModal(true);
+				const response = await fetch(
+					`${process.env.REACT_APP_API_URL}/asset-group-post`,
+					{
+						method: 'POST',
+						body: formValues,
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					}
+				);
+
+				if (response.ok) {
+					setSucess(!sucess);
+					setIsLoadingModal(false);
+					toastCall();
+					// Reset the form fields
+					setFormData({
+						name: '',
+						group_description: '',
+						parent_id: '',
+					});
+				} else {
+					setIsLoadingModal(false);
+				}
+			} catch (error) {
 				navigate('/login');
 			}
-		} catch (error) {
-			navigate('/login');
 		}
 	};
 
@@ -203,6 +220,7 @@ const AssetsAdd = () => {
 
 	const assectCreate = async (e) => {
 		e.preventDefault();
+
 		let formData = new FormData();
 		formData.append('group_id', lastItem);
 		formData.append('name', assetName);
@@ -250,8 +268,7 @@ const AssetsAdd = () => {
 				<Box
 					display='-webkit-inline-box'
 					borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-					pb='10px'
-					mb='15px'>
+					pb='10px'>
 					<Text
 						background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
 						backgroundClip='text'
@@ -524,7 +541,10 @@ const AssetsAdd = () => {
 								bg='white'
 								borderWidth='1px'
 								rounded='lg'
-								paddingBottom='20px'>
+								paddingBottom='20px'
+								overflowY='scroll'
+								overflowX='hidden'
+								height='500px'>
 								<Box
 									bgGradient='linear(180deg, #256DAA 0%, #02335C 100%)'
 									boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
@@ -620,9 +640,7 @@ const AssetsAdd = () => {
 													}
 												/>
 											</FormControl>
-											{inputList.length <= 1 ? (
-												''
-											) : (
+											{index < inputList.length - 1 && ( // Hide the "trash" icon for the last input box
 												<Button
 													color='var(--chakra-colors-claimzTextBlueLightColor)'
 													mt='30px'
@@ -636,19 +654,21 @@ const AssetsAdd = () => {
 													<i className='fa-solid fa-trash'></i>
 												</Button>
 											)}
-											<Button
-												mt='30px'
-												color='var(--chakra-colors-claimzTextBlueLightColor)'
-												w='20%'
-												p='0px'
-												width='10px'
-												bg='none'
-												_hover={{ bg: 'none' }}
-												_active={{ bg: 'none' }}
-												_focus={{ bg: 'none' }}
-												onClick={handleAddClick}>
-												<i className='fa-sharp fa-solid fa-plus'></i>
-											</Button>
+											{index === inputList.length - 1 && ( // Display the "plus" icon only for the last input box
+												<Button
+													mt='30px'
+													color='var(--chakra-colors-claimzTextBlueLightColor)'
+													w='20%'
+													p='0px'
+													width='10px'
+													bg='none'
+													_hover={{ bg: 'none' }}
+													_active={{ bg: 'none' }}
+													_focus={{ bg: 'none' }}
+													onClick={handleAddClick}>
+													<i className='fa-sharp fa-solid fa-plus'></i>
+												</Button>
+											)}
 										</Box>
 									))}
 								</Box>
@@ -705,7 +725,7 @@ const AssetsAdd = () => {
 								flexDirection='column'
 								alignItems='end'>
 								<FormControl mb='10px'>
-									<FormLabel>Assects Name</FormLabel>
+									<FormLabel>Asset Name</FormLabel>
 									<Input
 										type='text'
 										name='name'
@@ -740,20 +760,27 @@ const AssetsAdd = () => {
 									</Select>
 								</FormControl>
 
+								{errorMessage && (
+									<p style={{ color: 'red' }}>
+										{errorMessage}
+									</p>
+								)}
+
 								<Button
-									disabled={isLoadingModal}
+									disabled={!isFormValid || isLoadingModal}
+									// Rest of your button properties
+									onClick={addAssects}
 									isLoading={isLoadingModal}
 									spinner={
 										<BeatLoader size={8} color='white' />
 									}
 									bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-									border='4px solid #FFFFFF'
 									boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-									borderRadius='15px'
-									p='15px 20px'
+									borderRadius='5px'
+									p='20px 20px'
 									fontSize='1.6rem'
 									color='white'
-									mt='15px'
+									mt='30px'
 									_hover={{
 										bgGradient:
 											'linear(180deg, #2267A2 0%, #0D4675 100%)',
@@ -765,8 +792,7 @@ const AssetsAdd = () => {
 									_focus={{
 										bgGradient:
 											'linear(180deg, #2267A2 0%, #0D4675 100%)',
-									}}
-									onClick={addAssects}>
+									}}>
 									Submit
 								</Button>
 							</Box>
@@ -826,32 +852,33 @@ const AssetsAdd = () => {
 										value={formData.parent_id}
 										onChange={handleChange}
 										required>
-										{firstParent?.map((data, index) => {
-											return (
-												<option
-													value={data.asset_group_id}
-													key={index}>
-													{data.group_name}
-												</option>
-											);
-										})}
+										<option value='0'>
+											Don't Have Parent
+										</option>
 									</Select>
 								</FormControl>
 
+								{errorMessage && (
+									<p style={{ color: 'red' }}>
+										{errorMessage}
+									</p>
+								)}
+
 								<Button
-									disabled={isLoadingModal}
+									disabled={!isFormValid || isLoadingModal}
+									// Rest of your button properties
+									onClick={addAssects}
 									isLoading={isLoadingModal}
 									spinner={
 										<BeatLoader size={8} color='white' />
 									}
 									bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-									border='4px solid #FFFFFF'
 									boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-									borderRadius='15px'
-									p='15px 20px'
+									borderRadius='5px'
+									p='20px 20px'
 									fontSize='1.6rem'
 									color='white'
-									mt='15px'
+									mt='30px'
 									_hover={{
 										bgGradient:
 											'linear(180deg, #2267A2 0%, #0D4675 100%)',
@@ -863,8 +890,7 @@ const AssetsAdd = () => {
 									_focus={{
 										bgGradient:
 											'linear(180deg, #2267A2 0%, #0D4675 100%)',
-									}}
-									onClick={addAssects}>
+									}}>
 									Submit
 								</Button>
 							</Box>
@@ -924,32 +950,33 @@ const AssetsAdd = () => {
 										value={formData.parent_id}
 										onChange={handleChange}
 										required>
-										{firstChild?.map((data, index) => {
-											return (
-												<option
-													value={data.asset_group_id}
-													key={index}>
-													{data.group_name}
-												</option>
-											);
-										})}
+										<option value='0'>
+											Don't Have Parent
+										</option>
 									</Select>
 								</FormControl>
 
+								{errorMessage && (
+									<p style={{ color: 'red' }}>
+										{errorMessage}
+									</p>
+								)}
+
 								<Button
-									disabled={isLoadingModal}
+									disabled={!isFormValid || isLoadingModal}
+									// Rest of your button properties
+									onClick={addAssects}
 									isLoading={isLoadingModal}
 									spinner={
 										<BeatLoader size={8} color='white' />
 									}
 									bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-									border='4px solid #FFFFFF'
 									boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-									borderRadius='15px'
-									p='15px 20px'
+									borderRadius='5px'
+									p='20px 20px'
 									fontSize='1.6rem'
 									color='white'
-									mt='15px'
+									mt='30px'
 									_hover={{
 										bgGradient:
 											'linear(180deg, #2267A2 0%, #0D4675 100%)',
@@ -961,8 +988,7 @@ const AssetsAdd = () => {
 									_focus={{
 										bgGradient:
 											'linear(180deg, #2267A2 0%, #0D4675 100%)',
-									}}
-									onClick={addAssects}>
+									}}>
 									Submit
 								</Button>
 							</Box>
@@ -1022,32 +1048,33 @@ const AssetsAdd = () => {
 										value={formData.parent_id}
 										onChange={handleChange}
 										required>
-										{secondChild?.map((data, index) => {
-											return (
-												<option
-													value={data.asset_group_id}
-													key={index}>
-													{data.group_name}
-												</option>
-											);
-										})}
+										<option value='0'>
+											Don't Have Parent
+										</option>
 									</Select>
 								</FormControl>
 
+								{errorMessage && (
+									<p style={{ color: 'red' }}>
+										{errorMessage}
+									</p>
+								)}
+
 								<Button
-									disabled={isLoadingModal}
+									disabled={!isFormValid || isLoadingModal}
+									// Rest of your button properties
+									onClick={addAssects}
 									isLoading={isLoadingModal}
 									spinner={
 										<BeatLoader size={8} color='white' />
 									}
 									bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-									border='4px solid #FFFFFF'
 									boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-									borderRadius='15px'
-									p='15px 20px'
+									borderRadius='5px'
+									p='20px 20px'
 									fontSize='1.6rem'
 									color='white'
-									mt='15px'
+									mt='30px'
 									_hover={{
 										bgGradient:
 											'linear(180deg, #2267A2 0%, #0D4675 100%)',
@@ -1059,8 +1086,7 @@ const AssetsAdd = () => {
 									_focus={{
 										bgGradient:
 											'linear(180deg, #2267A2 0%, #0D4675 100%)',
-									}}
-									onClick={addAssects}>
+									}}>
 									Submit
 								</Button>
 							</Box>
@@ -1120,32 +1146,33 @@ const AssetsAdd = () => {
 										value={formData.parent_id}
 										onChange={handleChange}
 										required>
-										{thirdChild?.map((data, index) => {
-											return (
-												<option
-													value={data.asset_group_id}
-													key={index}>
-													{data.group_name}
-												</option>
-											);
-										})}
+										<option value='0'>
+											Don't Have Parent
+										</option>
 									</Select>
 								</FormControl>
 
+								{errorMessage && (
+									<p style={{ color: 'red' }}>
+										{errorMessage}
+									</p>
+								)}
+
 								<Button
-									disabled={isLoadingModal}
+									disabled={!isFormValid || isLoadingModal}
+									// Rest of your button properties
+									onClick={addAssects}
 									isLoading={isLoadingModal}
 									spinner={
 										<BeatLoader size={8} color='white' />
 									}
 									bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-									border='4px solid #FFFFFF'
 									boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-									borderRadius='15px'
-									p='15px 20px'
+									borderRadius='5px'
+									p='20px 20px'
 									fontSize='1.6rem'
 									color='white'
-									mt='15px'
+									mt='30px'
 									_hover={{
 										bgGradient:
 											'linear(180deg, #2267A2 0%, #0D4675 100%)',
@@ -1157,8 +1184,7 @@ const AssetsAdd = () => {
 									_focus={{
 										bgGradient:
 											'linear(180deg, #2267A2 0%, #0D4675 100%)',
-									}}
-									onClick={addAssects}>
+									}}>
 									Submit
 								</Button>
 							</Box>
@@ -1218,32 +1244,33 @@ const AssetsAdd = () => {
 										value={formData.parent_id}
 										onChange={handleChange}
 										required>
-										{fourthChild?.map((data, index) => {
-											return (
-												<option
-													value={data.asset_group_id}
-													key={index}>
-													{data.group_name}
-												</option>
-											);
-										})}
+										<option value='0'>
+											Don't Have Parent
+										</option>
 									</Select>
 								</FormControl>
 
+								{errorMessage && (
+									<p style={{ color: 'red' }}>
+										{errorMessage}
+									</p>
+								)}
+
 								<Button
-									disabled={isLoadingModal}
+									disabled={!isFormValid || isLoadingModal}
+									// Rest of your button properties
+									onClick={addAssects}
 									isLoading={isLoadingModal}
 									spinner={
 										<BeatLoader size={8} color='white' />
 									}
 									bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-									border='4px solid #FFFFFF'
 									boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-									borderRadius='15px'
-									p='15px 20px'
+									borderRadius='5px'
+									p='20px 20px'
 									fontSize='1.6rem'
 									color='white'
-									mt='15px'
+									mt='30px'
 									_hover={{
 										bgGradient:
 											'linear(180deg, #2267A2 0%, #0D4675 100%)',
@@ -1255,8 +1282,7 @@ const AssetsAdd = () => {
 									_focus={{
 										bgGradient:
 											'linear(180deg, #2267A2 0%, #0D4675 100%)',
-									}}
-									onClick={addAssects}>
+									}}>
 									Submit
 								</Button>
 							</Box>

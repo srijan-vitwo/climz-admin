@@ -607,7 +607,7 @@ const BusinessLocationDatatable = () => {
 								</FormControl>
 								<FormControl w='100%' mb='15px'>
 									<FormLabel>
-										Enter radius
+										Enter Radius
 										<Box as='span' color='orange'>
 											*
 										</Box>

@@ -500,9 +500,6 @@ const LeavePolicies = () => {
 					display='-webkit-inline-box'
 					borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
 					pb='10px'
-					mb='15px'
-					width='200px'
-					pb='5px'
 					mt='24px'>
 					<Text
 						background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
@@ -641,9 +638,6 @@ const LeavePolicies = () => {
 							display='-webkit-inline-box'
 							borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
 							pb='10px'
-							mb='15px'
-							width='250px'
-							pb='5px'
 							mt='24px'>
 							<Text
 								background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
@@ -850,9 +844,6 @@ const LeavePolicies = () => {
 							display='-webkit-inline-box'
 							borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
 							pb='10px'
-							mb='15px'
-							width='180px'
-							pb='5px'
 							mt='24px'>
 							<Text
 								background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
@@ -1105,9 +1096,6 @@ const LeavePolicies = () => {
 							display='-webkit-inline-box'
 							borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
 							pb='10px'
-							mb='15px'
-							width='150px'
-							pb='5px'
 							mt='24px'>
 							<Text
 								background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'

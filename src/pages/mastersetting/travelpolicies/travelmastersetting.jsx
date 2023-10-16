@@ -29,7 +29,7 @@ const TravelMasterSetting = () => {
 	};
 
 	return (
-		<div className='form'>
+		<div className='form_travel_master'>
 			{/* <div className="progressbar">
         <div
           style={{ width: page === 0 ? "16%" : page == 1 ? "24%" : page == 2 ? "32%" : page == 3 ? "50%" : page == 4 ? "66.6%" : "100%" }}

@@ -741,7 +741,7 @@ const NoticePeriodEmployee = () => {
 							style={{ width: '14%' }}
 						/>
 						<Column
-							header='Resignation status'
+							header='Resignation Status'
 							body={ResignTemplate}
 							bodyStyle={{ textAlign: 'center' }}
 							style={{ width: '14%' }}

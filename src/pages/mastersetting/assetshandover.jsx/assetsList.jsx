@@ -344,9 +344,7 @@ const AssetsList = () => {
 								display='-webkit-inline-box'
 								borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
 								pb='10px'
-								mb='15px'
-								width='350px'
-								pb='10px'>
+								mb='15px'>
 								<Text
 									background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
 									backgroundClip='text'
@@ -603,9 +601,6 @@ const AssetsList = () => {
 							<Box
 								display='-webkit-inline-box'
 								borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-								pb='10px'
-								mb='15px'
-								width='400px'
 								pb='10px'>
 								<Text
 									background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'

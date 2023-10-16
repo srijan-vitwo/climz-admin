@@ -170,7 +170,9 @@ const QuestionMaster = () => {
 				if (response.ok) {
 					toastCall();
 					setMsg(!msg);
+					setInputs(['']);
 					setIsLoading(false);
+					onClose();
 				} else {
 					navigate('/login');
 				}
@@ -185,9 +187,7 @@ const QuestionMaster = () => {
 						display='-webkit-inline-box'
 						borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
 						pb='10px'
-						mb='15px'
-						width='350px'
-						pb='10px'>
+						mb='15px'>
 						<Text
 							background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
 							backgroundClip='text'
@@ -274,6 +274,7 @@ const QuestionMaster = () => {
 													type='text'
 													mb='10px'
 													value={input}
+													required
 													onChange={(event) =>
 														handleChange(
 															index,
@@ -306,10 +307,9 @@ const QuestionMaster = () => {
 										<BeatLoader size={8} color='white' />
 									}
 									bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-									border='4px solid #FFFFFF'
 									boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-									borderRadius='15px'
-									p='15px 20px'
+									borderRadius='10px'
+									p='20px 20px'
 									fontSize='1.6rem'
 									color='white'
 									_hover={{
@@ -324,8 +324,7 @@ const QuestionMaster = () => {
 										bgGradient:
 											'linear(180deg, #2267A2 0%, #0D4675 100%)',
 									}}
-									type='submit'
-									onClick={onClose}>
+									type='submit'>
 									Add
 								</Button>
 							</ModalFooter>
