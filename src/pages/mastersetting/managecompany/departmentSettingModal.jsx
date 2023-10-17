@@ -166,8 +166,7 @@ const DepartmentSettingModal = ({ rowData }) => {
 						<Box
 							display='-webkit-inline-box'
 							borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-							pb='10px'
-							mb='15px'>
+							pb='10px'>
 							<Text
 								background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
 								backgroundClip='text'
@@ -182,10 +181,9 @@ const DepartmentSettingModal = ({ rowData }) => {
 							alignItems='center'
 							justifyContent='space-between'
 							bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-							border='3px solid #FFFFFF'
 							boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
 							borderRadius='10px'
-							p='15px 20px'
+							p='20px'
 							fontSize='1.6rem'
 							color='white'
 							_hover={{
@@ -202,96 +200,89 @@ const DepartmentSettingModal = ({ rowData }) => {
 							}}
 							onClick={handleAddInput}>
 							<Box as='span' mr='10px'>
-								{' '}
-								Add More Cost Center{' '}
-							</Box>{' '}
+								Add More Cost Center
+							</Box>
 							<i className='fa-sharp fa-solid fa-plus'></i>
 						</Button>
 					</ModalHeader>
 					<ModalCloseButton size='lg' />
-					<ModalBody overflowY='scroll'>
-						<Box>
-							<form onSubmit={addCostCenter}>
-								<Box
-									display='flex'
-									flexWrap='wrap'
-									justifyContent='end'
-									marginBottom='20px'>
-									{inputs.map((input, index) => (
-										<Box
-											w='100%'
-											display='flex'
-											placeholder='Add Cost Center'
-											alignItems='center'
-											key={index}>
-											<Box w='100%'>
-												<FormLabel>
-													Add Cost Center Name
-												</FormLabel>
-												<Input
-													type='text'
-													required
-													mb='10px'
-													value={input.value}
-													onChange={(event) =>
-														handleChange(
-															index,
-															event
-														)
-													}
-												/>
-											</Box>
-											<Button
-												mt='15px'
-												color='var(--chakra-colors-claimzTextBlueLightColor)'
-												bg='none'
-												_hover={{ bg: 'none' }}
-												_active={{ bg: 'none' }}
-												_focus={{ bg: 'none' }}
-												onClick={() =>
-													handleRemoveInput(index)
-												}>
-												<i className='fa-solid fa-trash fa-2x'></i>
-											</Button>
+					<ModalBody>
+						<form onSubmit={addCostCenter}>
+							<Box
+								display='flex'
+								flexWrap='wrap'
+								justifyContent='end'
+								marginBottom='20px'>
+								{inputs.map((input, index) => (
+									<Box
+										w='100%'
+										display='flex'
+										placeholder='Add Cost Center'
+										alignItems='center'
+										key={index}>
+										<Box w='100%'>
+											<FormLabel>
+												Add Cost Center Name
+											</FormLabel>
+											<Input
+												type='text'
+												required
+												mb='15px'
+												value={input.value}
+												onChange={(event) =>
+													handleChange(index, event)
+												}
+											/>
 										</Box>
-									))}
-									{flag && (
 										<Button
-											disabled={isLoading}
-											isLoading={isLoading}
-											spinner={
-												<BeatLoader
-													size={8}
-													color='white'
-												/>
-											}
-											textAlign='right'
-											bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-											border='3px solid #FFFFFF'
-											boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-											borderRadius='10px'
-											p='15px 20px'
-											fontSize='1.6rem'
-											color='white'
-											_hover={{
-												bgGradient:
-													'linear(180deg, #2267A2 0%, #0D4675 100%)',
-											}}
-											_active={{
-												bgGradient:
-													'linear(180deg, #2267A2 0%, #0D4675 100%)',
-											}}
-											_focus={{
-												bgGradient:
-													'linear(180deg, #2267A2 0%, #0D4675 100%)',
-											}}
-											type='submit'>
-											Submit
+											mt='15px'
+											color='var(--chakra-colors-claimzTextBlueLightColor)'
+											bg='none'
+											_hover={{ bg: 'none' }}
+											_active={{ bg: 'none' }}
+											_focus={{ bg: 'none' }}
+											onClick={() =>
+												handleRemoveInput(index)
+											}>
+											<i className='fa-solid fa-trash fa-2x'></i>
 										</Button>
-									)}
-								</Box>
-							</form>
-						</Box>
+									</Box>
+								))}
+								{flag && (
+									<Button
+										disabled={isLoading}
+										isLoading={isLoading}
+										spinner={
+											<BeatLoader
+												size={8}
+												color='white'
+											/>
+										}
+										textAlign='right'
+										bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
+										boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
+										borderRadius='10px'
+										p='20px'
+										fontSize='1.6rem'
+										color='white'
+										_hover={{
+											bgGradient:
+												'linear(180deg, #2267A2 0%, #0D4675 100%)',
+										}}
+										_active={{
+											bgGradient:
+												'linear(180deg, #2267A2 0%, #0D4675 100%)',
+										}}
+										_focus={{
+											bgGradient:
+												'linear(180deg, #2267A2 0%, #0D4675 100%)',
+										}}
+										type='submit'>
+										Submit
+									</Button>
+								)}
+							</Box>
+						</form>
 
 						<Box className='costCenterTable'>
 							<CostCenterTable data={rowData} />

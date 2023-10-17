@@ -279,10 +279,9 @@ const GradeSetting = () => {
 								spinner={<BeatLoader size={8} color='white' />}
 								type='submit'
 								bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-								border='4px solid #FFFFFF'
 								boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-								borderRadius='15px'
-								p='15px 20px'
+								borderRadius='10px'
+								p='20px'
 								fontSize='1.6rem'
 								color='white'
 								mt='30px'
@@ -332,10 +331,9 @@ const GradeSetting = () => {
 						mr='20px'
 						mt='20px'
 						bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-						border='4px solid #FFFFFF'
 						boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-						borderRadius='15px'
-						p='15px 20px'
+						borderRadius='10px'
+						p='20px'
 						fontSize='1.6rem'
 						color='white'
 						_hover={{
@@ -361,10 +359,9 @@ const GradeSetting = () => {
 					<Button
 						mt='20px'
 						bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-						border='4px solid #FFFFFF'
 						boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-						borderRadius='15px'
-						p='15px 20px'
+						borderRadius='10px'
+						p='20px'
 						fontSize='1.6rem'
 						color='white'
 						_hover={{

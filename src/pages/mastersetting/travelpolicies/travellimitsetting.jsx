@@ -33,24 +33,23 @@ const TravelLimitSetting = () => {
 	};
 
 	return (
-		<div className='form_travel_master'>
-			{/* <div className="progressbar">
-        <div
-          style={{ width: page === 0 ? "16%" : page == 1 ? "24%" : page == 2 ? "32%" : page == 3 ? "50%" : page == 4 ? "66.6%" : "100%" }}
-        ></div>
-      </div> */}
-			<Box className='form-container' h='100%'>
+		<Box className='form_travel_master'>
+			<Box className='form-container' h='100%' position='relative'>
 				<Box className='body'>{PageDisplay()}</Box>
-				<Box w='100%' display='flex' justifyContent='space-between'>
+				<Box
+					w='78%'
+					display='flex'
+					justifyContent='space-between'
+					position='absolute'
+					bottom='20px'>
 					{page === 0 ? (
 						''
 					) : (
 						<Button
 							mr='20px'
 							bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-							border='4px solid #FFFFFF'
 							boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-							borderRadius='15px'
+							borderRadius='10px'
 							p='20px 30px'
 							fontSize='1.6rem'
 							color='white'
@@ -77,9 +76,8 @@ const TravelLimitSetting = () => {
 						<Button
 							mr='20px'
 							bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-							border='4px solid #FFFFFF'
 							boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-							borderRadius='15px'
+							borderRadius='10px'
 							p='20px 30px'
 							fontSize='1.6rem'
 							color='white'
@@ -108,9 +106,8 @@ const TravelLimitSetting = () => {
 						<Button
 							mr='20px'
 							bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-							border='4px solid #FFFFFF'
 							boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-							borderRadius='15px'
+							borderRadius='10px'
 							p='20px 30px'
 							fontSize='1.6rem'
 							color='white'
@@ -139,9 +136,8 @@ const TravelLimitSetting = () => {
 						<Button
 							mr='20px'
 							bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-							border='4px solid #FFFFFF'
 							boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-							borderRadius='15px'
+							borderRadius='10px'
 							p='20px 30px'
 							fontSize='1.6rem'
 							color='white'
@@ -170,9 +166,8 @@ const TravelLimitSetting = () => {
 						<Button
 							mr='20px'
 							bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-							border='4px solid #FFFFFF'
 							boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-							borderRadius='15px'
+							borderRadius='10px'
 							p='20px 30px'
 							fontSize='1.6rem'
 							color='white'
@@ -202,7 +197,7 @@ const TravelLimitSetting = () => {
 					)}
 				</Box>
 			</Box>
-		</div>
+		</Box>
 	);
 };
 

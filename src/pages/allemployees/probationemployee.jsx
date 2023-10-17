@@ -754,10 +754,9 @@ const ProbationEmployee = () => {
 									}
 									type='submit'
 									bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-									border='4px solid #FFFFFF'
 									boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-									borderRadius='15px'
-									p='20px 20px'
+									borderRadius='10px'
+									p='20px'
 									fontSize='1.6rem'
 									color='white'
 									_hover={{

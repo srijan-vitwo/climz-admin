@@ -207,12 +207,15 @@ const PayslipList = () => {
 					toastCall();
 					setSucess(!sucess);
 					setIsLoading(false);
+					onClose();
 				} else {
 					toastErrorCall();
 					setIsLoading(false);
+					onClose();
 				}
 			} catch (error) {
 				navigate('/login');
+				onClose();
 			}
 		};
 

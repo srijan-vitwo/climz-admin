@@ -292,9 +292,8 @@ const EmployeeUpdate = ({ details, fromValue, userData, msg, setMsg }) => {
 						isDisabled={page === 0 ? true : false}
 						mr='20px'
 						bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-						border='4px solid #FFFFFF'
 						boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-						borderRadius='15px'
+						borderRadius='10px'
 						p='20px 30px'
 						fontSize='1.6rem'
 						color='white'
@@ -322,9 +321,8 @@ const EmployeeUpdate = ({ details, fromValue, userData, msg, setMsg }) => {
 						isLoading={isLoading}
 						spinner={<BeatLoader size={8} color='white' />}
 						bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-						border='4px solid #FFFFFF'
 						boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-						borderRadius='15px'
+						borderRadius='10px'
 						p='20px 30px'
 						fontSize='1.6rem'
 						color='white'

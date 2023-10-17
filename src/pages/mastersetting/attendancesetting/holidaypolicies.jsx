@@ -150,9 +150,9 @@ const HolidayPolicies = () => {
 		const [selectedValue, setSelectedValue] = useState(rowData.type);
 		const [holidayId, setHolidayId] = useState(rowData.holiday_id);
 
-		function toastCall() {
+		function toastCall(data) {
 			return toast({
-				title: 'Holiday Updated Sucessfully',
+				title: data.data,
 				status: 'success',
 				duration: 5000,
 				isClosable: true,
@@ -184,21 +184,22 @@ const HolidayPolicies = () => {
 						},
 					}
 				);
-
 				if (response.ok) {
-					toastCall();
+					const data = await response.json();
+					toastCall(data);
 					setMsg(!msg);
 					setIsLoading(false);
 				} else {
-					navigate('/login');
+					const data = await response.json();
+					toastCall(data);
 				}
-			} catch (error) {
-				navigate('/login');
+			} catch (response) {
+				const data = await response.json();
+				toastCall(data);
 			}
 		};
 
 		console.log(selectedValue, 'selectedValue');
-		console.log(rowData, 'rowData');
 
 		return (
 			<>
@@ -373,10 +374,9 @@ const HolidayPolicies = () => {
 										}
 										type='submit'
 										bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-										border='4px solid #FFFFFF'
 										boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-										borderRadius='15px'
-										p='15px 20px'
+										borderRadius='10px'
+										p='20px'
 										fontSize='1.6rem'
 										color='white'
 										mt='30px'
@@ -929,10 +929,9 @@ const HolidayPolicies = () => {
 					<Button
 						mr='20px'
 						bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-						border='4px solid #FFFFFF'
 						boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-						borderRadius='15px'
-						p='15px 20px'
+						borderRadius='10px'
+						p='20px'
 						fontSize='1.6rem'
 						color='white'
 						_hover={{
@@ -957,10 +956,9 @@ const HolidayPolicies = () => {
 
 					<Button
 						bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-						border='4px solid #FFFFFF'
 						boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-						borderRadius='15px'
-						p='15px 20px'
+						borderRadius='10px'
+						p='20px'
 						fontSize='1.6rem'
 						color='white'
 						_hover={{

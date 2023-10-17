@@ -383,6 +383,14 @@ const TravelMaster = () => {
 				isClosable: true,
 			});
 		}
+		function showErrorToast(message) {
+			return toast({
+				title: message,
+				status: 'warning',
+				duration: 3000,
+				isClosable: true,
+			});
+		}
 
 		const tierUpdate = async (e) => {
 			e.preventDefault();
@@ -456,7 +464,24 @@ const TravelMaster = () => {
 
 						<DrawerBody>
 							<form
-								onSubmit={tierUpdate}
+								onSubmit={(event) => {
+									event.preventDefault(); // Prevent the default form submission
+
+									// Check if the values are non-empty strings (not just whitespace)
+									if (
+										updateComponentName.trim() !== '' &&
+										updateType.trim() !== ''
+									) {
+										// If the values are not blank spaces, call the `tierUpdate` function
+										tierUpdate();
+									} else {
+										// Display an error message or handle the case where the fields are blank spaces
+										// You can add your own validation logic here, such as displaying an error message.
+										showErrorToast(
+											'Required field cannot be left blank'
+										);
+									}
+								}}
 								style={{
 									display: 'flex',
 									flexDirection: 'column',

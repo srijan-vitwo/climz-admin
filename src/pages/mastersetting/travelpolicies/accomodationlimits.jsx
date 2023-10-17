@@ -302,14 +302,14 @@ const AccomodationLimits = () => {
 				</Box>
 			</Box>
 
-			<Box bg='white' borderRadius='15px' mb='30px'>
+			<Box bg='white' borderRadius='15px'>
 				<Heading mb='15px' color='claimzTextBlueColor'>
 					{' '}
 					List of all Accommodation Limits
 				</Heading>
 				{loader ? (
 					<Box
-						height='calc(100vh - 364px)'
+						height='calc(100vh - 310px)'
 						display='flex'
 						alignItems='center'
 						justifyContent='center'>
@@ -324,7 +324,7 @@ const AccomodationLimits = () => {
 							<Box
 								w='100%'
 								overflowY='auto'
-								height='calc(100vh - 345px)'>
+								height='calc(100vh - 375px)'>
 								<Table
 									className='reportsTable'
 									variant='striped'>
