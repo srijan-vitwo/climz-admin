@@ -147,12 +147,14 @@ function App() {
 				},
 			})
 				.then((response) => response.json())
-				.then((data) => {
+				.then(() => {
 					toastCall();
 					setSucess(!sucess);
 					setFormData({
 						...formData,
 						components: '',
+						percentage: '',
+						percentage_of: '',
 					});
 				})
 				.catch((error) => {

@@ -394,6 +394,15 @@ const TravelMaster = () => {
 
 		const tierUpdate = async (e) => {
 			e.preventDefault();
+
+			// Check if the input fields are empty
+			if (updateComponentName.trim() === '' || updateType.trim() === '') {
+				// You can display an error message, show a toast, or perform any other action to inform the user that the fields are required.
+				// For example:
+				showErrorToast('Input fields are required.');
+				return;
+			}
+
 			let formData = new FormData();
 			formData.append('component_name', updateComponentName);
 			formData.append('type', updateType);
@@ -464,24 +473,7 @@ const TravelMaster = () => {
 
 						<DrawerBody>
 							<form
-								onSubmit={(event) => {
-									event.preventDefault(); // Prevent the default form submission
-
-									// Check if the values are non-empty strings (not just whitespace)
-									if (
-										updateComponentName.trim() !== '' &&
-										updateType.trim() !== ''
-									) {
-										// If the values are not blank spaces, call the `tierUpdate` function
-										tierUpdate();
-									} else {
-										// Display an error message or handle the case where the fields are blank spaces
-										// You can add your own validation logic here, such as displaying an error message.
-										showErrorToast(
-											'Required field cannot be left blank'
-										);
-									}
-								}}
+								onSubmit={tierUpdate}
 								style={{
 									display: 'flex',
 									flexDirection: 'column',
