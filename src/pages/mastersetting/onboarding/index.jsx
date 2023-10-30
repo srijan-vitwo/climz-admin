@@ -283,16 +283,20 @@ const OnboardingCandidate = () => {
 					toastCall();
 					setsucess(!sucess);
 					setIsLoading(false);
+					onClose();
 				} else if (response.status === 400) {
 					toastCallFaild();
 					setIsLoading(false);
+					onClose();
 				} else {
 					toastCallError();
 					setIsLoading(false);
+					onClose();
 				}
 			} catch {
 				toastCallError();
 				setIsLoading(false);
+				onClose();
 			}
 		};
 

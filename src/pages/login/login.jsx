@@ -149,7 +149,7 @@ const Login = () => {
 								required
 							/>
 							<FormHelperText fontSize='1.2rem'>
-								We'll never share your Password.
+								We'll never share your password.
 							</FormHelperText>
 						</FormControl>
 						<Button
