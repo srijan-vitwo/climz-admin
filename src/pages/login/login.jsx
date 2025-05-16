@@ -60,6 +60,19 @@ const Login = () => {
 			if (response.status === 200) {
 				const accessToken = data?.access_token;
 				const roles = data;
+				// role base checked start
+				if (roles?.role === 0) {
+					toast({
+						title: 'Access Denied',
+						description: 'Your account does not have permission to login.',
+						status: 'error',
+						duration: 5000,
+						isClosable: true,
+					});
+					setLoading(false);
+					return;
+				}
+				// role base checked end
 				setAuth({ email, password, roles, accessToken });
 				setEmail('');
 				setpassword('');
