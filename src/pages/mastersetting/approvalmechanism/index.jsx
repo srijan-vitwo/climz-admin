@@ -24,8 +24,7 @@ import {
 import StageList from './stageList';
 import { useNavigate } from 'react-router-dom';
 import { BeatLoader } from 'react-spinners';
-import Loader from '../../../assets/images/loader.gif';
-import ApprovalVariant from './approvalVariant';
+import ApprovalVariantList from './approvalVariantList';
 
 const ApprovalMechanism = () => {
 	const token = localStorage.getItem('token');
@@ -38,9 +37,9 @@ const ApprovalMechanism = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
-	function toastCall() {
+	function toastCall(data) {
 		return toast({
-			title: 'Type name Added Sucessfully',
+			title: data.data,
 			status: 'success',
 			duration: 3000,
 			isClosable: true,
@@ -93,14 +92,21 @@ const ApprovalMechanism = () => {
 			);
 
 			if (response.ok) {
+				const data = await response.json();
 				setSucess(!sucess);
 				setIsLoading(false);
-				toastCall();
+				setTypeName('');
+				toastCall(data);
+				onClose();
 			} else {
-				navigate('/login');
+				const data = await response.json();
+				toastCall(data);
+				onClose();
 			}
-		} catch (error) {
-			navigate('/login');
+		} catch (response) {
+			const data = await response.json();
+			toastCall(data);
+			onClose();
 		}
 	};
 
@@ -130,7 +136,7 @@ const ApprovalMechanism = () => {
 				<TabPanels>
 					<TabPanel
 						p='0'
-						background='#F6F9F8'
+						background='white'
 						border='1px solid #CECECE'
 						boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
 						borderRadius='0px 0px 6px 6px;'>
@@ -211,10 +217,9 @@ const ApprovalMechanism = () => {
 											}
 											type='submit'
 											bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-											border='4px solid #FFFFFF'
 											boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-											borderRadius='15px'
-											p='15px 20px'
+											borderRadius='10px'
+											p='20px'
 											fontSize='1.6rem'
 											color='white'
 											_hover={{
@@ -237,12 +242,12 @@ const ApprovalMechanism = () => {
 						</Modal>
 					</TabPanel>
 					<TabPanel
-						p='20px'
-						background='#F6F9F8'
+						p='10px'
+						background='white'
 						border='1px solid #CECECE'
 						boxShadow='3px 3px 4px rgba(0, 0, 0, 0.25)'
 						borderRadius='0px 0px 6px 6px;'>
-						<ApprovalVariant />
+						<ApprovalVariantList approval={products} />
 					</TabPanel>
 				</TabPanels>
 			</Tabs>
